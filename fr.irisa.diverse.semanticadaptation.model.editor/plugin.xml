@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated semanticadaptation -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="semanticadaptation.presentation.SemanticadaptationModelWizardID"
+            name="%_UI_SemanticadaptationModelWizard_label"
+            class="semanticadaptation.presentation.SemanticadaptationModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/SemanticadaptationModelFile.gif">
+         <description>%_UI_SemanticadaptationModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated semanticadaptation -->
+      <editor
+            id="semanticadaptation.presentation.SemanticadaptationEditorID"
+            name="%_UI_SemanticadaptationEditor_label"
+            icon="icons/full/obj16/SemanticadaptationModelFile.gif"
+            extensions="semanticadaptation"
+            class="semanticadaptation.presentation.SemanticadaptationEditor"
+            contributorClass="semanticadaptation.presentation.SemanticadaptationActionBarContributor">
+      </editor>
+   </extension>
+</plugin>
