@@ -17,9 +17,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Binding/assignee"/>
     </genClasses>
     <genClasses ecoreClass="adaptivesemantics.ecore#//AdaptiveSemantics">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//AdaptiveSemantics/model"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//AdaptiveSemantics/imports"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//AdaptiveSemantics/rules"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//AdaptiveSemantics/model"/>
     </genClasses>
     <genClasses ecoreClass="adaptivesemantics.ecore#//Conclusion">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Conclusion/from"/>

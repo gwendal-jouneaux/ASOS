@@ -7,7 +7,7 @@
     <semanticResources>platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_A5h0UNBAEeyS79tUZK6WCw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_A5zhINBAEeyS79tUZK6WCw" name="adaptivesemantics" repPath="#_A5wd0NBAEeyS79tUZK6WCw" changeId="ea7808b5-ec68-485d-86f9-319a79c6efea">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_A5zhINBAEeyS79tUZK6WCw" name="adaptivesemantics" repPath="#_A5wd0NBAEeyS79tUZK6WCw" changeId="0173da47-4542-47c1-a006-6c4c608d37bf">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="adaptivesemantics.ecore#/"/>
       </ownedRepresentationDescriptors>
