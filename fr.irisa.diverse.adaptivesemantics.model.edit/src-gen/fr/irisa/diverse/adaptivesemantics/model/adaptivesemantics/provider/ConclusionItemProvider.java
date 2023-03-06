@@ -183,9 +183,6 @@ public class ConclusionItemProvider extends ItemProviderAdapter implements IEdit
 
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONCLUSION__TO,
 				AdaptivesemanticsFactory.eINSTANCE.createSymbolRef()));
-
-		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONCLUSION__TO,
-				AdaptivesemanticsFactory.eINSTANCE.createSemanticDomainAccess()));
 	}
 
 	/**

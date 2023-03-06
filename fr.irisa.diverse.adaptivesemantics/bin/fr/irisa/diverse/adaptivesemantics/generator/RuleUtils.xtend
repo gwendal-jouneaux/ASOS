@@ -1,13 +1,31 @@
 package fr.irisa.diverse.adaptivesemantics.generator
 
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.RefConfigurationCompiler
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolPath
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef
 import java.util.ArrayList
 import java.util.List
 import java.util.Map
 import org.eclipse.emf.ecore.EClass
 
 class RuleUtils {
+	
+	static def boolean isValue(EClass c){
+		c.EPackage.equals(AdaptSemGenerator.semanticDomain)
+	}
+	
+	static def String generateInstanceOf(RefConfiguration conf, String name, Map<SymbolDef, SymbolPath> ruleTable){
+		val refconfCompiler = new RefConfigurationCompiler(ruleTable)
+		var out = refconfCompiler.compile(conf)
+		
+		return '''
+		«out»
+		«conf.concept.name» «name» = «refconfCompiler.lastRefConfig»;
+		'''
+	}
 	
 	static def int compareRules(Rule r1, Rule r2){
 		for(var index = 0; index < r1.conclusion.from.childs.length; index++){

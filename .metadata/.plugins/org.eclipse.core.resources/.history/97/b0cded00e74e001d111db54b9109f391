@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/fr.irisa.diverse.adaptivesemantics.model/src-gen"
+    creationIcons="false" editDirectory="/fr.irisa.diverse.adaptivesemantics.model.edit/src-gen"
+    editorDirectory="/fr.irisa.diverse.adaptivesemantics.model.editor/src-gen" modelPluginID="fr.irisa.diverse.adaptivesemantics.model"
+    modelName="Adaptivesemantics" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>adaptivesemantics.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Adaptivesemantics" basePackage="fr.irisa.diverse.adaptivesemantics.model"
+      disposableProviderFactory="true" ecorePackage="adaptivesemantics.ecore#/">
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Binding">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Binding/oclExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Binding/assignee"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//AdaptiveSemantics">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//AdaptiveSemantics/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//AdaptiveSemantics/rules"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//AdaptiveSemantics/model"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Conclusion">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Conclusion/from"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Conclusion/to"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Conclusion/termination"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Import/importURI"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Import/name"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Premise">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Premise/from"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Premise/to"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Premise/termination"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Condition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Condition/oclPredicate"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Rule">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Rule/conclusion"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Rule/premises"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Rule/conditions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Rule/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Rule/bindings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Rule/output"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Rule/input"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Model">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Model/importURI"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Model/semanticdomain"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//RefConfiguration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//RefConfiguration/childs"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//DefConfiguration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//DefConfiguration/childs"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//SymbolDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//SymbolDef/name"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//SymbolRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//SymbolRef/def"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//ListRef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//ListRef/head"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//ListRef/tail"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//ListDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//ListDef/head"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//ListDef/tail"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="adaptivesemantics.ecore#//Configuration">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Configuration/concept"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//SingleTermDef"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//SingleTermRef"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//TermRef"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//TermDef"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//VoidList"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Input">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Input/operation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Input/assignee"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Output">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Output/operation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Output/args"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Assignee"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//SemanticDomainAccess">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//SemanticDomainAccess/field"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//SemanticDomainAccess/reciever"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="adaptivesemantics.ecore#//DomainAccessExpression"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Self"/>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,64 @@
+package fr.irisa.diverse.adaptivesemantics.generator.visitors
+
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList
+import java.util.Map
+import org.eclipse.emf.ecore.EClass
+
+class ConfigurationComparator {
+	val Map<EClass,Integer> varIndexes = newHashMap
+	val Map<SymbolDef, SymbolPath> ruleTable
+	
+	new(Map<SymbolDef, SymbolPath> table){
+		ruleTable = table
+	}
+	
+	def dispatch boolean compare(DefConfiguration deff, TermRef ref){
+		return false
+	}
+	
+	def dispatch boolean compare(DefConfiguration deff, RefConfiguration ref){
+		val defChilds = deff.childs
+		val refChilds = ref.childs
+		val len = defChilds.size
+		
+		if(len != refChilds.size) return false
+		
+		for (var i = 0; i < len; i++) {
+			if(! compare(defChilds.get(i), refChilds.get(i))){
+				return false
+			}
+		}
+		return true
+	}
+	
+	def dispatch boolean compare(VoidList deff, TermRef ref){
+		return false
+	}
+	
+	def dispatch boolean compare(VoidList deff, VoidList ref){
+		return true
+	}
+	
+	def dispatch boolean compare(ListDef deff, TermRef ref){
+		return false
+	}
+	
+	def dispatch boolean compare(ListDef deff, ListRef ref){
+		compare(deff.head, ref.head) && compare(deff.tail, ref.tail)
+	}
+	
+	def dispatch boolean compare(SymbolDef deff, TermRef ref){
+		return false
+	}
+	
+	def dispatch boolean compare(SymbolDef deff, SymbolRef ref){
+		return deff == ref.def
+	}
+}

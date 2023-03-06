@@ -1,0 +1,24 @@
+package fr.irisa.diverse.adaptivesemantics.generator.visitors
+
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList
+
+class RefConfigurationCompiler {
+	def dispatch String compile(RefConfiguration node){
+		return "/* TODO */"
+	}
+	
+	def dispatch String compile(VoidList node){
+		return "new ArrayList()"
+	}
+	
+	def dispatch String compile(ListRef node){
+		return "/* TODO */"
+	}
+	
+	def dispatch String compile(SymbolRef node){
+		return "/* TODO */"
+	}
+}

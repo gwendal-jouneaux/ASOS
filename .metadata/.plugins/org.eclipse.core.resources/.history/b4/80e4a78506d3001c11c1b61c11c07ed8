@@ -1,0 +1,1895 @@
+/**
+ */
+package fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+
+/**
+ * <!-- begin-user-doc -->
+ * The <b>Package</b> for the model.
+ * It contains accessors for the meta objects to represent
+ * <ul>
+ *   <li>each class,</li>
+ *   <li>each feature of each class,</li>
+ *   <li>each operation of each class,</li>
+ *   <li>each enum,</li>
+ *   <li>and each data type</li>
+ * </ul>
+ * <!-- end-user-doc -->
+ * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsFactory
+ * @model kind="package"
+ * @generated
+ */
+public interface AdaptivesemanticsPackage extends EPackage {
+	/**
+	 * The package name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNAME = "adaptivesemantics";
+
+	/**
+	 * The package namespace URI.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNS_URI = "http://www.diverse-team.fr/adaptivesemantics";
+
+	/**
+	 * The package namespace name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNS_PREFIX = "adaptivesemantics";
+
+	/**
+	 * The singleton instance of the package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	AdaptivesemanticsPackage eINSTANCE = fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl
+			.init();
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptiveSemanticsImpl <em>Adaptive Semantics</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptiveSemanticsImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getAdaptiveSemantics()
+	 * @generated
+	 */
+	int ADAPTIVE_SEMANTICS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Model</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADAPTIVE_SEMANTICS__MODEL = 0;
+
+	/**
+	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADAPTIVE_SEMANTICS__IMPORTS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADAPTIVE_SEMANTICS__RULES = 2;
+
+	/**
+	 * The number of structural features of the '<em>Adaptive Semantics</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADAPTIVE_SEMANTICS_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Adaptive Semantics</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADAPTIVE_SEMANTICS_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ModelImpl <em>Model</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ModelImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getModel()
+	 * @generated
+	 */
+	int MODEL = 1;
+
+	/**
+	 * The feature id for the '<em><b>Import URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__IMPORT_URI = 0;
+
+	/**
+	 * The number of structural features of the '<em>Model</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Model</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ImportImpl <em>Import</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ImportImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getImport()
+	 * @generated
+	 */
+	int IMPORT = 2;
+
+	/**
+	 * The feature id for the '<em><b>Import URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT__IMPORT_URI = 0;
+
+	/**
+	 * The number of structural features of the '<em>Import</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Import</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.RuleImpl <em>Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.RuleImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getRule()
+	 * @generated
+	 */
+	int RULE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Conclusion</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE__CONCLUSION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Premises</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE__PREMISES = 1;
+
+	/**
+	 * The feature id for the '<em><b>Conditions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE__CONDITIONS = 2;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE__NAME = 3;
+
+	/**
+	 * The number of structural features of the '<em>Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Reduction <em>Reduction</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Reduction
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getReduction()
+	 * @generated
+	 */
+	int REDUCTION = 17;
+
+	/**
+	 * The number of structural features of the '<em>Reduction</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Reduction</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConclusionImpl <em>Conclusion</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConclusionImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getConclusion()
+	 * @generated
+	 */
+	int CONCLUSION = 4;
+
+	/**
+	 * The feature id for the '<em><b>From</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION__FROM = REDUCTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>To</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION__TO = REDUCTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Conclusion</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION_FEATURE_COUNT = REDUCTION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Conclusion</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION_OPERATION_COUNT = REDUCTION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConditionImpl <em>Condition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConditionImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getCondition()
+	 * @generated
+	 */
+	int CONDITION = 5;
+
+	/**
+	 * The feature id for the '<em><b>Ocl Predicate</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION__OCL_PREDICATE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Condition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Condition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConfigurationImpl <em>Configuration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConfigurationImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getConfiguration()
+	 * @generated
+	 */
+	int CONFIGURATION = 6;
+
+	/**
+	 * The feature id for the '<em><b>Concept</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIGURATION__CONCEPT = 0;
+
+	/**
+	 * The number of structural features of the '<em>Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIGURATION_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIGURATION_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermDef <em>Term Def</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermDef
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getTermDef()
+	 * @generated
+	 */
+	int TERM_DEF = 15;
+
+	/**
+	 * The number of structural features of the '<em>Term Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERM_DEF_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Term Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERM_DEF_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SymbolDefImpl <em>Symbol Def</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SymbolDefImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getSymbolDef()
+	 * @generated
+	 */
+	int SYMBOL_DEF = 7;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_DEF__NAME = TERM_DEF_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Symbol Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_DEF_FEATURE_COUNT = TERM_DEF_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Symbol Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_DEF_OPERATION_COUNT = TERM_DEF_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DefConfigurationImpl <em>Def Configuration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DefConfigurationImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getDefConfiguration()
+	 * @generated
+	 */
+	int DEF_CONFIGURATION = 8;
+
+	/**
+	 * The feature id for the '<em><b>Concept</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEF_CONFIGURATION__CONCEPT = CONFIGURATION__CONCEPT;
+
+	/**
+	 * The feature id for the '<em><b>Childs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEF_CONFIGURATION__CHILDS = CONFIGURATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Def Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEF_CONFIGURATION_FEATURE_COUNT = CONFIGURATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Def Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEF_CONFIGURATION_OPERATION_COUNT = CONFIGURATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.RefConfigurationImpl <em>Ref Configuration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.RefConfigurationImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getRefConfiguration()
+	 * @generated
+	 */
+	int REF_CONFIGURATION = 9;
+
+	/**
+	 * The feature id for the '<em><b>Concept</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REF_CONFIGURATION__CONCEPT = CONFIGURATION__CONCEPT;
+
+	/**
+	 * The feature id for the '<em><b>Childs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REF_CONFIGURATION__CHILDS = CONFIGURATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Ref Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REF_CONFIGURATION_FEATURE_COUNT = CONFIGURATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Ref Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REF_CONFIGURATION_OPERATION_COUNT = CONFIGURATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ConclusionOutput <em>Conclusion Output</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ConclusionOutput
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getConclusionOutput()
+	 * @generated
+	 */
+	int CONCLUSION_OUTPUT = 13;
+
+	/**
+	 * The number of structural features of the '<em>Conclusion Output</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION_OUTPUT_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Conclusion Output</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION_OUTPUT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef <em>Term Ref</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getTermRef()
+	 * @generated
+	 */
+	int TERM_REF = 16;
+
+	/**
+	 * The number of structural features of the '<em>Term Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERM_REF_FEATURE_COUNT = CONCLUSION_OUTPUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Term Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERM_REF_OPERATION_COUNT = CONCLUSION_OUTPUT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SymbolRefImpl <em>Symbol Ref</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SymbolRefImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getSymbolRef()
+	 * @generated
+	 */
+	int SYMBOL_REF = 10;
+
+	/**
+	 * The feature id for the '<em><b>Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_REF__DEF = TERM_REF_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Symbol Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_REF_FEATURE_COUNT = TERM_REF_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Symbol Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_REF_OPERATION_COUNT = TERM_REF_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SemanticDomainUpdateImpl <em>Semantic Domain Update</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SemanticDomainUpdateImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getSemanticDomainUpdate()
+	 * @generated
+	 */
+	int SEMANTIC_DOMAIN_UPDATE = 11;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_UPDATE__PATH = CONCLUSION_OUTPUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_UPDATE__VALUE = CONCLUSION_OUTPUT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Semantic Domain Update</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_UPDATE_FEATURE_COUNT = CONCLUSION_OUTPUT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Semantic Domain Update</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_UPDATE_OPERATION_COUNT = CONCLUSION_OUTPUT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SemanticDomainAccessImpl <em>Semantic Domain Access</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SemanticDomainAccessImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getSemanticDomainAccess()
+	 * @generated
+	 */
+	int SEMANTIC_DOMAIN_ACCESS = 12;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_ACCESS__PATH = CONCLUSION_OUTPUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Semantic Domain Access</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_ACCESS_FEATURE_COUNT = CONCLUSION_OUTPUT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Semantic Domain Access</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_ACCESS_OPERATION_COUNT = CONCLUSION_OUTPUT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.PremiseImpl <em>Premise</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.PremiseImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getPremise()
+	 * @generated
+	 */
+	int PREMISE = 14;
+
+	/**
+	 * The feature id for the '<em><b>From</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREMISE__FROM = REDUCTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>To</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREMISE__TO = REDUCTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Premise</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREMISE_FEATURE_COUNT = REDUCTION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Premise</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREMISE_OPERATION_COUNT = REDUCTION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListDefImpl <em>List Def</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListDefImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getListDef()
+	 * @generated
+	 */
+	int LIST_DEF = 18;
+
+	/**
+	 * The feature id for the '<em><b>Head</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_DEF__HEAD = TERM_DEF_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Tail</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_DEF__TAIL = TERM_DEF_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>List Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_DEF_FEATURE_COUNT = TERM_DEF_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>List Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_DEF_OPERATION_COUNT = TERM_DEF_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListRefImpl <em>List Ref</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListRefImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getListRef()
+	 * @generated
+	 */
+	int LIST_REF = 19;
+
+	/**
+	 * The feature id for the '<em><b>Head</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_REF__HEAD = TERM_REF_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Tail</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_REF__TAIL = TERM_REF_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>List Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_REF_FEATURE_COUNT = TERM_REF_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>List Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_REF_OPERATION_COUNT = TERM_REF_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListAppendImpl <em>List Append</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListAppendImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getListAppend()
+	 * @generated
+	 */
+	int LIST_APPEND = 20;
+
+	/**
+	 * The feature id for the '<em><b>Head</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_APPEND__HEAD = TERM_REF_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Tail</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_APPEND__TAIL = TERM_REF_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>List Append</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_APPEND_FEATURE_COUNT = TERM_REF_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>List Append</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_APPEND_OPERATION_COUNT = TERM_REF_OPERATION_COUNT + 0;
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics <em>Adaptive Semantics</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Adaptive Semantics</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics
+	 * @generated
+	 */
+	EClass getAdaptiveSemantics();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics#getModel <em>Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Model</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics#getModel()
+	 * @see #getAdaptiveSemantics()
+	 * @generated
+	 */
+	EReference getAdaptiveSemantics_Model();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics#getImports <em>Imports</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Imports</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics#getImports()
+	 * @see #getAdaptiveSemantics()
+	 * @generated
+	 */
+	EReference getAdaptiveSemantics_Imports();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics#getRules <em>Rules</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Rules</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics#getRules()
+	 * @see #getAdaptiveSemantics()
+	 * @generated
+	 */
+	EReference getAdaptiveSemantics_Rules();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model <em>Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Model</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model
+	 * @generated
+	 */
+	EClass getModel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model#getImportURI <em>Import URI</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Import URI</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model#getImportURI()
+	 * @see #getModel()
+	 * @generated
+	 */
+	EAttribute getModel_ImportURI();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Import <em>Import</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Import</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Import
+	 * @generated
+	 */
+	EClass getImport();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Import#getImportURI <em>Import URI</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Import URI</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Import#getImportURI()
+	 * @see #getImport()
+	 * @generated
+	 */
+	EAttribute getImport_ImportURI();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule <em>Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rule</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule
+	 * @generated
+	 */
+	EClass getRule();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule#getConclusion <em>Conclusion</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Conclusion</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule#getConclusion()
+	 * @see #getRule()
+	 * @generated
+	 */
+	EReference getRule_Conclusion();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule#getPremises <em>Premises</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Premises</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule#getPremises()
+	 * @see #getRule()
+	 * @generated
+	 */
+	EReference getRule_Premises();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule#getConditions <em>Conditions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Conditions</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule#getConditions()
+	 * @see #getRule()
+	 * @generated
+	 */
+	EReference getRule_Conditions();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule#getName()
+	 * @see #getRule()
+	 * @generated
+	 */
+	EAttribute getRule_Name();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Conclusion <em>Conclusion</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Conclusion</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Conclusion
+	 * @generated
+	 */
+	EClass getConclusion();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Conclusion#getFrom <em>From</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>From</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Conclusion#getFrom()
+	 * @see #getConclusion()
+	 * @generated
+	 */
+	EReference getConclusion_From();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Conclusion#getTo <em>To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>To</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Conclusion#getTo()
+	 * @see #getConclusion()
+	 * @generated
+	 */
+	EReference getConclusion_To();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Condition</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition
+	 * @generated
+	 */
+	EClass getCondition();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition#getOclPredicate <em>Ocl Predicate</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ocl Predicate</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition#getOclPredicate()
+	 * @see #getCondition()
+	 * @generated
+	 */
+	EAttribute getCondition_OclPredicate();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Configuration <em>Configuration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Configuration</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Configuration
+	 * @generated
+	 */
+	EClass getConfiguration();
+
+	/**
+	 * Returns the meta object for the reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Configuration#getConcept <em>Concept</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Concept</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Configuration#getConcept()
+	 * @see #getConfiguration()
+	 * @generated
+	 */
+	EReference getConfiguration_Concept();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef <em>Symbol Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Symbol Def</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef
+	 * @generated
+	 */
+	EClass getSymbolDef();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef#getName()
+	 * @see #getSymbolDef()
+	 * @generated
+	 */
+	EAttribute getSymbolDef_Name();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration <em>Def Configuration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Def Configuration</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration
+	 * @generated
+	 */
+	EClass getDefConfiguration();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration#getChilds <em>Childs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Childs</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration#getChilds()
+	 * @see #getDefConfiguration()
+	 * @generated
+	 */
+	EReference getDefConfiguration_Childs();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration <em>Ref Configuration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Ref Configuration</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration
+	 * @generated
+	 */
+	EClass getRefConfiguration();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration#getChilds <em>Childs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Childs</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration#getChilds()
+	 * @see #getRefConfiguration()
+	 * @generated
+	 */
+	EReference getRefConfiguration_Childs();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef <em>Symbol Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Symbol Ref</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
+	 * @generated
+	 */
+	EClass getSymbolRef();
+
+	/**
+	 * Returns the meta object for the reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef#getDef <em>Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Def</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef#getDef()
+	 * @see #getSymbolRef()
+	 * @generated
+	 */
+	EReference getSymbolRef_Def();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainUpdate <em>Semantic Domain Update</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Semantic Domain Update</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainUpdate
+	 * @generated
+	 */
+	EClass getSemanticDomainUpdate();
+
+	/**
+	 * Returns the meta object for the reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainUpdate#getPath <em>Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Path</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainUpdate#getPath()
+	 * @see #getSemanticDomainUpdate()
+	 * @generated
+	 */
+	EReference getSemanticDomainUpdate_Path();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainUpdate#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainUpdate#getValue()
+	 * @see #getSemanticDomainUpdate()
+	 * @generated
+	 */
+	EReference getSemanticDomainUpdate_Value();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainAccess <em>Semantic Domain Access</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Semantic Domain Access</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainAccess
+	 * @generated
+	 */
+	EClass getSemanticDomainAccess();
+
+	/**
+	 * Returns the meta object for the reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainAccess#getPath <em>Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Path</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainAccess#getPath()
+	 * @see #getSemanticDomainAccess()
+	 * @generated
+	 */
+	EReference getSemanticDomainAccess_Path();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ConclusionOutput <em>Conclusion Output</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Conclusion Output</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ConclusionOutput
+	 * @generated
+	 */
+	EClass getConclusionOutput();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Premise <em>Premise</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Premise</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Premise
+	 * @generated
+	 */
+	EClass getPremise();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Premise#getFrom <em>From</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>From</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Premise#getFrom()
+	 * @see #getPremise()
+	 * @generated
+	 */
+	EReference getPremise_From();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Premise#getTo <em>To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>To</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Premise#getTo()
+	 * @see #getPremise()
+	 * @generated
+	 */
+	EReference getPremise_To();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermDef <em>Term Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Term Def</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermDef
+	 * @generated
+	 */
+	EClass getTermDef();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef <em>Term Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Term Ref</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef
+	 * @generated
+	 */
+	EClass getTermRef();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Reduction <em>Reduction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Reduction</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Reduction
+	 * @generated
+	 */
+	EClass getReduction();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef <em>List Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>List Def</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef
+	 * @generated
+	 */
+	EClass getListDef();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef#getHead <em>Head</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Head</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef#getHead()
+	 * @see #getListDef()
+	 * @generated
+	 */
+	EReference getListDef_Head();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef#getTail <em>Tail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Tail</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef#getTail()
+	 * @see #getListDef()
+	 * @generated
+	 */
+	EReference getListDef_Tail();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef <em>List Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>List Ref</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef
+	 * @generated
+	 */
+	EClass getListRef();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef#getHead <em>Head</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Head</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef#getHead()
+	 * @see #getListRef()
+	 * @generated
+	 */
+	EReference getListRef_Head();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef#getTail <em>Tail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Tail</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef#getTail()
+	 * @see #getListRef()
+	 * @generated
+	 */
+	EReference getListRef_Tail();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListAppend <em>List Append</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>List Append</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListAppend
+	 * @generated
+	 */
+	EClass getListAppend();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListAppend#getHead <em>Head</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Head</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListAppend#getHead()
+	 * @see #getListAppend()
+	 * @generated
+	 */
+	EReference getListAppend_Head();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListAppend#getTail <em>Tail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Tail</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListAppend#getTail()
+	 * @see #getListAppend()
+	 * @generated
+	 */
+	EReference getListAppend_Tail();
+
+	/**
+	 * Returns the factory that creates the instances of the model.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the factory that creates the instances of the model.
+	 * @generated
+	 */
+	AdaptivesemanticsFactory getAdaptivesemanticsFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each operation of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals {
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptiveSemanticsImpl <em>Adaptive Semantics</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptiveSemanticsImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getAdaptiveSemantics()
+		 * @generated
+		 */
+		EClass ADAPTIVE_SEMANTICS = eINSTANCE.getAdaptiveSemantics();
+
+		/**
+		 * The meta object literal for the '<em><b>Model</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ADAPTIVE_SEMANTICS__MODEL = eINSTANCE.getAdaptiveSemantics_Model();
+
+		/**
+		 * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ADAPTIVE_SEMANTICS__IMPORTS = eINSTANCE.getAdaptiveSemantics_Imports();
+
+		/**
+		 * The meta object literal for the '<em><b>Rules</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ADAPTIVE_SEMANTICS__RULES = eINSTANCE.getAdaptiveSemantics_Rules();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ModelImpl <em>Model</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ModelImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getModel()
+		 * @generated
+		 */
+		EClass MODEL = eINSTANCE.getModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Import URI</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL__IMPORT_URI = eINSTANCE.getModel_ImportURI();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ImportImpl <em>Import</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ImportImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getImport()
+		 * @generated
+		 */
+		EClass IMPORT = eINSTANCE.getImport();
+
+		/**
+		 * The meta object literal for the '<em><b>Import URI</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IMPORT__IMPORT_URI = eINSTANCE.getImport_ImportURI();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.RuleImpl <em>Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.RuleImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getRule()
+		 * @generated
+		 */
+		EClass RULE = eINSTANCE.getRule();
+
+		/**
+		 * The meta object literal for the '<em><b>Conclusion</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RULE__CONCLUSION = eINSTANCE.getRule_Conclusion();
+
+		/**
+		 * The meta object literal for the '<em><b>Premises</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RULE__PREMISES = eINSTANCE.getRule_Premises();
+
+		/**
+		 * The meta object literal for the '<em><b>Conditions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RULE__CONDITIONS = eINSTANCE.getRule_Conditions();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RULE__NAME = eINSTANCE.getRule_Name();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConclusionImpl <em>Conclusion</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConclusionImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getConclusion()
+		 * @generated
+		 */
+		EClass CONCLUSION = eINSTANCE.getConclusion();
+
+		/**
+		 * The meta object literal for the '<em><b>From</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCLUSION__FROM = eINSTANCE.getConclusion_From();
+
+		/**
+		 * The meta object literal for the '<em><b>To</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCLUSION__TO = eINSTANCE.getConclusion_To();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConditionImpl <em>Condition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConditionImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getCondition()
+		 * @generated
+		 */
+		EClass CONDITION = eINSTANCE.getCondition();
+
+		/**
+		 * The meta object literal for the '<em><b>Ocl Predicate</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONDITION__OCL_PREDICATE = eINSTANCE.getCondition_OclPredicate();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConfigurationImpl <em>Configuration</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ConfigurationImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getConfiguration()
+		 * @generated
+		 */
+		EClass CONFIGURATION = eINSTANCE.getConfiguration();
+
+		/**
+		 * The meta object literal for the '<em><b>Concept</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONFIGURATION__CONCEPT = eINSTANCE.getConfiguration_Concept();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SymbolDefImpl <em>Symbol Def</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SymbolDefImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getSymbolDef()
+		 * @generated
+		 */
+		EClass SYMBOL_DEF = eINSTANCE.getSymbolDef();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SYMBOL_DEF__NAME = eINSTANCE.getSymbolDef_Name();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DefConfigurationImpl <em>Def Configuration</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DefConfigurationImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getDefConfiguration()
+		 * @generated
+		 */
+		EClass DEF_CONFIGURATION = eINSTANCE.getDefConfiguration();
+
+		/**
+		 * The meta object literal for the '<em><b>Childs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DEF_CONFIGURATION__CHILDS = eINSTANCE.getDefConfiguration_Childs();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.RefConfigurationImpl <em>Ref Configuration</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.RefConfigurationImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getRefConfiguration()
+		 * @generated
+		 */
+		EClass REF_CONFIGURATION = eINSTANCE.getRefConfiguration();
+
+		/**
+		 * The meta object literal for the '<em><b>Childs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REF_CONFIGURATION__CHILDS = eINSTANCE.getRefConfiguration_Childs();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SymbolRefImpl <em>Symbol Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SymbolRefImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getSymbolRef()
+		 * @generated
+		 */
+		EClass SYMBOL_REF = eINSTANCE.getSymbolRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Def</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYMBOL_REF__DEF = eINSTANCE.getSymbolRef_Def();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SemanticDomainUpdateImpl <em>Semantic Domain Update</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SemanticDomainUpdateImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getSemanticDomainUpdate()
+		 * @generated
+		 */
+		EClass SEMANTIC_DOMAIN_UPDATE = eINSTANCE.getSemanticDomainUpdate();
+
+		/**
+		 * The meta object literal for the '<em><b>Path</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTIC_DOMAIN_UPDATE__PATH = eINSTANCE.getSemanticDomainUpdate_Path();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTIC_DOMAIN_UPDATE__VALUE = eINSTANCE.getSemanticDomainUpdate_Value();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SemanticDomainAccessImpl <em>Semantic Domain Access</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SemanticDomainAccessImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getSemanticDomainAccess()
+		 * @generated
+		 */
+		EClass SEMANTIC_DOMAIN_ACCESS = eINSTANCE.getSemanticDomainAccess();
+
+		/**
+		 * The meta object literal for the '<em><b>Path</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTIC_DOMAIN_ACCESS__PATH = eINSTANCE.getSemanticDomainAccess_Path();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ConclusionOutput <em>Conclusion Output</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ConclusionOutput
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getConclusionOutput()
+		 * @generated
+		 */
+		EClass CONCLUSION_OUTPUT = eINSTANCE.getConclusionOutput();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.PremiseImpl <em>Premise</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.PremiseImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getPremise()
+		 * @generated
+		 */
+		EClass PREMISE = eINSTANCE.getPremise();
+
+		/**
+		 * The meta object literal for the '<em><b>From</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PREMISE__FROM = eINSTANCE.getPremise_From();
+
+		/**
+		 * The meta object literal for the '<em><b>To</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PREMISE__TO = eINSTANCE.getPremise_To();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermDef <em>Term Def</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermDef
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getTermDef()
+		 * @generated
+		 */
+		EClass TERM_DEF = eINSTANCE.getTermDef();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef <em>Term Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getTermRef()
+		 * @generated
+		 */
+		EClass TERM_REF = eINSTANCE.getTermRef();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Reduction <em>Reduction</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Reduction
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getReduction()
+		 * @generated
+		 */
+		EClass REDUCTION = eINSTANCE.getReduction();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListDefImpl <em>List Def</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListDefImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getListDef()
+		 * @generated
+		 */
+		EClass LIST_DEF = eINSTANCE.getListDef();
+
+		/**
+		 * The meta object literal for the '<em><b>Head</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LIST_DEF__HEAD = eINSTANCE.getListDef_Head();
+
+		/**
+		 * The meta object literal for the '<em><b>Tail</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LIST_DEF__TAIL = eINSTANCE.getListDef_Tail();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListRefImpl <em>List Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListRefImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getListRef()
+		 * @generated
+		 */
+		EClass LIST_REF = eINSTANCE.getListRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Head</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LIST_REF__HEAD = eINSTANCE.getListRef_Head();
+
+		/**
+		 * The meta object literal for the '<em><b>Tail</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LIST_REF__TAIL = eINSTANCE.getListRef_Tail();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListAppendImpl <em>List Append</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListAppendImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getListAppend()
+		 * @generated
+		 */
+		EClass LIST_APPEND = eINSTANCE.getListAppend();
+
+		/**
+		 * The meta object literal for the '<em><b>Head</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LIST_APPEND__HEAD = eINSTANCE.getListAppend_Head();
+
+		/**
+		 * The meta object literal for the '<em><b>Tail</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LIST_APPEND__TAIL = eINSTANCE.getListAppend_Tail();
+
+	}
+
+} //AdaptivesemanticsPackage

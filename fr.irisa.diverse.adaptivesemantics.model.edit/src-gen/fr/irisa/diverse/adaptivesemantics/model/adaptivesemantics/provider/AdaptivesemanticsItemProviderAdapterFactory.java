@@ -510,6 +510,374 @@ public class AdaptivesemanticsItemProviderAdapterFactory extends Adaptivesemanti
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EqualItemProvider equalItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEqualAdapter() {
+		if (equalItemProvider == null) {
+			equalItemProvider = new EqualItemProvider(this);
+		}
+
+		return equalItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NotEqualItemProvider notEqualItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNotEqualAdapter() {
+		if (notEqualItemProvider == null) {
+			notEqualItemProvider = new NotEqualItemProvider(this);
+		}
+
+		return notEqualItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OrItemProvider orItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOrAdapter() {
+		if (orItemProvider == null) {
+			orItemProvider = new OrItemProvider(this);
+		}
+
+		return orItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AndItemProvider andItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAndAdapter() {
+		if (andItemProvider == null) {
+			andItemProvider = new AndItemProvider(this);
+		}
+
+		return andItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NotItemProvider notItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNotAdapter() {
+		if (notItemProvider == null) {
+			notItemProvider = new NotItemProvider(this);
+		}
+
+		return notItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LessItemProvider lessItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLessAdapter() {
+		if (lessItemProvider == null) {
+			lessItemProvider = new LessItemProvider(this);
+		}
+
+		return lessItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LessEqItemProvider lessEqItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLessEqAdapter() {
+		if (lessEqItemProvider == null) {
+			lessEqItemProvider = new LessEqItemProvider(this);
+		}
+
+		return lessEqItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DivItemProvider divItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDivAdapter() {
+		if (divItemProvider == null) {
+			divItemProvider = new DivItemProvider(this);
+		}
+
+		return divItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MultItemProvider multItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMultAdapter() {
+		if (multItemProvider == null) {
+			multItemProvider = new MultItemProvider(this);
+		}
+
+		return multItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MinusItemProvider minusItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createMinusAdapter() {
+		if (minusItemProvider == null) {
+			minusItemProvider = new MinusItemProvider(this);
+		}
+
+		return minusItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PlusItemProvider plusItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPlusAdapter() {
+		if (plusItemProvider == null) {
+			plusItemProvider = new PlusItemProvider(this);
+		}
+
+		return plusItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected IntConstantItemProvider intConstantItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createIntConstantAdapter() {
+		if (intConstantItemProvider == null) {
+			intConstantItemProvider = new IntConstantItemProvider(this);
+		}
+
+		return intConstantItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BoolConstantItemProvider boolConstantItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBoolConstantAdapter() {
+		if (boolConstantItemProvider == null) {
+			boolConstantItemProvider = new BoolConstantItemProvider(this);
+		}
+
+		return boolConstantItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected StringConstantItemProvider stringConstantItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createStringConstantAdapter() {
+		if (stringConstantItemProvider == null) {
+			stringConstantItemProvider = new StringConstantItemProvider(this);
+		}
+
+		return stringConstantItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DoubleConstantItemProvider doubleConstantItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDoubleConstantAdapter() {
+		if (doubleConstantItemProvider == null) {
+			doubleConstantItemProvider = new DoubleConstantItemProvider(this);
+		}
+
+		return doubleConstantItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OppositeItemProvider oppositeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOppositeAdapter() {
+		if (oppositeItemProvider == null) {
+			oppositeItemProvider = new OppositeItemProvider(this);
+		}
+
+		return oppositeItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -646,6 +1014,38 @@ public class AdaptivesemanticsItemProviderAdapterFactory extends Adaptivesemanti
 			semanticDomainAccessItemProvider.dispose();
 		if (selfItemProvider != null)
 			selfItemProvider.dispose();
+		if (equalItemProvider != null)
+			equalItemProvider.dispose();
+		if (notEqualItemProvider != null)
+			notEqualItemProvider.dispose();
+		if (orItemProvider != null)
+			orItemProvider.dispose();
+		if (andItemProvider != null)
+			andItemProvider.dispose();
+		if (notItemProvider != null)
+			notItemProvider.dispose();
+		if (lessItemProvider != null)
+			lessItemProvider.dispose();
+		if (lessEqItemProvider != null)
+			lessEqItemProvider.dispose();
+		if (divItemProvider != null)
+			divItemProvider.dispose();
+		if (multItemProvider != null)
+			multItemProvider.dispose();
+		if (minusItemProvider != null)
+			minusItemProvider.dispose();
+		if (plusItemProvider != null)
+			plusItemProvider.dispose();
+		if (intConstantItemProvider != null)
+			intConstantItemProvider.dispose();
+		if (boolConstantItemProvider != null)
+			boolConstantItemProvider.dispose();
+		if (stringConstantItemProvider != null)
+			stringConstantItemProvider.dispose();
+		if (doubleConstantItemProvider != null)
+			doubleConstantItemProvider.dispose();
+		if (oppositeItemProvider != null)
+			oppositeItemProvider.dispose();
 	}
 
 }

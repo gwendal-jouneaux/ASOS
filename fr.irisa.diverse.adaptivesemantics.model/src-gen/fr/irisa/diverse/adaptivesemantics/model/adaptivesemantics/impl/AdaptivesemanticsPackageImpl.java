@@ -5,19 +5,39 @@ package fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsFactory;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignable;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignee;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BinExpr;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Conclusion;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.CondExpr;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Configuration;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Const;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DomainAccessExpression;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Import;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Premise;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule;
@@ -25,6 +45,7 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Self;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainAccess;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SingleTermDef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SingleTermRef;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermDef;
@@ -229,6 +250,153 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 	private EClass selfEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass equalEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass notEqualEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass condExprEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass exprEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass orEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass andEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass notEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass lessEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass lessEqEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass binExprEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass divEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass multEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass minusEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass plusEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass constEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass intConstantEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass boolConstantEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stringConstantEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass doubleConstantEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass assignableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass oppositeEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -309,8 +477,8 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBinding_OclExpression() {
-		return (EAttribute) bindingEClass.getEStructuralFeatures().get(0);
+	public EReference getBinding_Assignee() {
+		return (EReference) bindingEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -318,7 +486,7 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getBinding_Assignee() {
+	public EReference getBinding_Expr() {
 		return (EReference) bindingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -471,8 +639,8 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCondition_OclPredicate() {
-		return (EAttribute) conditionEClass.getEStructuralFeatures().get(0);
+	public EReference getCondition_Cond() {
+		return (EReference) conditionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -876,6 +1044,267 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getEqual() {
+		return equalEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getNotEqual() {
+		return notEqualEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCondExpr() {
+		return condExprEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExpr() {
+		return exprEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOr() {
+		return orEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAnd() {
+		return andEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getNot() {
+		return notEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getNot_Expr() {
+		return (EReference) notEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLess() {
+		return lessEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLessEq() {
+		return lessEqEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBinExpr() {
+		return binExprEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBinExpr_Rhs() {
+		return (EReference) binExprEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBinExpr_Lhs() {
+		return (EReference) binExprEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDiv() {
+		return divEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMult() {
+		return multEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMinus() {
+		return minusEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPlus() {
+		return plusEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getConst() {
+		return constEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIntConstant() {
+		return intConstantEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIntConstant_Value() {
+		return (EAttribute) intConstantEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBoolConstant() {
+		return boolConstantEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBoolConstant_Value() {
+		return (EAttribute) boolConstantEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStringConstant() {
+		return stringConstantEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStringConstant_Value() {
+		return (EAttribute) stringConstantEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDoubleConstant() {
+		return doubleConstantEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDoubleConstant_Value() {
+		return (EAttribute) doubleConstantEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAssignable() {
+		return assignableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOpposite() {
+		return oppositeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getOpposite_Expr() {
+		return (EReference) oppositeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AdaptivesemanticsFactory getAdaptivesemanticsFactory() {
 		return (AdaptivesemanticsFactory) getEFactoryInstance();
 	}
@@ -901,8 +1330,8 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 
 		// Create classes and their features
 		bindingEClass = createEClass(BINDING);
-		createEAttribute(bindingEClass, BINDING__OCL_EXPRESSION);
 		createEReference(bindingEClass, BINDING__ASSIGNEE);
+		createEReference(bindingEClass, BINDING__EXPR);
 
 		adaptiveSemanticsEClass = createEClass(ADAPTIVE_SEMANTICS);
 		createEReference(adaptiveSemanticsEClass, ADAPTIVE_SEMANTICS__IMPORTS);
@@ -924,7 +1353,7 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 		createEAttribute(premiseEClass, PREMISE__TERMINATION);
 
 		conditionEClass = createEClass(CONDITION);
-		createEAttribute(conditionEClass, CONDITION__OCL_PREDICATE);
+		createEReference(conditionEClass, CONDITION__COND);
 
 		ruleEClass = createEClass(RULE);
 		createEReference(ruleEClass, RULE__CONCLUSION);
@@ -989,6 +1418,56 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 		domainAccessExpressionEClass = createEClass(DOMAIN_ACCESS_EXPRESSION);
 
 		selfEClass = createEClass(SELF);
+
+		equalEClass = createEClass(EQUAL);
+
+		notEqualEClass = createEClass(NOT_EQUAL);
+
+		condExprEClass = createEClass(COND_EXPR);
+
+		exprEClass = createEClass(EXPR);
+
+		orEClass = createEClass(OR);
+
+		andEClass = createEClass(AND);
+
+		notEClass = createEClass(NOT);
+		createEReference(notEClass, NOT__EXPR);
+
+		lessEClass = createEClass(LESS);
+
+		lessEqEClass = createEClass(LESS_EQ);
+
+		binExprEClass = createEClass(BIN_EXPR);
+		createEReference(binExprEClass, BIN_EXPR__RHS);
+		createEReference(binExprEClass, BIN_EXPR__LHS);
+
+		divEClass = createEClass(DIV);
+
+		multEClass = createEClass(MULT);
+
+		minusEClass = createEClass(MINUS);
+
+		plusEClass = createEClass(PLUS);
+
+		constEClass = createEClass(CONST);
+
+		intConstantEClass = createEClass(INT_CONSTANT);
+		createEAttribute(intConstantEClass, INT_CONSTANT__VALUE);
+
+		boolConstantEClass = createEClass(BOOL_CONSTANT);
+		createEAttribute(boolConstantEClass, BOOL_CONSTANT__VALUE);
+
+		stringConstantEClass = createEClass(STRING_CONSTANT);
+		createEAttribute(stringConstantEClass, STRING_CONSTANT__VALUE);
+
+		doubleConstantEClass = createEClass(DOUBLE_CONSTANT);
+		createEAttribute(doubleConstantEClass, DOUBLE_CONSTANT__VALUE);
+
+		assignableEClass = createEClass(ASSIGNABLE);
+
+		oppositeEClass = createEClass(OPPOSITE);
+		createEReference(oppositeEClass, OPPOSITE__EXPR);
 	}
 
 	/**
@@ -1025,6 +1504,7 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 		// Add supertypes to classes
 		refConfigurationEClass.getESuperTypes().add(this.getConfiguration());
 		refConfigurationEClass.getESuperTypes().add(this.getSingleTermRef());
+		refConfigurationEClass.getESuperTypes().add(this.getAssignable());
 		defConfigurationEClass.getESuperTypes().add(this.getConfiguration());
 		defConfigurationEClass.getESuperTypes().add(this.getSingleTermDef());
 		symbolDefEClass.getESuperTypes().add(this.getSingleTermDef());
@@ -1039,17 +1519,44 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 		voidListEClass.getESuperTypes().add(this.getTermRef());
 		semanticDomainAccessEClass.getESuperTypes().add(this.getDomainAccessExpression());
 		semanticDomainAccessEClass.getESuperTypes().add(this.getAssignee());
-		semanticDomainAccessEClass.getESuperTypes().add(this.getSingleTermRef());
+		semanticDomainAccessEClass.getESuperTypes().add(this.getAssignable());
+		domainAccessExpressionEClass.getESuperTypes().add(this.getExpr());
 		selfEClass.getESuperTypes().add(this.getDomainAccessExpression());
+		equalEClass.getESuperTypes().add(this.getBinExpr());
+		equalEClass.getESuperTypes().add(this.getCondExpr());
+		notEqualEClass.getESuperTypes().add(this.getBinExpr());
+		notEqualEClass.getESuperTypes().add(this.getCondExpr());
+		exprEClass.getESuperTypes().add(this.getAssignable());
+		orEClass.getESuperTypes().add(this.getBinExpr());
+		orEClass.getESuperTypes().add(this.getCondExpr());
+		andEClass.getESuperTypes().add(this.getBinExpr());
+		andEClass.getESuperTypes().add(this.getCondExpr());
+		notEClass.getESuperTypes().add(this.getCondExpr());
+		notEClass.getESuperTypes().add(this.getExpr());
+		lessEClass.getESuperTypes().add(this.getBinExpr());
+		lessEClass.getESuperTypes().add(this.getCondExpr());
+		lessEqEClass.getESuperTypes().add(this.getBinExpr());
+		lessEqEClass.getESuperTypes().add(this.getCondExpr());
+		binExprEClass.getESuperTypes().add(this.getExpr());
+		divEClass.getESuperTypes().add(this.getBinExpr());
+		multEClass.getESuperTypes().add(this.getBinExpr());
+		minusEClass.getESuperTypes().add(this.getBinExpr());
+		plusEClass.getESuperTypes().add(this.getBinExpr());
+		constEClass.getESuperTypes().add(this.getExpr());
+		intConstantEClass.getESuperTypes().add(this.getConst());
+		boolConstantEClass.getESuperTypes().add(this.getConst());
+		stringConstantEClass.getESuperTypes().add(this.getConst());
+		doubleConstantEClass.getESuperTypes().add(this.getConst());
+		oppositeEClass.getESuperTypes().add(this.getExpr());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(bindingEClass, Binding.class, "Binding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBinding_OclExpression(), ecorePackage.getEString(), "oclExpression", null, 1, 1,
-				Binding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
 		initEReference(getBinding_Assignee(), this.getAssignee(), null, "assignee", null, 1, 1, Binding.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBinding_Expr(), this.getAssignable(), null, "expr", null, 1, 1, Binding.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 
 		initEClass(adaptiveSemanticsEClass, AdaptiveSemantics.class, "AdaptiveSemantics", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -1093,9 +1600,9 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 
 		initEClass(conditionEClass, Condition.class, "Condition", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCondition_OclPredicate(), ecorePackage.getEString(), "oclPredicate", null, 1, 1,
-				Condition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
+		initEReference(getCondition_Cond(), this.getCondExpr(), null, "cond", null, 1, 1, Condition.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ruleEClass, Rule.class, "Rule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRule_Conclusion(), this.getConclusion(), null, "conclusion", null, 1, 1, Rule.class,
@@ -1215,6 +1722,74 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 				IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(selfEClass, Self.class, "Self", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(equalEClass, Equal.class, "Equal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(notEqualEClass, NotEqual.class, "NotEqual", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(condExprEClass, CondExpr.class, "CondExpr", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(exprEClass, Expr.class, "Expr", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(orEClass, Or.class, "Or", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(andEClass, And.class, "And", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(notEClass, Not.class, "Not", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getNot_Expr(), this.getExpr(), null, "expr", null, 1, 1, Not.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(lessEClass, Less.class, "Less", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(lessEqEClass, LessEq.class, "LessEq", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(binExprEClass, BinExpr.class, "BinExpr", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBinExpr_Rhs(), this.getExpr(), null, "rhs", null, 1, 1, BinExpr.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+		initEReference(getBinExpr_Lhs(), this.getExpr(), null, "lhs", null, 1, 1, BinExpr.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
+
+		initEClass(divEClass, Div.class, "Div", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(multEClass, Mult.class, "Mult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(minusEClass, Minus.class, "Minus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(plusEClass, Plus.class, "Plus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(constEClass, Const.class, "Const", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(intConstantEClass, IntConstant.class, "IntConstant", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIntConstant_Value(), ecorePackage.getEInt(), "value", null, 0, 1, IntConstant.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(boolConstantEClass, BoolConstant.class, "BoolConstant", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBoolConstant_Value(), ecorePackage.getEBoolean(), "value", null, 0, 1, BoolConstant.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stringConstantEClass, StringConstant.class, "StringConstant", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStringConstant_Value(), ecorePackage.getEString(), "value", null, 0, 1, StringConstant.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(doubleConstantEClass, DoubleConstant.class, "DoubleConstant", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDoubleConstant_Value(), ecorePackage.getEDouble(), "value", null, 0, 1, DoubleConstant.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(assignableEClass, Assignable.class, "Assignable", IS_ABSTRACT, IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(oppositeEClass, Opposite.class, "Opposite", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getOpposite_Expr(), this.getExpr(), null, "expr", null, 1, 1, Opposite.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

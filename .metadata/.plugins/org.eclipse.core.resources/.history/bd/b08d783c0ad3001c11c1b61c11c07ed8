@@ -1,0 +1,97 @@
+/**
+ */
+package semanticadaptation;
+
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Module</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link semanticadaptation.Module#getPoincut <em>Poincut</em>}</li>
+ *   <li>{@link semanticadaptation.Module#getAdaptations <em>Adaptations</em>}</li>
+ *   <li>{@link semanticadaptation.Module#getName <em>Name</em>}</li>
+ *   <li>{@link semanticadaptation.Module#isRecursive <em>Recursive</em>}</li>
+ * </ul>
+ *
+ * @see semanticadaptation.SemanticadaptationPackage#getModule()
+ * @model
+ * @generated
+ */
+public interface Module extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Poincut</b></em>' containment reference list.
+	 * The list contents are of type {@link semanticadaptation.Poincut}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Poincut</em>' containment reference list.
+	 * @see semanticadaptation.SemanticadaptationPackage#getModule_Poincut()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Poincut> getPoincut();
+
+	/**
+	 * Returns the value of the '<em><b>Adaptations</b></em>' containment reference list.
+	 * The list contents are of type {@link semanticadaptation.Adaptation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Adaptations</em>' containment reference list.
+	 * @see semanticadaptation.SemanticadaptationPackage#getModule_Adaptations()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Adaptation> getAdaptations();
+
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see semanticadaptation.SemanticadaptationPackage#getModule_Name()
+	 * @model
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link semanticadaptation.Module#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Recursive</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Recursive</em>' attribute.
+	 * @see #setRecursive(boolean)
+	 * @see semanticadaptation.SemanticadaptationPackage#getModule_Recursive()
+	 * @model
+	 * @generated
+	 */
+	boolean isRecursive();
+
+	/**
+	 * Sets the value of the '{@link semanticadaptation.Module#isRecursive <em>Recursive</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Recursive</em>' attribute.
+	 * @see #isRecursive()
+	 * @generated
+	 */
+	void setRecursive(boolean value);
+
+} // Module

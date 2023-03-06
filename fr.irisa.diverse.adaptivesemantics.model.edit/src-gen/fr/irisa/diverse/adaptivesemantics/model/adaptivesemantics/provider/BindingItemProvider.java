@@ -23,7 +23,6 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -56,25 +55,23 @@ public class BindingItemProvider extends ItemProviderAdapter implements IEditing
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addOclExpressionPropertyDescriptor(object);
+			addExprPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Ocl Expression feature.
+	 * This adds a property descriptor for the Expr feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addOclExpressionPropertyDescriptor(Object object) {
+	protected void addExprPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Binding_oclExpression_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Binding_oclExpression_feature",
-								"_UI_Binding_type"),
-						AdaptivesemanticsPackage.Literals.BINDING__OCL_EXPRESSION, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+						getResourceLocator(), getString("_UI_Binding_expr_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Binding_expr_feature", "_UI_Binding_type"),
+						AdaptivesemanticsPackage.Literals.BINDING__EXPR, true, false, true, null, null, null));
 	}
 
 	/**
@@ -136,9 +133,7 @@ public class BindingItemProvider extends ItemProviderAdapter implements IEditing
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Binding) object).getOclExpression();
-		return label == null || label.length() == 0 ? getString("_UI_Binding_type")
-				: getString("_UI_Binding_type") + " " + label;
+		return getString("_UI_Binding_type");
 	}
 
 	/**
@@ -153,9 +148,6 @@ public class BindingItemProvider extends ItemProviderAdapter implements IEditing
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Binding.class)) {
-		case AdaptivesemanticsPackage.BINDING__OCL_EXPRESSION:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
 		case AdaptivesemanticsPackage.BINDING__ASSIGNEE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;

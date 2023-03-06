@@ -94,6 +94,38 @@ public class AdaptivesemanticsFactoryImpl extends EFactoryImpl implements Adapti
 			return createSemanticDomainAccess();
 		case AdaptivesemanticsPackage.SELF:
 			return createSelf();
+		case AdaptivesemanticsPackage.EQUAL:
+			return createEqual();
+		case AdaptivesemanticsPackage.NOT_EQUAL:
+			return createNotEqual();
+		case AdaptivesemanticsPackage.OR:
+			return createOr();
+		case AdaptivesemanticsPackage.AND:
+			return createAnd();
+		case AdaptivesemanticsPackage.NOT:
+			return createNot();
+		case AdaptivesemanticsPackage.LESS:
+			return createLess();
+		case AdaptivesemanticsPackage.LESS_EQ:
+			return createLessEq();
+		case AdaptivesemanticsPackage.DIV:
+			return createDiv();
+		case AdaptivesemanticsPackage.MULT:
+			return createMult();
+		case AdaptivesemanticsPackage.MINUS:
+			return createMinus();
+		case AdaptivesemanticsPackage.PLUS:
+			return createPlus();
+		case AdaptivesemanticsPackage.INT_CONSTANT:
+			return createIntConstant();
+		case AdaptivesemanticsPackage.BOOL_CONSTANT:
+			return createBoolConstant();
+		case AdaptivesemanticsPackage.STRING_CONSTANT:
+			return createStringConstant();
+		case AdaptivesemanticsPackage.DOUBLE_CONSTANT:
+			return createDoubleConstant();
+		case AdaptivesemanticsPackage.OPPOSITE:
+			return createOpposite();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -287,6 +319,166 @@ public class AdaptivesemanticsFactoryImpl extends EFactoryImpl implements Adapti
 	public Self createSelf() {
 		SelfImpl self = new SelfImpl();
 		return self;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Equal createEqual() {
+		EqualImpl equal = new EqualImpl();
+		return equal;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotEqual createNotEqual() {
+		NotEqualImpl notEqual = new NotEqualImpl();
+		return notEqual;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Or createOr() {
+		OrImpl or = new OrImpl();
+		return or;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public And createAnd() {
+		AndImpl and = new AndImpl();
+		return and;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Not createNot() {
+		NotImpl not = new NotImpl();
+		return not;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Less createLess() {
+		LessImpl less = new LessImpl();
+		return less;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LessEq createLessEq() {
+		LessEqImpl lessEq = new LessEqImpl();
+		return lessEq;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Div createDiv() {
+		DivImpl div = new DivImpl();
+		return div;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Mult createMult() {
+		MultImpl mult = new MultImpl();
+		return mult;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Minus createMinus() {
+		MinusImpl minus = new MinusImpl();
+		return minus;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Plus createPlus() {
+		PlusImpl plus = new PlusImpl();
+		return plus;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IntConstant createIntConstant() {
+		IntConstantImpl intConstant = new IntConstantImpl();
+		return intConstant;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BoolConstant createBoolConstant() {
+		BoolConstantImpl boolConstant = new BoolConstantImpl();
+		return boolConstant;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StringConstant createStringConstant() {
+		StringConstantImpl stringConstant = new StringConstantImpl();
+		return stringConstant;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DoubleConstant createDoubleConstant() {
+		DoubleConstantImpl doubleConstant = new DoubleConstantImpl();
+		return doubleConstant;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Opposite createOpposite() {
+		OppositeImpl opposite = new OppositeImpl();
+		return opposite;
 	}
 
 	/**

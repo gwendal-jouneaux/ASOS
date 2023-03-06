@@ -197,6 +197,111 @@ public class AdaptivesemanticsAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseEqual(Equal object) {
+			return createEqualAdapter();
+		}
+
+		@Override
+		public Adapter caseNotEqual(NotEqual object) {
+			return createNotEqualAdapter();
+		}
+
+		@Override
+		public Adapter caseCondExpr(CondExpr object) {
+			return createCondExprAdapter();
+		}
+
+		@Override
+		public Adapter caseExpr(Expr object) {
+			return createExprAdapter();
+		}
+
+		@Override
+		public Adapter caseOr(Or object) {
+			return createOrAdapter();
+		}
+
+		@Override
+		public Adapter caseAnd(And object) {
+			return createAndAdapter();
+		}
+
+		@Override
+		public Adapter caseNot(Not object) {
+			return createNotAdapter();
+		}
+
+		@Override
+		public Adapter caseLess(Less object) {
+			return createLessAdapter();
+		}
+
+		@Override
+		public Adapter caseLessEq(LessEq object) {
+			return createLessEqAdapter();
+		}
+
+		@Override
+		public Adapter caseBinExpr(BinExpr object) {
+			return createBinExprAdapter();
+		}
+
+		@Override
+		public Adapter caseDiv(Div object) {
+			return createDivAdapter();
+		}
+
+		@Override
+		public Adapter caseMult(Mult object) {
+			return createMultAdapter();
+		}
+
+		@Override
+		public Adapter caseMinus(Minus object) {
+			return createMinusAdapter();
+		}
+
+		@Override
+		public Adapter casePlus(Plus object) {
+			return createPlusAdapter();
+		}
+
+		@Override
+		public Adapter caseConst(Const object) {
+			return createConstAdapter();
+		}
+
+		@Override
+		public Adapter caseIntConstant(IntConstant object) {
+			return createIntConstantAdapter();
+		}
+
+		@Override
+		public Adapter caseBoolConstant(BoolConstant object) {
+			return createBoolConstantAdapter();
+		}
+
+		@Override
+		public Adapter caseStringConstant(StringConstant object) {
+			return createStringConstantAdapter();
+		}
+
+		@Override
+		public Adapter caseDoubleConstant(DoubleConstant object) {
+			return createDoubleConstantAdapter();
+		}
+
+		@Override
+		public Adapter caseAssignable(Assignable object) {
+			return createAssignableAdapter();
+		}
+
+		@Override
+		public Adapter caseOpposite(Opposite object) {
+			return createOppositeAdapter();
+		}
+
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -576,6 +681,300 @@ public class AdaptivesemanticsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSelfAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal <em>Equal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal
+	 * @generated
+	 */
+	public Adapter createEqualAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual <em>Not Equal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual
+	 * @generated
+	 */
+	public Adapter createNotEqualAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.CondExpr <em>Cond Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.CondExpr
+	 * @generated
+	 */
+	public Adapter createCondExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr <em>Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr
+	 * @generated
+	 */
+	public Adapter createExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or <em>Or</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or
+	 * @generated
+	 */
+	public Adapter createOrAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And <em>And</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And
+	 * @generated
+	 */
+	public Adapter createAndAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not <em>Not</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not
+	 * @generated
+	 */
+	public Adapter createNotAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less <em>Less</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less
+	 * @generated
+	 */
+	public Adapter createLessAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq <em>Less Eq</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq
+	 * @generated
+	 */
+	public Adapter createLessEqAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BinExpr <em>Bin Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BinExpr
+	 * @generated
+	 */
+	public Adapter createBinExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div <em>Div</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div
+	 * @generated
+	 */
+	public Adapter createDivAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult <em>Mult</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult
+	 * @generated
+	 */
+	public Adapter createMultAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus <em>Minus</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus
+	 * @generated
+	 */
+	public Adapter createMinusAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus <em>Plus</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus
+	 * @generated
+	 */
+	public Adapter createPlusAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Const <em>Const</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Const
+	 * @generated
+	 */
+	public Adapter createConstAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant <em>Int Constant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant
+	 * @generated
+	 */
+	public Adapter createIntConstantAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant <em>Bool Constant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant
+	 * @generated
+	 */
+	public Adapter createBoolConstantAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant <em>String Constant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant
+	 * @generated
+	 */
+	public Adapter createStringConstantAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant <em>Double Constant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant
+	 * @generated
+	 */
+	public Adapter createDoubleConstantAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignable <em>Assignable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignable
+	 * @generated
+	 */
+	public Adapter createAssignableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite <em>Opposite</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite
+	 * @generated
+	 */
+	public Adapter createOppositeAdapter() {
 		return null;
 	}
 

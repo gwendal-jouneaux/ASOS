@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: fr.irisa.diverse.semanticadaptation.model;singleton:=true
+Automatic-Module-Name: fr.irisa.diverse.semanticadaptation.model
+Bundle-Version: 0.1.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: semanticadaptation,
+ semanticadaptation.impl,
+ semanticadaptation.util
+Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.core.runtime,
+ fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics
+Bundle-ActivationPolicy: lazy

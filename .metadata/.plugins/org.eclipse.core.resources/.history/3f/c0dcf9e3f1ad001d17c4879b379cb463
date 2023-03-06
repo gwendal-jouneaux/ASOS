@@ -1,0 +1,35 @@
+package fr.irisa.diverse.adaptivesemantics.generator.visitors
+
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant
+
+abstract class ExpressionVisitor<T> {
+	def T interpret(Plus node)
+	def T interpret(Minus node)
+	def T interpret(Div node)
+	def T interpret(Mult node)
+	def T interpret(Or node)
+	def T interpret(And node)
+	def T interpret(Not node)
+	def T interpret(Less node)
+	def T interpret(LessEq node)
+	def T interpret(Equal node)
+	def T interpret(NotEqual node)
+	def T interpret(IntConstant node)
+	def T interpret(BoolConstant node)
+	def T interpret(StringConstant node)
+	def T interpret(DoubleConstant node)
+}

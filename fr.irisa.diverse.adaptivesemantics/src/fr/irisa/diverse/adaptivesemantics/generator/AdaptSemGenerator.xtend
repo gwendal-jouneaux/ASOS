@@ -3,13 +3,15 @@
  */
 package fr.irisa.diverse.adaptivesemantics.generator
 
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.PatternCheckerCompiler
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.RuleCompiler
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolPath
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolResolver
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration
-import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef
 import java.util.ArrayList
-import java.util.HashMap
 import java.util.List
 import java.util.Map
 import org.eclipse.emf.ecore.EClass
@@ -24,7 +26,7 @@ class AdaptSemGenerator extends AbstractGenerator {
 	
 	var Map<EClass, List<Rule>> conceptRules = newHashMap;
 	var Map<EClass, List<Rule>> allRulesForConcept = newHashMap;
-	var Map<Rule, Map<SymbolDef, String>> symbolTable = newHashMap;
+	var Map<Rule, Map<SymbolDef, SymbolPath>> symbolTable = newHashMap;
 	static var EPackage semanticdomain;
 	static var String modelName;
 
@@ -98,28 +100,6 @@ class AdaptSemGenerator extends AbstractGenerator {
 	}
 	
 	/**	
-	 * Modify the EMF generated classes and interfaces to use SEALS
-	 * 
-	 * @param fsa : access to the filesystem to generate files
-	 * @param rulesByConcept : map from concept (used as input in rules) to the list of rules defined for this exact concept
-	 */
-	def void updateModelGeneratedCode(IFileSystemAccess2 fsa, Map<EClass, List<Rule>>  rulesByConcept){
-			
-		for (concept : rulesByConcept.keySet) {
-			val interface = modelName + "/" + concept.name + ".java"
-			val interfaceCode = fsa.readTextFile(interface).toString
-			val interfaceDeclaration = "public interface " + concept.name + "extends "
-			val interfaceIndex = interfaceCode.toString.indexOf(interfaceDeclaration) + interfaceDeclaration.length
-			val interfaceUpdate = interfaceCode.substring(0,interfaceIndex) + "/* NODE */" + interfaceCode.substring(interfaceIndex)
-			fsa.generateFile(interface, interfaceUpdate)
-		}
-		
-		//fsa.deleteFile(interface)
-		
-		//val implCode = fsa.readTextFile(modelName + "/impl/" + concept.name + "Impl.java")
-	}
-	
-	/**	
 	 * Resolve symbols defined in rules to EMF model queries
 	 */
 	def void createSymbolTableForRules(){
@@ -127,15 +107,20 @@ class AdaptSemGenerator extends AbstractGenerator {
 		for (concept : concepts) {
 			val rules = allRulesForConcept.get(concept)
 			for (rule : rules) {
-				val ruleSymbols = NamingUtils.getPathForSymbols(rule.conclusion.from)
+				val resolver = new SymbolResolver()
 				
-				for(premise : rule.premises){
-					if(premise.to instanceof SymbolDef){
-						ruleSymbols.put(premise.to as SymbolDef, NamingUtils.computedNameFor(premise.from))
-					} else if (premise.to instanceof DefConfiguration){
-						ruleSymbols.putAll(NamingUtils.getPathForSymbols(premise.to as DefConfiguration))
-					}
-				}
+				resolver.resolveFor(rule)
+				val ruleSymbols = resolver.symbolTable
+				
+//				val ruleSymbols = NamingUtils.getPathForSymbols(rule.conclusion.from)
+//				
+//				for(premise : rule.premises){
+//					if(premise.to instanceof SymbolDef){
+//						ruleSymbols.put(premise.to as SymbolDef, NamingUtils.computedNameFor(premise.from))
+//					} else if (premise.to instanceof DefConfiguration){
+//						ruleSymbols.putAll(NamingUtils.getPathForSymbols(premise.to as DefConfiguration))
+//					}
+//				}
 				symbolTable.put(rule, ruleSymbols)
 			}
 		}
@@ -161,6 +146,16 @@ class AdaptSemGenerator extends AbstractGenerator {
 	def String compileOperationFor(EClass concept){
 		var out = ""
 		val rules = allRulesForConcept.get(concept)
+		
+		var computedTerms = ""
+		val features = concept.EAllStructuralFeatures
+		for (feature : features) {
+			computedTerms = '''
+			«computedTerms»
+			Object «NamingUtils.computedNameFor(feature.name)» = null;
+			'''
+			
+		}
 			
 		for(var i = 0; i < rules.size; i++){
 			val first = rules.get(i)
@@ -195,21 +190,30 @@ class AdaptSemGenerator extends AbstractGenerator {
 		return '''
 		package «modelName».operations;
 		
+		import org.eclipse.emf.ecore.EObject;
+		import org.eclipse.emf.ecore.util.EcoreUtil;
 		import fr.gjouneau.savm.framework.lang.semantics.AdaptiveOperation;
+		import fr.gjouneau.savm.framework.lang.semantics.Node;
 		import fr.gjouneau.savm.framework.lang.semantics.Operationalize;
 		import fr.gjouneau.savm.framework.lang.semantics.SelfAdaptiveVisitor;
 		import «modelName».ASOS.Termination;
-		import «modelName».«concept.name»;
+		import «modelName».*;
+		import «modelName».«modelName.toFirstUpper»Factory;
 		import «modelName».interfaces.«NamingUtils.interfaceNameFor(modelName)»;
+		import «modelName».«semanticdomain.name».*;
 		
 		@Operationalize(node = «concept.name».class, visitor = "«modelName».visitors.«modelName»Visitor")
 		public class «concept.name»Op extends AdaptiveOperation<«concept.name», «NamingUtils.interfaceNameFor(modelName)»>{
 			
 			@Override
 			public Object execute(SelfAdaptiveVisitor vis, «concept.name» node, Object execCtx, «NamingUtils.interfaceNameFor(modelName)» config) {
+				Object result = null;
+				
+				«computedTerms»
+				
 				«out»
 				
-				return null;
+				return result;
 			}
 		}
 		'''
@@ -222,62 +226,8 @@ class AdaptSemGenerator extends AbstractGenerator {
 	 */
 	def String compileRule(Rule r){
 		val ruleTable = symbolTable.get(r)
-		
-		var out = "// PERFORM THE TRANSITION"
-		
-		for (binding : r.bindings) {
-			out = '''
-			Object «binding.assignee» = «binding.oclExpression»
-			«out»
-			'''
-		}
-		
-		for (resolve : r.premises) {
-			out = '''
-			Object local_computed_«resolve.from.def.name» = node«ruleTable.get(resolve.from.def)».accept(vis, execCtx);
-			if(«IF ! resolve.termination»!«ENDIF»(local_computed_«resolve.from.def.name» instanceof Termination)){
-				«out»
-			}
-			'''
-		}
-		
-		for (cond : r.conditions) {
-			out = '''
-			if(«cond.oclPredicate»){
-				«out»
-			}
-			'''
-		}
-		
-		for (in : r.inputs) {
-			out = '''
-			Object «in.assignee» = «in.operation.name»
-			«out»
-			'''
-		}
-		
-		for (output : r.outputs) {
-			out = '''
-			«out»
-			«output.operation.name» ();
-			'''
-		}
-		
-		return '''
-		if(config.before_«r.name»() != null){
-			config.before_«r.name»().adapt(vis, node, execCtx, config);
-		}
-		
-		if(config.specialize_«r.name»() != null){
-			config.specialize_«r.name»().adapt(vis, node, execCtx, config);
-		} else {
-			«out»
-		}
-		
-		if(config.after_«r.name»() != null){
-			config.after_«r.name»().adapt(vis, node, execCtx, config);
-		}
-		'''
+		val ruleCompiler = new RuleCompiler(ruleTable)
+		return ruleCompiler.compile(r)
 	}
 	
 	/**@TODO
@@ -341,41 +291,20 @@ class AdaptSemGenerator extends AbstractGenerator {
 		'''
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	def String compileNodeImplFor(String name, boolean isInterface){
-		return '''
-		@Override
-		«IF isInterface»default «ENDIF»public «NamingUtils.interfaceNameFor(name)» defaultInterface() {
-			return new «NamingUtils.interfaceNameFor(name)»();
-		}
-		'''
-	}
-	
-	
-	
-	
-	
-	
+
+
+
+
 	
 	
 	
 
 
 
+
+	
+	
+	
 
 
 

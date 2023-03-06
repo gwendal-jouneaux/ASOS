@@ -21,10 +21,10 @@ Import returns Import:
 Rule returns Rule:
 	'rule' name=ID ','
 		conclusion=Conclusion
-	('where' conditions+=Condition*)?
-	('resolve' premises+=Premise*)?
-	('bind' bindings+=Binding*)?
-	('IO' (inputs+=Input | outputs+=Output)*)?
+	('where' conditions+=Condition (';' conditions+=Condition)*)?
+	('resolve' premises+=Premise (';' premises+=Premise)*)?
+	('bind' bindings+=Binding (';' bindings+=Binding)*)?
+	('IO' (inputs+=Input | outputs+=Output) (';' (inputs+=Input | outputs+=Output))*)?
 ;
 
 
@@ -32,9 +32,9 @@ Rule returns Rule:
 
 
 Condition returns Condition:
-	{Condition} oclPredicate=EString
+	{Condition} cond=CondExpr
 ;
-	
+
 	
 
 
@@ -54,7 +54,13 @@ Output returns Output:
 
 	
 Binding returns Binding:
-	assignee=Assignee "=" oclExpression=EString
+	assignee=Assignee "=" expr=Assignable
+;
+
+
+
+Assignable returns Assignable:
+	Expr | RefConfiguration | SemanticDomainAccess
 ;
 
 Assignee returns Assignee:
@@ -102,7 +108,7 @@ SingleTermDef:
 ;
 
 SingleTermRef:
-	=> RefConfiguration | SymbolRef | SemanticDomainAccess
+	=> RefConfiguration | SymbolRef
 ;
 
 	
@@ -142,6 +148,92 @@ ListRef returns ListRef:
 VoidList returns VoidList:
 	{VoidList} "[]"
 ;
+
+
+
+
+
+CondExpr returns CondExpr:
+	CondOr | CondAnd | CondEquality | CondComparison | CondNot
+;
+
+CondNot returns CondExpr:
+	{Not} "!" expr=Expr
+;
+
+CondOr returns CondExpr:
+	{Or} lhs=And "||" rhs=And
+;
+
+
+CondAnd returns CondExpr:
+	{And} lhs=Equality "&&" rhs=Equality
+;
+
+CondEquality returns CondExpr:
+	({Equal} lhs=Comparison '==' rhs=Comparison) | 
+	({NotEqual} lhs=Comparison '!=' rhs=Comparison)
+;
+
+CondComparison returns CondExpr:
+	({Less} lhs=PlusOrMinus '<' rhs=PlusOrMinus) | 
+	({LessEq} lhs=PlusOrMinus '<=' rhs=PlusOrMinus)
+;
+
+Expr returns Expr:
+	Or
+;
+
+Or returns Expr:
+	And (
+		{Or.lhs=current} "||" rhs=And
+	)*;
+
+And returns Expr:
+	Equality (
+		{And.lhs=current} "&&" rhs=Equality
+	)*;
+
+Equality returns Expr:
+	Comparison (
+		({Equal.lhs=current} '==' | {NotEqual.lhs=current} '!=')
+		rhs=Comparison
+	)*;
+
+Comparison returns Expr:
+	PlusOrMinus (
+		({Less.lhs=current} '<' | {LessEq.lhs=current} '<=')
+		rhs=PlusOrMinus
+	)*;
+
+PlusOrMinus returns Expr:
+	MulOrDiv (
+		({Plus.lhs=current} '+' | {Minus.lhs=current} '-')
+		rhs=MulOrDiv
+	)*;
+
+MulOrDiv returns Expr:
+	Primary (
+		({Mult.lhs=current} '*' | {Div.lhs=current} '/')
+		rhs=Primary
+	)*;
+
+Primary returns Expr:
+	'(' Expr ')' |
+	{Not} "!" expr=Primary |
+	{Opposite} "-" expr=Primary |
+	Atomic;
+
+Atomic returns Expr:
+	{IntConstant} value=INT |
+	{DoubleConstant} value=DOUBLE |
+	{StringConstant} value=STRING |
+	{BoolConstant} value=BOOL | 
+	SemanticDomainAccess | 
+	TerminalAccessExpression;
+
+terminal BOOL returns ecore::EBoolean: ('true' | 'false');
+terminal DOUBLE returns ecore::EDouble: ('0'..'9')+"."('0'..'9')+;
 
 
 

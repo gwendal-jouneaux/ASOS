@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="semanticadaptation" nsURI="http://www.diverse-team.fr/semanticadaptation"
+    nsPrefix="semanticadaptation">
+  <eClassifiers xsi:type="ecore:EClass" name="SemanticAdaptation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="semantic" lowerBound="1"
+        eType="#//Semantic" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modules" upperBound="-1"
+        eType="#//Module" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="model" lowerBound="1" eType="ecore:EClass ../../fr.irisa.diverse.adaptivesemantics.model/model/adaptivesemantics.ecore#//Model"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
+        eType="ecore:EClass ../../fr.irisa.diverse.adaptivesemantics.model/model/adaptivesemantics.ecore#//Import"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Adaptation" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="ecore:EClass ../../fr.irisa.diverse.adaptivesemantics.model/model/adaptivesemantics.ecore#//Rule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="adaptation" lowerBound="1"
+        eType="ecore:EClass ../../fr.irisa.diverse.adaptivesemantics.model/model/adaptivesemantics.ecore#//Rule"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Semantic">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importURI" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Specialization" eSuperTypes="#//Adaptation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Before" eSuperTypes="#//Adaptation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="After" eSuperTypes="#//Adaptation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Poincut">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="structure" lowerBound="1"
+        eType="ecore:EClass ../../fr.irisa.diverse.adaptivesemantics.model/model/adaptivesemantics.ecore#//DefConfiguration"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" upperBound="-1"
+        eType="ecore:EClass ../../fr.irisa.diverse.adaptivesemantics.model/model/adaptivesemantics.ecore#//Condition"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Module">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="poincut" upperBound="-1"
+        eType="#//Poincut" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="adaptations" upperBound="-1"
+        eType="#//Adaptation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="recursive" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+</ecore:EPackage>

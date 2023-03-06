@@ -1,0 +1,19 @@
+package fr.irisa.diverse.adaptivesemantics.generator.visitors
+
+class RefConfigurationVisitor<T> {
+	def T visitRefConfiguration(RefConfiguration node)
+	def T visitMinus(VoidList node)
+	def T visitDiv(ListRef node)
+	def T visitMult(SymbolRef node)
+	def T visitOr(Or node)
+	def T visitAnd(And node)
+	def T visitNot(Not node)
+	def T visitLess(Less node)
+	def T visitLessEq(LessEq node)
+	def T visitEqual(Equal node)
+	def T visitNotEqual(NotEqual node)
+	def T visitIntConstant(IntConstant node)
+	def T visitBoolConstant(BoolConstant node)
+	def T visitStringConstant(StringConstant node)
+	def T visitDoubleConstant(DoubleConstant node)
+}

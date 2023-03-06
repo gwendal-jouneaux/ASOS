@@ -1,0 +1,16 @@
+/**
+ */
+package fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Term Ref</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ *
+ * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getTermRef()
+ * @model interface="true" abstract="true"
+ * @generated
+ */
+public interface TermRef extends ConclusionOutput {
+} // TermRef

@@ -1,0 +1,5 @@
+2022-09-19 18:26:57,041 [Start Help Server] INFO  org.eclipse.jetty.server.Server - jetty-10.0.5; built: 2021-06-11T14:18:43.438Z; git: dc21b2d73cafd78a56e8e532cf50863739bd7027; jvm 11.0.16.1+1
+2022-09-19 18:26:57,082 [Start Help Server] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2022-09-19 18:26:57,110 [Start Help Server] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@5d8bb388{/help,null,AVAILABLE}
+2022-09-19 18:26:57,120 [Start Help Server] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@267475f7{HTTP/1.1, (http/1.1)}{127.0.0.1:45241}
+2022-09-19 18:26:57,136 [Start Help Server] INFO  org.eclipse.jetty.server.Server - Started Server@3cdd5a3c{STARTING}[10.0.5,sto=0] @12913525ms

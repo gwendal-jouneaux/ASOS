@@ -1,0 +1,227 @@
+/**
+ */
+package fr.irisa.diverse.semanticadaptation.model.semanticadaptation;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.eclipse.emf.common.util.Enumerator;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the literals of the enumeration '<em><b>Adaptation Type</b></em>',
+ * and utility methods for working with them.
+ * <!-- end-user-doc -->
+ * @see fr.irisa.diverse.semanticadaptation.model.semanticadaptation.SemanticadaptationPackage#getAdaptationType()
+ * @model
+ * @generated
+ */
+public enum AdaptationType implements Enumerator {
+	/**
+	 * The '<em><b>BEFORE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BEFORE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	BEFORE(1, "BEFORE", "BEFORE"),
+
+	/**
+	 * The '<em><b>AFTER</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #AFTER_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	AFTER(2, "AFTER", "AFTER"),
+
+	/**
+	 * The '<em><b>SPECIALIZE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SPECIALIZE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	SPECIALIZE(0, "SPECIALIZE", "SPECIALIZE");
+
+	/**
+	 * The '<em><b>BEFORE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BEFORE
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int BEFORE_VALUE = 1;
+
+	/**
+	 * The '<em><b>AFTER</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #AFTER
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int AFTER_VALUE = 2;
+
+	/**
+	 * The '<em><b>SPECIALIZE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SPECIALIZE
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SPECIALIZE_VALUE = 0;
+
+	/**
+	 * An array of all the '<em><b>Adaptation Type</b></em>' enumerators.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static final AdaptationType[] VALUES_ARRAY = new AdaptationType[] { BEFORE, AFTER, SPECIALIZE, };
+
+	/**
+	 * A public read-only list of all the '<em><b>Adaptation Type</b></em>' enumerators.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final List<AdaptationType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+
+	/**
+	 * Returns the '<em><b>Adaptation Type</b></em>' literal with the specified literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
+	 * @generated
+	 */
+	public static AdaptationType get(String literal) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			AdaptationType result = VALUES_ARRAY[i];
+			if (result.toString().equals(literal)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Adaptation Type</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
+	 * @generated
+	 */
+	public static AdaptationType getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			AdaptationType result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Adaptation Type</b></em>' literal with the specified integer value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
+	 * @generated
+	 */
+	public static AdaptationType get(int value) {
+		switch (value) {
+		case BEFORE_VALUE:
+			return BEFORE;
+		case AFTER_VALUE:
+			return AFTER;
+		case SPECIALIZE_VALUE:
+			return SPECIALIZE;
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
+
+	/**
+	 * Only this class can construct instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private AdaptationType(int value, String name, String literal) {
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+		return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+
+} //AdaptationType

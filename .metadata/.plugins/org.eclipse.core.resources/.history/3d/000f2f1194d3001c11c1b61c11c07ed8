@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: fr.irisa.diverse.semanticadaptation
+Bundle-ManifestVersion: 2
+Bundle-Name: fr.irisa.diverse.semanticadaptation
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: fr.irisa.diverse.semanticadaptation; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: fr.irisa.diverse.semanticadaptation.model,
+ org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-11

@@ -1,0 +1,44 @@
+/**
+ */
+package fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Ref Termination</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefTermination#getTermination <em>Termination</em>}</li>
+ * </ul>
+ *
+ * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getRefTermination()
+ * @model
+ * @generated
+ */
+public interface RefTermination extends ConclusionOutput {
+	/**
+	 * Returns the value of the '<em><b>Termination</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Termination</em>' containment reference.
+	 * @see #setTermination(SingleTermRef)
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getRefTermination_Termination()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	SingleTermRef getTermination();
+
+	/**
+	 * Sets the value of the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefTermination#getTermination <em>Termination</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Termination</em>' containment reference.
+	 * @see #getTermination()
+	 * @generated
+	 */
+	void setTermination(SingleTermRef value);
+
+} // RefTermination

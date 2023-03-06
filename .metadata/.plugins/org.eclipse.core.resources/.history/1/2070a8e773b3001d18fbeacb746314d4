@@ -1,0 +1,13 @@
+package fr.irisa.diverse.adaptivesemantics.generator.visitors
+
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList
+
+abstract class RefConfigurationVisitor<T> {
+	def T visitRefConfiguration(RefConfiguration node)
+	def T visitVoidList(VoidList node)
+	def T visitListRef(ListRef node)
+	def T visitSymbolRef(SymbolRef node)
+}

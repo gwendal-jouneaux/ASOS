@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="adaptivesemantics" nsURI="http://www.diverse-team.fr/adaptivesemantics"
+    nsPrefix="adaptivesemantics">
+  <eClassifiers xsi:type="ecore:EClass" name="Termination"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Binding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AdaptiveSemantics">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
+        eType="#//Import" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
+        eType="#//Rule" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="model" upperBound="1"
+        eType="#//Model" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Conclusion"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Import">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importURI" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Premise"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Condition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="oclPredicate" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Rule">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conclusion" lowerBound="1"
+        eType="#//Conclusion" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="premises" upperBound="-1"
+        eType="#//Premise" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" upperBound="-1"
+        eType="#//Condition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bindings" upperBound="-1"
+        eType="#//Binding" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Model">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importURI" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="semanticdomain" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NameBinding" eSuperTypes="#//Binding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SemanticDomainUpdate" eSuperTypes="#//Binding">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="path" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RefConfiguration" eSuperTypes="#//Configuration #//TermRef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childs" upperBound="-1"
+        eType="#//TermRef" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DefConfiguration" eSuperTypes="#//Configuration #//TermDef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childs" upperBound="-1"
+        eType="#//TermDef" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SymbolDef" eSuperTypes="#//TermDef">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SymbolRef" eSuperTypes="#//TermRef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="def" lowerBound="1" eType="#//SymbolDef"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ListRef" eSuperTypes="#//TermRef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="head" lowerBound="1" eType="#//SymbolRef"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tail" lowerBound="1" eType="#//SymbolRef"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ListDef" eSuperTypes="#//TermDef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="head" lowerBound="1" eType="#//SymbolDef"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tail" lowerBound="1" eType="#//SymbolDef"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Configuration" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="concept" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SemanticDomainAccess">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="path" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TermDef"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TermRef"/>
+</ecore:EPackage>

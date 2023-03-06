@@ -6,21 +6,37 @@ package fr.irisa.diverse.adaptivesemantics.serializer;
 import com.google.inject.Inject;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Conclusion;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Import;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Premise;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Self;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainAccess;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList;
@@ -53,8 +69,40 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 			case AdaptivesemanticsPackage.ADAPTIVE_SEMANTICS:
 				sequence_AdaptiveSemantics(context, (AdaptiveSemantics) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.AND:
+				if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_And(context, (And) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondAndRule()) {
+					sequence_CondAnd(context, (And) semanticObject); 
+					return; 
+				}
+				else break;
 			case AdaptivesemanticsPackage.BINDING:
 				sequence_Binding(context, (Binding) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.BOOL_CONSTANT:
+				sequence_Atomic(context, (BoolConstant) semanticObject); 
 				return; 
 			case AdaptivesemanticsPackage.CONCLUSION:
 				sequence_Conclusion(context, (Conclusion) semanticObject); 
@@ -65,23 +113,218 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 			case AdaptivesemanticsPackage.DEF_CONFIGURATION:
 				sequence_DefConfiguration(context, (DefConfiguration) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.DIV:
+				sequence_MulOrDiv(context, (Div) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.DOUBLE_CONSTANT:
+				sequence_Atomic(context, (DoubleConstant) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.EQUAL:
+				if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondEqualityRule()) {
+					sequence_CondEquality(context, (Equal) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Equality(context, (Equal) semanticObject); 
+					return; 
+				}
+				else break;
 			case AdaptivesemanticsPackage.IMPORT:
 				sequence_Import(context, (Import) semanticObject); 
 				return; 
 			case AdaptivesemanticsPackage.INPUT:
 				sequence_Input(context, (Input) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.INT_CONSTANT:
+				sequence_Atomic(context, (IntConstant) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.LESS:
+				if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Comparison(context, (Less) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondComparisonRule()) {
+					sequence_CondComparison(context, (Less) semanticObject); 
+					return; 
+				}
+				else break;
+			case AdaptivesemanticsPackage.LESS_EQ:
+				if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Comparison(context, (LessEq) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondComparisonRule()) {
+					sequence_CondComparison(context, (LessEq) semanticObject); 
+					return; 
+				}
+				else break;
 			case AdaptivesemanticsPackage.LIST_DEF:
 				sequence_ListDef(context, (ListDef) semanticObject); 
 				return; 
 			case AdaptivesemanticsPackage.LIST_REF:
 				sequence_ListRef(context, (ListRef) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.MINUS:
+				sequence_PlusOrMinus(context, (Minus) semanticObject); 
+				return; 
 			case AdaptivesemanticsPackage.MODEL:
 				sequence_Model(context, (Model) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.MULT:
+				sequence_MulOrDiv(context, (Mult) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.NOT:
+				if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondNotRule()) {
+					sequence_CondNot(context, (Not) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Primary(context, (Not) semanticObject); 
+					return; 
+				}
+				else break;
+			case AdaptivesemanticsPackage.NOT_EQUAL:
+				if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondEqualityRule()) {
+					sequence_CondEquality(context, (NotEqual) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Equality(context, (NotEqual) semanticObject); 
+					return; 
+				}
+				else break;
+			case AdaptivesemanticsPackage.OPPOSITE:
+				sequence_Primary(context, (Opposite) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.OR:
+				if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondOrRule()) {
+					sequence_CondOr(context, (Or) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Or(context, (Or) semanticObject); 
+					return; 
+				}
+				else break;
 			case AdaptivesemanticsPackage.OUTPUT:
 				sequence_Output(context, (Output) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.PLUS:
+				sequence_PlusOrMinus(context, (Plus) semanticObject); 
 				return; 
 			case AdaptivesemanticsPackage.PREMISE:
 				sequence_Premise(context, (Premise) semanticObject); 
@@ -97,6 +340,9 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 				return; 
 			case AdaptivesemanticsPackage.SEMANTIC_DOMAIN_ACCESS:
 				sequence_SemanticDomainAccess(context, (SemanticDomainAccess) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.STRING_CONSTANT:
+				sequence_Atomic(context, (StringConstant) semanticObject); 
 				return; 
 			case AdaptivesemanticsPackage.SYMBOL_DEF:
 				sequence_SymbolDef(context, (SymbolDef) semanticObject); 
@@ -126,21 +372,286 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     Assignable returns And
+	 *     Expr returns And
+	 *     Or returns And
+	 *     Or.Or_1_0 returns And
+	 *     And returns And
+	 *     And.And_1_0 returns And
+	 *     Equality returns And
+	 *     Equality.Equal_1_0_0_0 returns And
+	 *     Equality.NotEqual_1_0_1_0 returns And
+	 *     Comparison returns And
+	 *     Comparison.Less_1_0_0_0 returns And
+	 *     Comparison.LessEq_1_0_1_0 returns And
+	 *     PlusOrMinus returns And
+	 *     PlusOrMinus.Plus_1_0_0_0 returns And
+	 *     PlusOrMinus.Minus_1_0_1_0 returns And
+	 *     MulOrDiv returns And
+	 *     MulOrDiv.Mult_1_0_0_0 returns And
+	 *     MulOrDiv.Div_1_0_1_0 returns And
+	 *     Primary returns And
+	 *
+	 * Constraint:
+	 *     (lhs=And_And_1_0 rhs=Equality)
+	 */
+	protected void sequence_And(ISerializationContext context, And semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAndAccess().getAndLhsAction_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getAndAccess().getRhsEqualityParserRuleCall_1_2_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns BoolConstant
+	 *     Expr returns BoolConstant
+	 *     Or returns BoolConstant
+	 *     Or.Or_1_0 returns BoolConstant
+	 *     And returns BoolConstant
+	 *     And.And_1_0 returns BoolConstant
+	 *     Equality returns BoolConstant
+	 *     Equality.Equal_1_0_0_0 returns BoolConstant
+	 *     Equality.NotEqual_1_0_1_0 returns BoolConstant
+	 *     Comparison returns BoolConstant
+	 *     Comparison.Less_1_0_0_0 returns BoolConstant
+	 *     Comparison.LessEq_1_0_1_0 returns BoolConstant
+	 *     PlusOrMinus returns BoolConstant
+	 *     PlusOrMinus.Plus_1_0_0_0 returns BoolConstant
+	 *     PlusOrMinus.Minus_1_0_1_0 returns BoolConstant
+	 *     MulOrDiv returns BoolConstant
+	 *     MulOrDiv.Mult_1_0_0_0 returns BoolConstant
+	 *     MulOrDiv.Div_1_0_1_0 returns BoolConstant
+	 *     Primary returns BoolConstant
+	 *     Atomic returns BoolConstant
+	 *
+	 * Constraint:
+	 *     value=BOOL
+	 */
+	protected void sequence_Atomic(ISerializationContext context, BoolConstant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BOOL_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BOOL_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAtomicAccess().getValueBOOLTerminalRuleCall_3_1_0(), semanticObject.isValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns DoubleConstant
+	 *     Expr returns DoubleConstant
+	 *     Or returns DoubleConstant
+	 *     Or.Or_1_0 returns DoubleConstant
+	 *     And returns DoubleConstant
+	 *     And.And_1_0 returns DoubleConstant
+	 *     Equality returns DoubleConstant
+	 *     Equality.Equal_1_0_0_0 returns DoubleConstant
+	 *     Equality.NotEqual_1_0_1_0 returns DoubleConstant
+	 *     Comparison returns DoubleConstant
+	 *     Comparison.Less_1_0_0_0 returns DoubleConstant
+	 *     Comparison.LessEq_1_0_1_0 returns DoubleConstant
+	 *     PlusOrMinus returns DoubleConstant
+	 *     PlusOrMinus.Plus_1_0_0_0 returns DoubleConstant
+	 *     PlusOrMinus.Minus_1_0_1_0 returns DoubleConstant
+	 *     MulOrDiv returns DoubleConstant
+	 *     MulOrDiv.Mult_1_0_0_0 returns DoubleConstant
+	 *     MulOrDiv.Div_1_0_1_0 returns DoubleConstant
+	 *     Primary returns DoubleConstant
+	 *     Atomic returns DoubleConstant
+	 *
+	 * Constraint:
+	 *     value=DOUBLE
+	 */
+	protected void sequence_Atomic(ISerializationContext context, DoubleConstant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.DOUBLE_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.DOUBLE_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAtomicAccess().getValueDOUBLETerminalRuleCall_1_1_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns IntConstant
+	 *     Expr returns IntConstant
+	 *     Or returns IntConstant
+	 *     Or.Or_1_0 returns IntConstant
+	 *     And returns IntConstant
+	 *     And.And_1_0 returns IntConstant
+	 *     Equality returns IntConstant
+	 *     Equality.Equal_1_0_0_0 returns IntConstant
+	 *     Equality.NotEqual_1_0_1_0 returns IntConstant
+	 *     Comparison returns IntConstant
+	 *     Comparison.Less_1_0_0_0 returns IntConstant
+	 *     Comparison.LessEq_1_0_1_0 returns IntConstant
+	 *     PlusOrMinus returns IntConstant
+	 *     PlusOrMinus.Plus_1_0_0_0 returns IntConstant
+	 *     PlusOrMinus.Minus_1_0_1_0 returns IntConstant
+	 *     MulOrDiv returns IntConstant
+	 *     MulOrDiv.Mult_1_0_0_0 returns IntConstant
+	 *     MulOrDiv.Div_1_0_1_0 returns IntConstant
+	 *     Primary returns IntConstant
+	 *     Atomic returns IntConstant
+	 *
+	 * Constraint:
+	 *     value=INT
+	 */
+	protected void sequence_Atomic(ISerializationContext context, IntConstant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.INT_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.INT_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAtomicAccess().getValueINTTerminalRuleCall_0_1_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns StringConstant
+	 *     Expr returns StringConstant
+	 *     Or returns StringConstant
+	 *     Or.Or_1_0 returns StringConstant
+	 *     And returns StringConstant
+	 *     And.And_1_0 returns StringConstant
+	 *     Equality returns StringConstant
+	 *     Equality.Equal_1_0_0_0 returns StringConstant
+	 *     Equality.NotEqual_1_0_1_0 returns StringConstant
+	 *     Comparison returns StringConstant
+	 *     Comparison.Less_1_0_0_0 returns StringConstant
+	 *     Comparison.LessEq_1_0_1_0 returns StringConstant
+	 *     PlusOrMinus returns StringConstant
+	 *     PlusOrMinus.Plus_1_0_0_0 returns StringConstant
+	 *     PlusOrMinus.Minus_1_0_1_0 returns StringConstant
+	 *     MulOrDiv returns StringConstant
+	 *     MulOrDiv.Mult_1_0_0_0 returns StringConstant
+	 *     MulOrDiv.Div_1_0_1_0 returns StringConstant
+	 *     Primary returns StringConstant
+	 *     Atomic returns StringConstant
+	 *
+	 * Constraint:
+	 *     value=STRING
+	 */
+	protected void sequence_Atomic(ISerializationContext context, StringConstant semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.STRING_CONSTANT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.STRING_CONSTANT__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getAtomicAccess().getValueSTRINGTerminalRuleCall_2_1_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Binding returns Binding
 	 *
 	 * Constraint:
-	 *     (assignee=Assignee oclExpression=EString)
+	 *     (assignee=Assignee expr=Assignable)
 	 */
 	protected void sequence_Binding(ISerializationContext context, Binding semanticObject) {
 		if (errorAcceptor != null) {
 			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BINDING__ASSIGNEE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BINDING__ASSIGNEE));
-			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BINDING__OCL_EXPRESSION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BINDING__OCL_EXPRESSION));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BINDING__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BINDING__EXPR));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getBindingAccess().getAssigneeAssigneeParserRuleCall_0_0(), semanticObject.getAssignee());
-		feeder.accept(grammarAccess.getBindingAccess().getOclExpressionEStringParserRuleCall_2_0(), semanticObject.getOclExpression());
+		feeder.accept(grammarAccess.getBindingAccess().getExprAssignableParserRuleCall_2_0(), semanticObject.getExpr());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns Less
+	 *     Expr returns Less
+	 *     Or returns Less
+	 *     Or.Or_1_0 returns Less
+	 *     And returns Less
+	 *     And.And_1_0 returns Less
+	 *     Equality returns Less
+	 *     Equality.Equal_1_0_0_0 returns Less
+	 *     Equality.NotEqual_1_0_1_0 returns Less
+	 *     Comparison returns Less
+	 *     Comparison.Less_1_0_0_0 returns Less
+	 *     Comparison.LessEq_1_0_1_0 returns Less
+	 *     PlusOrMinus returns Less
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Less
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Less
+	 *     MulOrDiv returns Less
+	 *     MulOrDiv.Mult_1_0_0_0 returns Less
+	 *     MulOrDiv.Div_1_0_1_0 returns Less
+	 *     Primary returns Less
+	 *
+	 * Constraint:
+	 *     (lhs=Comparison_Less_1_0_0_0 rhs=PlusOrMinus)
+	 */
+	protected void sequence_Comparison(ISerializationContext context, Less semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getComparisonAccess().getRhsPlusOrMinusParserRuleCall_1_1_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns LessEq
+	 *     Expr returns LessEq
+	 *     Or returns LessEq
+	 *     Or.Or_1_0 returns LessEq
+	 *     And returns LessEq
+	 *     And.And_1_0 returns LessEq
+	 *     Equality returns LessEq
+	 *     Equality.Equal_1_0_0_0 returns LessEq
+	 *     Equality.NotEqual_1_0_1_0 returns LessEq
+	 *     Comparison returns LessEq
+	 *     Comparison.Less_1_0_0_0 returns LessEq
+	 *     Comparison.LessEq_1_0_1_0 returns LessEq
+	 *     PlusOrMinus returns LessEq
+	 *     PlusOrMinus.Plus_1_0_0_0 returns LessEq
+	 *     PlusOrMinus.Minus_1_0_1_0 returns LessEq
+	 *     MulOrDiv returns LessEq
+	 *     MulOrDiv.Mult_1_0_0_0 returns LessEq
+	 *     MulOrDiv.Div_1_0_1_0 returns LessEq
+	 *     Primary returns LessEq
+	 *
+	 * Constraint:
+	 *     (lhs=Comparison_LessEq_1_0_1_0 rhs=PlusOrMinus)
+	 */
+	protected void sequence_Comparison(ISerializationContext context, LessEq semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getComparisonAccess().getRhsPlusOrMinusParserRuleCall_1_1_0(), semanticObject.getRhs());
 		feeder.finish();
 	}
 	
@@ -159,18 +670,169 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     CondExpr returns And
+	 *     CondAnd returns And
+	 *
+	 * Constraint:
+	 *     (lhs=Equality rhs=Equality)
+	 */
+	protected void sequence_CondAnd(ISerializationContext context, And semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCondAndAccess().getLhsEqualityParserRuleCall_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getCondAndAccess().getRhsEqualityParserRuleCall_3_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     CondExpr returns Less
+	 *     CondComparison returns Less
+	 *
+	 * Constraint:
+	 *     (lhs=PlusOrMinus rhs=PlusOrMinus)
+	 */
+	protected void sequence_CondComparison(ISerializationContext context, Less semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCondComparisonAccess().getLhsPlusOrMinusParserRuleCall_0_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getCondComparisonAccess().getRhsPlusOrMinusParserRuleCall_0_3_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     CondExpr returns LessEq
+	 *     CondComparison returns LessEq
+	 *
+	 * Constraint:
+	 *     (lhs=PlusOrMinus rhs=PlusOrMinus)
+	 */
+	protected void sequence_CondComparison(ISerializationContext context, LessEq semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCondComparisonAccess().getLhsPlusOrMinusParserRuleCall_1_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getCondComparisonAccess().getRhsPlusOrMinusParserRuleCall_1_3_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     CondExpr returns Equal
+	 *     CondEquality returns Equal
+	 *
+	 * Constraint:
+	 *     (lhs=Comparison rhs=Comparison)
+	 */
+	protected void sequence_CondEquality(ISerializationContext context, Equal semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCondEqualityAccess().getLhsComparisonParserRuleCall_0_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getCondEqualityAccess().getRhsComparisonParserRuleCall_0_3_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     CondExpr returns NotEqual
+	 *     CondEquality returns NotEqual
+	 *
+	 * Constraint:
+	 *     (lhs=Comparison rhs=Comparison)
+	 */
+	protected void sequence_CondEquality(ISerializationContext context, NotEqual semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCondEqualityAccess().getLhsComparisonParserRuleCall_1_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getCondEqualityAccess().getRhsComparisonParserRuleCall_1_3_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     CondExpr returns Not
+	 *     CondNot returns Not
+	 *
+	 * Constraint:
+	 *     expr=Expr
+	 */
+	protected void sequence_CondNot(ISerializationContext context, Not semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.NOT__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.NOT__EXPR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCondNotAccess().getExprExprParserRuleCall_2_0(), semanticObject.getExpr());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     CondExpr returns Or
+	 *     CondOr returns Or
+	 *
+	 * Constraint:
+	 *     (lhs=And rhs=And)
+	 */
+	protected void sequence_CondOr(ISerializationContext context, Or semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCondOrAccess().getLhsAndParserRuleCall_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getCondOrAccess().getRhsAndParserRuleCall_3_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Condition returns Condition
 	 *
 	 * Constraint:
-	 *     oclPredicate=EString
+	 *     cond=CondExpr
 	 */
 	protected void sequence_Condition(ISerializationContext context, Condition semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.CONDITION__OCL_PREDICATE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.CONDITION__OCL_PREDICATE));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.CONDITION__COND) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.CONDITION__COND));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getConditionAccess().getOclPredicateEStringParserRuleCall_1_0(), semanticObject.getOclPredicate());
+		feeder.accept(grammarAccess.getConditionAccess().getCondCondExprParserRuleCall_1_0(), semanticObject.getCond());
 		feeder.finish();
 	}
 	
@@ -186,6 +848,84 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 */
 	protected void sequence_DefConfiguration(ISerializationContext context, DefConfiguration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns Equal
+	 *     Expr returns Equal
+	 *     Or returns Equal
+	 *     Or.Or_1_0 returns Equal
+	 *     And returns Equal
+	 *     And.And_1_0 returns Equal
+	 *     Equality returns Equal
+	 *     Equality.Equal_1_0_0_0 returns Equal
+	 *     Equality.NotEqual_1_0_1_0 returns Equal
+	 *     Comparison returns Equal
+	 *     Comparison.Less_1_0_0_0 returns Equal
+	 *     Comparison.LessEq_1_0_1_0 returns Equal
+	 *     PlusOrMinus returns Equal
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Equal
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Equal
+	 *     MulOrDiv returns Equal
+	 *     MulOrDiv.Mult_1_0_0_0 returns Equal
+	 *     MulOrDiv.Div_1_0_1_0 returns Equal
+	 *     Primary returns Equal
+	 *
+	 * Constraint:
+	 *     (lhs=Equality_Equal_1_0_0_0 rhs=Comparison)
+	 */
+	protected void sequence_Equality(ISerializationContext context, Equal semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getEqualityAccess().getRhsComparisonParserRuleCall_1_1_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns NotEqual
+	 *     Expr returns NotEqual
+	 *     Or returns NotEqual
+	 *     Or.Or_1_0 returns NotEqual
+	 *     And returns NotEqual
+	 *     And.And_1_0 returns NotEqual
+	 *     Equality returns NotEqual
+	 *     Equality.Equal_1_0_0_0 returns NotEqual
+	 *     Equality.NotEqual_1_0_1_0 returns NotEqual
+	 *     Comparison returns NotEqual
+	 *     Comparison.Less_1_0_0_0 returns NotEqual
+	 *     Comparison.LessEq_1_0_1_0 returns NotEqual
+	 *     PlusOrMinus returns NotEqual
+	 *     PlusOrMinus.Plus_1_0_0_0 returns NotEqual
+	 *     PlusOrMinus.Minus_1_0_1_0 returns NotEqual
+	 *     MulOrDiv returns NotEqual
+	 *     MulOrDiv.Mult_1_0_0_0 returns NotEqual
+	 *     MulOrDiv.Div_1_0_1_0 returns NotEqual
+	 *     Primary returns NotEqual
+	 *
+	 * Constraint:
+	 *     (lhs=Equality_NotEqual_1_0_1_0 rhs=Comparison)
+	 */
+	protected void sequence_Equality(ISerializationContext context, NotEqual semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getEqualityAccess().getRhsComparisonParserRuleCall_1_1_0(), semanticObject.getRhs());
+		feeder.finish();
 	}
 	
 	
@@ -298,6 +1038,123 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     Assignable returns Div
+	 *     Expr returns Div
+	 *     Or returns Div
+	 *     Or.Or_1_0 returns Div
+	 *     And returns Div
+	 *     And.And_1_0 returns Div
+	 *     Equality returns Div
+	 *     Equality.Equal_1_0_0_0 returns Div
+	 *     Equality.NotEqual_1_0_1_0 returns Div
+	 *     Comparison returns Div
+	 *     Comparison.Less_1_0_0_0 returns Div
+	 *     Comparison.LessEq_1_0_1_0 returns Div
+	 *     PlusOrMinus returns Div
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Div
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Div
+	 *     MulOrDiv returns Div
+	 *     MulOrDiv.Mult_1_0_0_0 returns Div
+	 *     MulOrDiv.Div_1_0_1_0 returns Div
+	 *     Primary returns Div
+	 *
+	 * Constraint:
+	 *     (lhs=MulOrDiv_Div_1_0_1_0 rhs=Primary)
+	 */
+	protected void sequence_MulOrDiv(ISerializationContext context, Div semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getMulOrDivAccess().getRhsPrimaryParserRuleCall_1_1_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns Mult
+	 *     Expr returns Mult
+	 *     Or returns Mult
+	 *     Or.Or_1_0 returns Mult
+	 *     And returns Mult
+	 *     And.And_1_0 returns Mult
+	 *     Equality returns Mult
+	 *     Equality.Equal_1_0_0_0 returns Mult
+	 *     Equality.NotEqual_1_0_1_0 returns Mult
+	 *     Comparison returns Mult
+	 *     Comparison.Less_1_0_0_0 returns Mult
+	 *     Comparison.LessEq_1_0_1_0 returns Mult
+	 *     PlusOrMinus returns Mult
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Mult
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Mult
+	 *     MulOrDiv returns Mult
+	 *     MulOrDiv.Mult_1_0_0_0 returns Mult
+	 *     MulOrDiv.Div_1_0_1_0 returns Mult
+	 *     Primary returns Mult
+	 *
+	 * Constraint:
+	 *     (lhs=MulOrDiv_Mult_1_0_0_0 rhs=Primary)
+	 */
+	protected void sequence_MulOrDiv(ISerializationContext context, Mult semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getMulOrDivAccess().getRhsPrimaryParserRuleCall_1_1_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns Or
+	 *     Expr returns Or
+	 *     Or returns Or
+	 *     Or.Or_1_0 returns Or
+	 *     And returns Or
+	 *     And.And_1_0 returns Or
+	 *     Equality returns Or
+	 *     Equality.Equal_1_0_0_0 returns Or
+	 *     Equality.NotEqual_1_0_1_0 returns Or
+	 *     Comparison returns Or
+	 *     Comparison.Less_1_0_0_0 returns Or
+	 *     Comparison.LessEq_1_0_1_0 returns Or
+	 *     PlusOrMinus returns Or
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Or
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Or
+	 *     MulOrDiv returns Or
+	 *     MulOrDiv.Mult_1_0_0_0 returns Or
+	 *     MulOrDiv.Div_1_0_1_0 returns Or
+	 *     Primary returns Or
+	 *
+	 * Constraint:
+	 *     (lhs=Or_Or_1_0 rhs=And)
+	 */
+	protected void sequence_Or(ISerializationContext context, Or semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getOrAccess().getOrLhsAction_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getOrAccess().getRhsAndParserRuleCall_1_2_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Output returns Output
 	 *
 	 * Constraint:
@@ -305,6 +1162,84 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 */
 	protected void sequence_Output(ISerializationContext context, Output semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns Minus
+	 *     Expr returns Minus
+	 *     Or returns Minus
+	 *     Or.Or_1_0 returns Minus
+	 *     And returns Minus
+	 *     And.And_1_0 returns Minus
+	 *     Equality returns Minus
+	 *     Equality.Equal_1_0_0_0 returns Minus
+	 *     Equality.NotEqual_1_0_1_0 returns Minus
+	 *     Comparison returns Minus
+	 *     Comparison.Less_1_0_0_0 returns Minus
+	 *     Comparison.LessEq_1_0_1_0 returns Minus
+	 *     PlusOrMinus returns Minus
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Minus
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Minus
+	 *     MulOrDiv returns Minus
+	 *     MulOrDiv.Mult_1_0_0_0 returns Minus
+	 *     MulOrDiv.Div_1_0_1_0 returns Minus
+	 *     Primary returns Minus
+	 *
+	 * Constraint:
+	 *     (lhs=PlusOrMinus_Minus_1_0_1_0 rhs=MulOrDiv)
+	 */
+	protected void sequence_PlusOrMinus(ISerializationContext context, Minus semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getPlusOrMinusAccess().getRhsMulOrDivParserRuleCall_1_1_0(), semanticObject.getRhs());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns Plus
+	 *     Expr returns Plus
+	 *     Or returns Plus
+	 *     Or.Or_1_0 returns Plus
+	 *     And returns Plus
+	 *     And.And_1_0 returns Plus
+	 *     Equality returns Plus
+	 *     Equality.Equal_1_0_0_0 returns Plus
+	 *     Equality.NotEqual_1_0_1_0 returns Plus
+	 *     Comparison returns Plus
+	 *     Comparison.Less_1_0_0_0 returns Plus
+	 *     Comparison.LessEq_1_0_1_0 returns Plus
+	 *     PlusOrMinus returns Plus
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Plus
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Plus
+	 *     MulOrDiv returns Plus
+	 *     MulOrDiv.Mult_1_0_0_0 returns Plus
+	 *     MulOrDiv.Div_1_0_1_0 returns Plus
+	 *     Primary returns Plus
+	 *
+	 * Constraint:
+	 *     (lhs=PlusOrMinus_Plus_1_0_0_0 rhs=MulOrDiv)
+	 */
+	protected void sequence_PlusOrMinus(ISerializationContext context, Plus semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0(), semanticObject.getLhs());
+		feeder.accept(grammarAccess.getPlusOrMinusAccess().getRhsMulOrDivParserRuleCall_1_1_0(), semanticObject.getRhs());
+		feeder.finish();
 	}
 	
 	
@@ -322,6 +1257,79 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     Assignable returns Not
+	 *     Expr returns Not
+	 *     Or returns Not
+	 *     Or.Or_1_0 returns Not
+	 *     And returns Not
+	 *     And.And_1_0 returns Not
+	 *     Equality returns Not
+	 *     Equality.Equal_1_0_0_0 returns Not
+	 *     Equality.NotEqual_1_0_1_0 returns Not
+	 *     Comparison returns Not
+	 *     Comparison.Less_1_0_0_0 returns Not
+	 *     Comparison.LessEq_1_0_1_0 returns Not
+	 *     PlusOrMinus returns Not
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Not
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Not
+	 *     MulOrDiv returns Not
+	 *     MulOrDiv.Mult_1_0_0_0 returns Not
+	 *     MulOrDiv.Div_1_0_1_0 returns Not
+	 *     Primary returns Not
+	 *
+	 * Constraint:
+	 *     expr=Primary
+	 */
+	protected void sequence_Primary(ISerializationContext context, Not semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.NOT__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.NOT__EXPR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getPrimaryAccess().getExprPrimaryParserRuleCall_1_2_0(), semanticObject.getExpr());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns Opposite
+	 *     Expr returns Opposite
+	 *     Or returns Opposite
+	 *     Or.Or_1_0 returns Opposite
+	 *     And returns Opposite
+	 *     And.And_1_0 returns Opposite
+	 *     Equality returns Opposite
+	 *     Equality.Equal_1_0_0_0 returns Opposite
+	 *     Equality.NotEqual_1_0_1_0 returns Opposite
+	 *     Comparison returns Opposite
+	 *     Comparison.Less_1_0_0_0 returns Opposite
+	 *     Comparison.LessEq_1_0_1_0 returns Opposite
+	 *     PlusOrMinus returns Opposite
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Opposite
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Opposite
+	 *     MulOrDiv returns Opposite
+	 *     MulOrDiv.Mult_1_0_0_0 returns Opposite
+	 *     MulOrDiv.Div_1_0_1_0 returns Opposite
+	 *     Primary returns Opposite
+	 *
+	 * Constraint:
+	 *     expr=Primary
+	 */
+	protected void sequence_Primary(ISerializationContext context, Opposite semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.OPPOSITE__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.OPPOSITE__EXPR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getPrimaryAccess().getExprPrimaryParserRuleCall_2_2_0(), semanticObject.getExpr());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns RefConfiguration
 	 *     TermRef returns RefConfiguration
 	 *     SingleTermRef returns RefConfiguration
 	 *     RefConfiguration returns RefConfiguration
@@ -342,10 +1350,10 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     (
 	 *         name=ID 
 	 *         conclusion=Conclusion 
-	 *         conditions+=Condition* 
-	 *         premises+=Premise* 
-	 *         bindings+=Binding* 
-	 *         (inputs+=Input | outputs+=Output)*
+	 *         (conditions+=Condition conditions+=Condition*)? 
+	 *         (premises+=Premise premises+=Premise*)? 
+	 *         (bindings+=Binding bindings+=Binding*)? 
+	 *         ((inputs+=Input | outputs+=Output) inputs+=Input? (outputs+=Output? inputs+=Input?)*)?
 	 *     )
 	 */
 	protected void sequence_Rule(ISerializationContext context, Rule semanticObject) {
@@ -355,8 +1363,28 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     Assignable returns Self
 	 *     TerminalAccessExpression returns Self
 	 *     Self returns Self
+	 *     Expr returns Self
+	 *     Or returns Self
+	 *     Or.Or_1_0 returns Self
+	 *     And returns Self
+	 *     And.And_1_0 returns Self
+	 *     Equality returns Self
+	 *     Equality.Equal_1_0_0_0 returns Self
+	 *     Equality.NotEqual_1_0_1_0 returns Self
+	 *     Comparison returns Self
+	 *     Comparison.Less_1_0_0_0 returns Self
+	 *     Comparison.LessEq_1_0_1_0 returns Self
+	 *     PlusOrMinus returns Self
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Self
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Self
+	 *     MulOrDiv returns Self
+	 *     MulOrDiv.Mult_1_0_0_0 returns Self
+	 *     MulOrDiv.Div_1_0_1_0 returns Self
+	 *     Primary returns Self
+	 *     Atomic returns Self
 	 *
 	 * Constraint:
 	 *     {Self}
@@ -368,11 +1396,29 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     Assignable returns SemanticDomainAccess
 	 *     Assignee returns SemanticDomainAccess
 	 *     SemanticDomainAccess returns SemanticDomainAccess
 	 *     SemanticDomainAccess.SemanticDomainAccess_3_0 returns SemanticDomainAccess
-	 *     TermRef returns SemanticDomainAccess
-	 *     SingleTermRef returns SemanticDomainAccess
+	 *     Expr returns SemanticDomainAccess
+	 *     Or returns SemanticDomainAccess
+	 *     Or.Or_1_0 returns SemanticDomainAccess
+	 *     And returns SemanticDomainAccess
+	 *     And.And_1_0 returns SemanticDomainAccess
+	 *     Equality returns SemanticDomainAccess
+	 *     Equality.Equal_1_0_0_0 returns SemanticDomainAccess
+	 *     Equality.NotEqual_1_0_1_0 returns SemanticDomainAccess
+	 *     Comparison returns SemanticDomainAccess
+	 *     Comparison.Less_1_0_0_0 returns SemanticDomainAccess
+	 *     Comparison.LessEq_1_0_1_0 returns SemanticDomainAccess
+	 *     PlusOrMinus returns SemanticDomainAccess
+	 *     PlusOrMinus.Plus_1_0_0_0 returns SemanticDomainAccess
+	 *     PlusOrMinus.Minus_1_0_1_0 returns SemanticDomainAccess
+	 *     MulOrDiv returns SemanticDomainAccess
+	 *     MulOrDiv.Mult_1_0_0_0 returns SemanticDomainAccess
+	 *     MulOrDiv.Div_1_0_1_0 returns SemanticDomainAccess
+	 *     Primary returns SemanticDomainAccess
+	 *     Atomic returns SemanticDomainAccess
 	 *
 	 * Constraint:
 	 *     ((reciever=TerminalAccessExpression field=ID) | (reciever=SemanticDomainAccess_SemanticDomainAccess_3_0 field=ID))
@@ -405,10 +1451,30 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     Assignable returns SymbolRef
 	 *     TerminalAccessExpression returns SymbolRef
 	 *     TermRef returns SymbolRef
 	 *     SingleTermRef returns SymbolRef
 	 *     SymbolRef returns SymbolRef
+	 *     Expr returns SymbolRef
+	 *     Or returns SymbolRef
+	 *     Or.Or_1_0 returns SymbolRef
+	 *     And returns SymbolRef
+	 *     And.And_1_0 returns SymbolRef
+	 *     Equality returns SymbolRef
+	 *     Equality.Equal_1_0_0_0 returns SymbolRef
+	 *     Equality.NotEqual_1_0_1_0 returns SymbolRef
+	 *     Comparison returns SymbolRef
+	 *     Comparison.Less_1_0_0_0 returns SymbolRef
+	 *     Comparison.LessEq_1_0_1_0 returns SymbolRef
+	 *     PlusOrMinus returns SymbolRef
+	 *     PlusOrMinus.Plus_1_0_0_0 returns SymbolRef
+	 *     PlusOrMinus.Minus_1_0_1_0 returns SymbolRef
+	 *     MulOrDiv returns SymbolRef
+	 *     MulOrDiv.Mult_1_0_0_0 returns SymbolRef
+	 *     MulOrDiv.Div_1_0_1_0 returns SymbolRef
+	 *     Primary returns SymbolRef
+	 *     Atomic returns SymbolRef
 	 *
 	 * Constraint:
 	 *     def=[SymbolDef|ID]

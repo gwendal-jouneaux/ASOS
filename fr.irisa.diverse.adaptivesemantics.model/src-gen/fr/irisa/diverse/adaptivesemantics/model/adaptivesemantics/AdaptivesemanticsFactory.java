@@ -194,6 +194,150 @@ public interface AdaptivesemanticsFactory extends EFactory {
 	Self createSelf();
 
 	/**
+	 * Returns a new object of class '<em>Equal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Equal</em>'.
+	 * @generated
+	 */
+	Equal createEqual();
+
+	/**
+	 * Returns a new object of class '<em>Not Equal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Not Equal</em>'.
+	 * @generated
+	 */
+	NotEqual createNotEqual();
+
+	/**
+	 * Returns a new object of class '<em>Or</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Or</em>'.
+	 * @generated
+	 */
+	Or createOr();
+
+	/**
+	 * Returns a new object of class '<em>And</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>And</em>'.
+	 * @generated
+	 */
+	And createAnd();
+
+	/**
+	 * Returns a new object of class '<em>Not</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Not</em>'.
+	 * @generated
+	 */
+	Not createNot();
+
+	/**
+	 * Returns a new object of class '<em>Less</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Less</em>'.
+	 * @generated
+	 */
+	Less createLess();
+
+	/**
+	 * Returns a new object of class '<em>Less Eq</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Less Eq</em>'.
+	 * @generated
+	 */
+	LessEq createLessEq();
+
+	/**
+	 * Returns a new object of class '<em>Div</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Div</em>'.
+	 * @generated
+	 */
+	Div createDiv();
+
+	/**
+	 * Returns a new object of class '<em>Mult</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Mult</em>'.
+	 * @generated
+	 */
+	Mult createMult();
+
+	/**
+	 * Returns a new object of class '<em>Minus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Minus</em>'.
+	 * @generated
+	 */
+	Minus createMinus();
+
+	/**
+	 * Returns a new object of class '<em>Plus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Plus</em>'.
+	 * @generated
+	 */
+	Plus createPlus();
+
+	/**
+	 * Returns a new object of class '<em>Int Constant</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Int Constant</em>'.
+	 * @generated
+	 */
+	IntConstant createIntConstant();
+
+	/**
+	 * Returns a new object of class '<em>Bool Constant</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Bool Constant</em>'.
+	 * @generated
+	 */
+	BoolConstant createBoolConstant();
+
+	/**
+	 * Returns a new object of class '<em>String Constant</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>String Constant</em>'.
+	 * @generated
+	 */
+	StringConstant createStringConstant();
+
+	/**
+	 * Returns a new object of class '<em>Double Constant</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Double Constant</em>'.
+	 * @generated
+	 */
+	DoubleConstant createDoubleConstant();
+
+	/**
+	 * Returns a new object of class '<em>Opposite</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Opposite</em>'.
+	 * @generated
+	 */
+	Opposite createOpposite();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

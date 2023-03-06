@@ -1,0 +1,7 @@
+package fr.irisa.diverse.adaptivesemantics.generator.visitors
+
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.ExpressionVisitor
+
+class ExpressionCompiler extends ExpressionVisitor<T> {
+	
+}

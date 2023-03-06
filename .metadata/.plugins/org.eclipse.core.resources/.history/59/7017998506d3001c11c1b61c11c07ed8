@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated adaptivesemantics -->
+      <package
+            uri="http://www.diverse-team.fr/adaptivesemantics"
+            class="fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage"
+            genModel="model/adaptivesemantics.genmodel"/>
+   </extension>
+
+</plugin>

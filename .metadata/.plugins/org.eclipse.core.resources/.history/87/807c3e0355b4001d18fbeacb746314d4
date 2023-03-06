@@ -1,0 +1,19 @@
+package fr.irisa.diverse.adaptivesemantics.generator.visitors
+
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList
+
+class SymbolResolver {
+	
+	def void resolveFor(Rule node){}
+		
+	def dispatch void resolve(DefConfiguration node){}
+	
+	def dispatch void resolve(VoidList node){}
+	
+	def dispatch void resolve(ListDef node){}
+	
+	def dispatch void resolve(SymbolDef node){}
+}

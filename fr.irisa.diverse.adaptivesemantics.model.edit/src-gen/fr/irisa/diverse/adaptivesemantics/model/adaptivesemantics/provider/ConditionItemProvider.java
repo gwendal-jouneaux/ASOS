@@ -2,6 +2,7 @@
  */
 package fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.provider;
 
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsFactory;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition;
 
@@ -13,14 +14,13 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -53,25 +53,38 @@ public class ConditionItemProvider extends ItemProviderAdapter implements IEditi
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addOclPredicatePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Ocl Predicate feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addOclPredicatePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Condition_oclPredicate_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Condition_oclPredicate_feature",
-								"_UI_Condition_type"),
-						AdaptivesemanticsPackage.Literals.CONDITION__OCL_PREDICATE, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(AdaptivesemanticsPackage.Literals.CONDITION__COND);
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -103,9 +116,7 @@ public class ConditionItemProvider extends ItemProviderAdapter implements IEditi
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Condition) object).getOclPredicate();
-		return label == null || label.length() == 0 ? getString("_UI_Condition_type")
-				: getString("_UI_Condition_type") + " " + label;
+		return getString("_UI_Condition_type");
 	}
 
 	/**
@@ -120,8 +131,8 @@ public class ConditionItemProvider extends ItemProviderAdapter implements IEditi
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Condition.class)) {
-		case AdaptivesemanticsPackage.CONDITION__OCL_PREDICATE:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+		case AdaptivesemanticsPackage.CONDITION__COND:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -137,6 +148,27 @@ public class ConditionItemProvider extends ItemProviderAdapter implements IEditi
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONDITION__COND,
+				AdaptivesemanticsFactory.eINSTANCE.createEqual()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONDITION__COND,
+				AdaptivesemanticsFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONDITION__COND,
+				AdaptivesemanticsFactory.eINSTANCE.createOr()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONDITION__COND,
+				AdaptivesemanticsFactory.eINSTANCE.createAnd()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONDITION__COND,
+				AdaptivesemanticsFactory.eINSTANCE.createNot()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONDITION__COND,
+				AdaptivesemanticsFactory.eINSTANCE.createLess()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONDITION__COND,
+				AdaptivesemanticsFactory.eINSTANCE.createLessEq()));
 	}
 
 	/**

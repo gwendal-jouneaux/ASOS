@@ -1,0 +1,18 @@
+/**
+ */
+package semanticadaptation;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Reduction</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ *
+ * @see semanticadaptation.SemanticadaptationPackage#getReduction()
+ * @model interface="true" abstract="true"
+ * @generated
+ */
+public interface Reduction extends EObject {
+} // Reduction

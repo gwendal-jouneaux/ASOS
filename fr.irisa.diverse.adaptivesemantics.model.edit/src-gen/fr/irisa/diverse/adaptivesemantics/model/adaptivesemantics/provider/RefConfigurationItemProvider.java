@@ -152,9 +152,6 @@ public class RefConfigurationItemProvider extends ConfigurationItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.REF_CONFIGURATION__CHILDS,
 				AdaptivesemanticsFactory.eINSTANCE.createVoidList()));
-
-		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.REF_CONFIGURATION__CHILDS,
-				AdaptivesemanticsFactory.eINSTANCE.createSemanticDomainAccess()));
 	}
 
 }

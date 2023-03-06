@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/fr.irisa.diverse.semanticadaptation.model/src-gen"
+    creationIcons="false" editDirectory="/fr.irisa.diverse.semanticadaptation.model.edit/src-gen"
+    editorDirectory="/fr.irisa.diverse.semanticadaptation.model.editor/src-gen" modelPluginID="fr.irisa.diverse.semanticadaptation.model"
+    modelName="Semanticadaptation" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" usedGenPackages="../../fr.irisa.diverse.adaptivesemantics.model/model/adaptivesemantics.genmodel#//adaptivesemantics ../../fr.irisa.diverse.adaptivesemantics.model/model/adaptivesemantics.genmodel#//ecore"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>semanticadaptation.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Semanticadaptation" disposableProviderFactory="true" ecorePackage="semanticadaptation.ecore#/">
+    <genClasses ecoreClass="semanticadaptation.ecore#//SemanticAdaptation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference semanticadaptation.ecore#//SemanticAdaptation/model"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference semanticadaptation.ecore#//SemanticAdaptation/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference semanticadaptation.ecore#//SemanticAdaptation/semantic"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference semanticadaptation.ecore#//SemanticAdaptation/modules"/>
+    </genClasses>
+    <genClasses ecoreClass="semanticadaptation.ecore#//Model">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute semanticadaptation.ecore#//Model/importURI"/>
+    </genClasses>
+    <genClasses ecoreClass="semanticadaptation.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute semanticadaptation.ecore#//Import/importURI"/>
+    </genClasses>
+    <genClasses ecoreClass="semanticadaptation.ecore#//Adaptation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute semanticadaptation.ecore#//Adaptation/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference semanticadaptation.ecore#//Adaptation/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference semanticadaptation.ecore#//Adaptation/adaptation"/>
+    </genClasses>
+    <genClasses ecoreClass="semanticadaptation.ecore#//Semantic">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute semanticadaptation.ecore#//Semantic/importURI"/>
+    </genClasses>
+    <genClasses ecoreClass="semanticadaptation.ecore#//Specialization"/>
+    <genClasses ecoreClass="semanticadaptation.ecore#//Before"/>
+    <genClasses ecoreClass="semanticadaptation.ecore#//After"/>
+    <genClasses ecoreClass="semanticadaptation.ecore#//Poincut">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference semanticadaptation.ecore#//Poincut/structure"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference semanticadaptation.ecore#//Poincut/conditions"/>
+    </genClasses>
+    <genClasses ecoreClass="semanticadaptation.ecore#//Module">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference semanticadaptation.ecore#//Module/poincut"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference semanticadaptation.ecore#//Module/adaptations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute semanticadaptation.ecore#//Module/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute semanticadaptation.ecore#//Module/recursive"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

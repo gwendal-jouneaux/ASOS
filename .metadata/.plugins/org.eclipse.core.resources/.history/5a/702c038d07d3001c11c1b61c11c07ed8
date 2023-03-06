@@ -1,0 +1,1717 @@
+/**
+ */
+package semanticadaptation;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+
+/**
+ * <!-- begin-user-doc -->
+ * The <b>Package</b> for the model.
+ * It contains accessors for the meta objects to represent
+ * <ul>
+ *   <li>each class,</li>
+ *   <li>each feature of each class,</li>
+ *   <li>each operation of each class,</li>
+ *   <li>each enum,</li>
+ *   <li>and each data type</li>
+ * </ul>
+ * <!-- end-user-doc -->
+ * @see semanticadaptation.SemanticadaptationFactory
+ * @model kind="package"
+ * @generated
+ */
+public interface SemanticadaptationPackage extends EPackage {
+	/**
+	 * The package name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNAME = "semanticadaptation";
+
+	/**
+	 * The package namespace URI.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNS_URI = "http://www.diverse-team.fr/semanticadaptation";
+
+	/**
+	 * The package namespace name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNS_PREFIX = "semanticadaptation";
+
+	/**
+	 * The singleton instance of the package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	SemanticadaptationPackage eINSTANCE = semanticadaptation.impl.SemanticadaptationPackageImpl.init();
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.SemanticAdaptationImpl <em>Semantic Adaptation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.SemanticAdaptationImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSemanticAdaptation()
+	 * @generated
+	 */
+	int SEMANTIC_ADAPTATION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Model</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_ADAPTATION__MODEL = 0;
+
+	/**
+	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_ADAPTATION__IMPORTS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_ADAPTATION__RULES = 2;
+
+	/**
+	 * The feature id for the '<em><b>Semantic</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_ADAPTATION__SEMANTIC = 3;
+
+	/**
+	 * The number of structural features of the '<em>Semantic Adaptation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_ADAPTATION_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Semantic Adaptation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_ADAPTATION_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.ModelImpl <em>Model</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.ModelImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getModel()
+	 * @generated
+	 */
+	int MODEL = 1;
+
+	/**
+	 * The feature id for the '<em><b>Import URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL__IMPORT_URI = 0;
+
+	/**
+	 * The number of structural features of the '<em>Model</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Model</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.ImportImpl <em>Import</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.ImportImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getImport()
+	 * @generated
+	 */
+	int IMPORT = 2;
+
+	/**
+	 * The feature id for the '<em><b>Import URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT__IMPORT_URI = 0;
+
+	/**
+	 * The number of structural features of the '<em>Import</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Import</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPORT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.RuleImpl <em>Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.RuleImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getRule()
+	 * @generated
+	 */
+	int RULE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Conclusion</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE__CONCLUSION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Premises</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE__PREMISES = 1;
+
+	/**
+	 * The feature id for the '<em><b>Conditions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE__CONDITIONS = 2;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE__NAME = 3;
+
+	/**
+	 * The number of structural features of the '<em>Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.Reduction <em>Reduction</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.Reduction
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getReduction()
+	 * @generated
+	 */
+	int REDUCTION = 17;
+
+	/**
+	 * The number of structural features of the '<em>Reduction</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Reduction</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REDUCTION_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.ConclusionImpl <em>Conclusion</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.ConclusionImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getConclusion()
+	 * @generated
+	 */
+	int CONCLUSION = 4;
+
+	/**
+	 * The feature id for the '<em><b>From</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION__FROM = REDUCTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>To</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION__TO = REDUCTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Conclusion</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION_FEATURE_COUNT = REDUCTION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Conclusion</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION_OPERATION_COUNT = REDUCTION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.ConditionImpl <em>Condition</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.ConditionImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getCondition()
+	 * @generated
+	 */
+	int CONDITION = 5;
+
+	/**
+	 * The feature id for the '<em><b>Ocl Predicate</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION__OCL_PREDICATE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Condition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Condition</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONDITION_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.ConfigurationImpl <em>Configuration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.ConfigurationImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getConfiguration()
+	 * @generated
+	 */
+	int CONFIGURATION = 6;
+
+	/**
+	 * The feature id for the '<em><b>Concept</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIGURATION__CONCEPT = 0;
+
+	/**
+	 * The number of structural features of the '<em>Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIGURATION_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONFIGURATION_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.TermDef <em>Term Def</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.TermDef
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getTermDef()
+	 * @generated
+	 */
+	int TERM_DEF = 15;
+
+	/**
+	 * The number of structural features of the '<em>Term Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERM_DEF_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Term Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERM_DEF_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.SymbolDefImpl <em>Symbol Def</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.SymbolDefImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSymbolDef()
+	 * @generated
+	 */
+	int SYMBOL_DEF = 7;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_DEF__NAME = TERM_DEF_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Symbol Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_DEF_FEATURE_COUNT = TERM_DEF_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Symbol Def</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_DEF_OPERATION_COUNT = TERM_DEF_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.DefConfigurationImpl <em>Def Configuration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.DefConfigurationImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getDefConfiguration()
+	 * @generated
+	 */
+	int DEF_CONFIGURATION = 8;
+
+	/**
+	 * The feature id for the '<em><b>Concept</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEF_CONFIGURATION__CONCEPT = CONFIGURATION__CONCEPT;
+
+	/**
+	 * The feature id for the '<em><b>Childs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEF_CONFIGURATION__CHILDS = CONFIGURATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Def Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEF_CONFIGURATION_FEATURE_COUNT = CONFIGURATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Def Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEF_CONFIGURATION_OPERATION_COUNT = CONFIGURATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.RefConfigurationImpl <em>Ref Configuration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.RefConfigurationImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getRefConfiguration()
+	 * @generated
+	 */
+	int REF_CONFIGURATION = 9;
+
+	/**
+	 * The feature id for the '<em><b>Concept</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REF_CONFIGURATION__CONCEPT = CONFIGURATION__CONCEPT;
+
+	/**
+	 * The feature id for the '<em><b>Childs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REF_CONFIGURATION__CHILDS = CONFIGURATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Ref Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REF_CONFIGURATION_FEATURE_COUNT = CONFIGURATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Ref Configuration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REF_CONFIGURATION_OPERATION_COUNT = CONFIGURATION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.ConclusionOutput <em>Conclusion Output</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.ConclusionOutput
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getConclusionOutput()
+	 * @generated
+	 */
+	int CONCLUSION_OUTPUT = 13;
+
+	/**
+	 * The number of structural features of the '<em>Conclusion Output</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION_OUTPUT_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Conclusion Output</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCLUSION_OUTPUT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.TermRef <em>Term Ref</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.TermRef
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getTermRef()
+	 * @generated
+	 */
+	int TERM_REF = 16;
+
+	/**
+	 * The number of structural features of the '<em>Term Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERM_REF_FEATURE_COUNT = CONCLUSION_OUTPUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Term Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERM_REF_OPERATION_COUNT = CONCLUSION_OUTPUT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.SymbolRefImpl <em>Symbol Ref</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.SymbolRefImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSymbolRef()
+	 * @generated
+	 */
+	int SYMBOL_REF = 10;
+
+	/**
+	 * The feature id for the '<em><b>Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_REF__DEF = TERM_REF_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Symbol Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_REF_FEATURE_COUNT = TERM_REF_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Symbol Ref</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_REF_OPERATION_COUNT = TERM_REF_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.SemanticDomainUpdateImpl <em>Semantic Domain Update</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.SemanticDomainUpdateImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSemanticDomainUpdate()
+	 * @generated
+	 */
+	int SEMANTIC_DOMAIN_UPDATE = 11;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_UPDATE__PATH = CONCLUSION_OUTPUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_UPDATE__VALUE = CONCLUSION_OUTPUT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Semantic Domain Update</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_UPDATE_FEATURE_COUNT = CONCLUSION_OUTPUT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Semantic Domain Update</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_UPDATE_OPERATION_COUNT = CONCLUSION_OUTPUT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.SemanticDomainAccessImpl <em>Semantic Domain Access</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.SemanticDomainAccessImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSemanticDomainAccess()
+	 * @generated
+	 */
+	int SEMANTIC_DOMAIN_ACCESS = 12;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_ACCESS__PATH = CONCLUSION_OUTPUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Semantic Domain Access</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_ACCESS_FEATURE_COUNT = CONCLUSION_OUTPUT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Semantic Domain Access</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_DOMAIN_ACCESS_OPERATION_COUNT = CONCLUSION_OUTPUT_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.PremiseImpl <em>Premise</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.PremiseImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getPremise()
+	 * @generated
+	 */
+	int PREMISE = 14;
+
+	/**
+	 * The feature id for the '<em><b>From</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREMISE__FROM = REDUCTION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>To</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREMISE__TO = REDUCTION_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Premise</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREMISE_FEATURE_COUNT = REDUCTION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Premise</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREMISE_OPERATION_COUNT = REDUCTION_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.impl.SemanticImpl <em>Semantic</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.impl.SemanticImpl
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSemantic()
+	 * @generated
+	 */
+	int SEMANTIC = 18;
+
+	/**
+	 * The feature id for the '<em><b>Import URI</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC__IMPORT_URI = 0;
+
+	/**
+	 * The number of structural features of the '<em>Semantic</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Semantic</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEMANTIC_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link semanticadaptation.AdaptationType <em>Adaptation Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see semanticadaptation.AdaptationType
+	 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getAdaptationType()
+	 * @generated
+	 */
+	int ADAPTATION_TYPE = 19;
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.SemanticAdaptation <em>Semantic Adaptation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Semantic Adaptation</em>'.
+	 * @see semanticadaptation.SemanticAdaptation
+	 * @generated
+	 */
+	EClass getSemanticAdaptation();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link semanticadaptation.SemanticAdaptation#getModel <em>Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Model</em>'.
+	 * @see semanticadaptation.SemanticAdaptation#getModel()
+	 * @see #getSemanticAdaptation()
+	 * @generated
+	 */
+	EReference getSemanticAdaptation_Model();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link semanticadaptation.SemanticAdaptation#getImports <em>Imports</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Imports</em>'.
+	 * @see semanticadaptation.SemanticAdaptation#getImports()
+	 * @see #getSemanticAdaptation()
+	 * @generated
+	 */
+	EReference getSemanticAdaptation_Imports();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link semanticadaptation.SemanticAdaptation#getRules <em>Rules</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Rules</em>'.
+	 * @see semanticadaptation.SemanticAdaptation#getRules()
+	 * @see #getSemanticAdaptation()
+	 * @generated
+	 */
+	EReference getSemanticAdaptation_Rules();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link semanticadaptation.SemanticAdaptation#getSemantic <em>Semantic</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Semantic</em>'.
+	 * @see semanticadaptation.SemanticAdaptation#getSemantic()
+	 * @see #getSemanticAdaptation()
+	 * @generated
+	 */
+	EReference getSemanticAdaptation_Semantic();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.Model <em>Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Model</em>'.
+	 * @see semanticadaptation.Model
+	 * @generated
+	 */
+	EClass getModel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link semanticadaptation.Model#getImportURI <em>Import URI</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Import URI</em>'.
+	 * @see semanticadaptation.Model#getImportURI()
+	 * @see #getModel()
+	 * @generated
+	 */
+	EAttribute getModel_ImportURI();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.Import <em>Import</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Import</em>'.
+	 * @see semanticadaptation.Import
+	 * @generated
+	 */
+	EClass getImport();
+
+	/**
+	 * Returns the meta object for the attribute '{@link semanticadaptation.Import#getImportURI <em>Import URI</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Import URI</em>'.
+	 * @see semanticadaptation.Import#getImportURI()
+	 * @see #getImport()
+	 * @generated
+	 */
+	EAttribute getImport_ImportURI();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.Rule <em>Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rule</em>'.
+	 * @see semanticadaptation.Rule
+	 * @generated
+	 */
+	EClass getRule();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link semanticadaptation.Rule#getConclusion <em>Conclusion</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Conclusion</em>'.
+	 * @see semanticadaptation.Rule#getConclusion()
+	 * @see #getRule()
+	 * @generated
+	 */
+	EReference getRule_Conclusion();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link semanticadaptation.Rule#getPremises <em>Premises</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Premises</em>'.
+	 * @see semanticadaptation.Rule#getPremises()
+	 * @see #getRule()
+	 * @generated
+	 */
+	EReference getRule_Premises();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link semanticadaptation.Rule#getConditions <em>Conditions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Conditions</em>'.
+	 * @see semanticadaptation.Rule#getConditions()
+	 * @see #getRule()
+	 * @generated
+	 */
+	EReference getRule_Conditions();
+
+	/**
+	 * Returns the meta object for the attribute '{@link semanticadaptation.Rule#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see semanticadaptation.Rule#getName()
+	 * @see #getRule()
+	 * @generated
+	 */
+	EAttribute getRule_Name();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.Conclusion <em>Conclusion</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Conclusion</em>'.
+	 * @see semanticadaptation.Conclusion
+	 * @generated
+	 */
+	EClass getConclusion();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link semanticadaptation.Conclusion#getFrom <em>From</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>From</em>'.
+	 * @see semanticadaptation.Conclusion#getFrom()
+	 * @see #getConclusion()
+	 * @generated
+	 */
+	EReference getConclusion_From();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link semanticadaptation.Conclusion#getTo <em>To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>To</em>'.
+	 * @see semanticadaptation.Conclusion#getTo()
+	 * @see #getConclusion()
+	 * @generated
+	 */
+	EReference getConclusion_To();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.Condition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Condition</em>'.
+	 * @see semanticadaptation.Condition
+	 * @generated
+	 */
+	EClass getCondition();
+
+	/**
+	 * Returns the meta object for the attribute '{@link semanticadaptation.Condition#getOclPredicate <em>Ocl Predicate</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ocl Predicate</em>'.
+	 * @see semanticadaptation.Condition#getOclPredicate()
+	 * @see #getCondition()
+	 * @generated
+	 */
+	EAttribute getCondition_OclPredicate();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.Configuration <em>Configuration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Configuration</em>'.
+	 * @see semanticadaptation.Configuration
+	 * @generated
+	 */
+	EClass getConfiguration();
+
+	/**
+	 * Returns the meta object for the reference '{@link semanticadaptation.Configuration#getConcept <em>Concept</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Concept</em>'.
+	 * @see semanticadaptation.Configuration#getConcept()
+	 * @see #getConfiguration()
+	 * @generated
+	 */
+	EReference getConfiguration_Concept();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.SymbolDef <em>Symbol Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Symbol Def</em>'.
+	 * @see semanticadaptation.SymbolDef
+	 * @generated
+	 */
+	EClass getSymbolDef();
+
+	/**
+	 * Returns the meta object for the attribute '{@link semanticadaptation.SymbolDef#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see semanticadaptation.SymbolDef#getName()
+	 * @see #getSymbolDef()
+	 * @generated
+	 */
+	EAttribute getSymbolDef_Name();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.DefConfiguration <em>Def Configuration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Def Configuration</em>'.
+	 * @see semanticadaptation.DefConfiguration
+	 * @generated
+	 */
+	EClass getDefConfiguration();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link semanticadaptation.DefConfiguration#getChilds <em>Childs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Childs</em>'.
+	 * @see semanticadaptation.DefConfiguration#getChilds()
+	 * @see #getDefConfiguration()
+	 * @generated
+	 */
+	EReference getDefConfiguration_Childs();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.RefConfiguration <em>Ref Configuration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Ref Configuration</em>'.
+	 * @see semanticadaptation.RefConfiguration
+	 * @generated
+	 */
+	EClass getRefConfiguration();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link semanticadaptation.RefConfiguration#getChilds <em>Childs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Childs</em>'.
+	 * @see semanticadaptation.RefConfiguration#getChilds()
+	 * @see #getRefConfiguration()
+	 * @generated
+	 */
+	EReference getRefConfiguration_Childs();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.SymbolRef <em>Symbol Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Symbol Ref</em>'.
+	 * @see semanticadaptation.SymbolRef
+	 * @generated
+	 */
+	EClass getSymbolRef();
+
+	/**
+	 * Returns the meta object for the reference '{@link semanticadaptation.SymbolRef#getDef <em>Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Def</em>'.
+	 * @see semanticadaptation.SymbolRef#getDef()
+	 * @see #getSymbolRef()
+	 * @generated
+	 */
+	EReference getSymbolRef_Def();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.SemanticDomainUpdate <em>Semantic Domain Update</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Semantic Domain Update</em>'.
+	 * @see semanticadaptation.SemanticDomainUpdate
+	 * @generated
+	 */
+	EClass getSemanticDomainUpdate();
+
+	/**
+	 * Returns the meta object for the attribute '{@link semanticadaptation.SemanticDomainUpdate#getPath <em>Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Path</em>'.
+	 * @see semanticadaptation.SemanticDomainUpdate#getPath()
+	 * @see #getSemanticDomainUpdate()
+	 * @generated
+	 */
+	EAttribute getSemanticDomainUpdate_Path();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link semanticadaptation.SemanticDomainUpdate#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see semanticadaptation.SemanticDomainUpdate#getValue()
+	 * @see #getSemanticDomainUpdate()
+	 * @generated
+	 */
+	EReference getSemanticDomainUpdate_Value();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.SemanticDomainAccess <em>Semantic Domain Access</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Semantic Domain Access</em>'.
+	 * @see semanticadaptation.SemanticDomainAccess
+	 * @generated
+	 */
+	EClass getSemanticDomainAccess();
+
+	/**
+	 * Returns the meta object for the attribute '{@link semanticadaptation.SemanticDomainAccess#getPath <em>Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Path</em>'.
+	 * @see semanticadaptation.SemanticDomainAccess#getPath()
+	 * @see #getSemanticDomainAccess()
+	 * @generated
+	 */
+	EAttribute getSemanticDomainAccess_Path();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.ConclusionOutput <em>Conclusion Output</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Conclusion Output</em>'.
+	 * @see semanticadaptation.ConclusionOutput
+	 * @generated
+	 */
+	EClass getConclusionOutput();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.Premise <em>Premise</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Premise</em>'.
+	 * @see semanticadaptation.Premise
+	 * @generated
+	 */
+	EClass getPremise();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link semanticadaptation.Premise#getFrom <em>From</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>From</em>'.
+	 * @see semanticadaptation.Premise#getFrom()
+	 * @see #getPremise()
+	 * @generated
+	 */
+	EReference getPremise_From();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link semanticadaptation.Premise#getTo <em>To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>To</em>'.
+	 * @see semanticadaptation.Premise#getTo()
+	 * @see #getPremise()
+	 * @generated
+	 */
+	EReference getPremise_To();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.TermDef <em>Term Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Term Def</em>'.
+	 * @see semanticadaptation.TermDef
+	 * @generated
+	 */
+	EClass getTermDef();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.TermRef <em>Term Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Term Ref</em>'.
+	 * @see semanticadaptation.TermRef
+	 * @generated
+	 */
+	EClass getTermRef();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.Reduction <em>Reduction</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Reduction</em>'.
+	 * @see semanticadaptation.Reduction
+	 * @generated
+	 */
+	EClass getReduction();
+
+	/**
+	 * Returns the meta object for class '{@link semanticadaptation.Semantic <em>Semantic</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Semantic</em>'.
+	 * @see semanticadaptation.Semantic
+	 * @generated
+	 */
+	EClass getSemantic();
+
+	/**
+	 * Returns the meta object for the attribute '{@link semanticadaptation.Semantic#getImportURI <em>Import URI</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Import URI</em>'.
+	 * @see semanticadaptation.Semantic#getImportURI()
+	 * @see #getSemantic()
+	 * @generated
+	 */
+	EAttribute getSemantic_ImportURI();
+
+	/**
+	 * Returns the meta object for enum '{@link semanticadaptation.AdaptationType <em>Adaptation Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Adaptation Type</em>'.
+	 * @see semanticadaptation.AdaptationType
+	 * @generated
+	 */
+	EEnum getAdaptationType();
+
+	/**
+	 * Returns the factory that creates the instances of the model.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the factory that creates the instances of the model.
+	 * @generated
+	 */
+	SemanticadaptationFactory getSemanticadaptationFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each operation of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals {
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.SemanticAdaptationImpl <em>Semantic Adaptation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.SemanticAdaptationImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSemanticAdaptation()
+		 * @generated
+		 */
+		EClass SEMANTIC_ADAPTATION = eINSTANCE.getSemanticAdaptation();
+
+		/**
+		 * The meta object literal for the '<em><b>Model</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTIC_ADAPTATION__MODEL = eINSTANCE.getSemanticAdaptation_Model();
+
+		/**
+		 * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTIC_ADAPTATION__IMPORTS = eINSTANCE.getSemanticAdaptation_Imports();
+
+		/**
+		 * The meta object literal for the '<em><b>Rules</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTIC_ADAPTATION__RULES = eINSTANCE.getSemanticAdaptation_Rules();
+
+		/**
+		 * The meta object literal for the '<em><b>Semantic</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTIC_ADAPTATION__SEMANTIC = eINSTANCE.getSemanticAdaptation_Semantic();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.ModelImpl <em>Model</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.ModelImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getModel()
+		 * @generated
+		 */
+		EClass MODEL = eINSTANCE.getModel();
+
+		/**
+		 * The meta object literal for the '<em><b>Import URI</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL__IMPORT_URI = eINSTANCE.getModel_ImportURI();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.ImportImpl <em>Import</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.ImportImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getImport()
+		 * @generated
+		 */
+		EClass IMPORT = eINSTANCE.getImport();
+
+		/**
+		 * The meta object literal for the '<em><b>Import URI</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IMPORT__IMPORT_URI = eINSTANCE.getImport_ImportURI();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.RuleImpl <em>Rule</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.RuleImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getRule()
+		 * @generated
+		 */
+		EClass RULE = eINSTANCE.getRule();
+
+		/**
+		 * The meta object literal for the '<em><b>Conclusion</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RULE__CONCLUSION = eINSTANCE.getRule_Conclusion();
+
+		/**
+		 * The meta object literal for the '<em><b>Premises</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RULE__PREMISES = eINSTANCE.getRule_Premises();
+
+		/**
+		 * The meta object literal for the '<em><b>Conditions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RULE__CONDITIONS = eINSTANCE.getRule_Conditions();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RULE__NAME = eINSTANCE.getRule_Name();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.ConclusionImpl <em>Conclusion</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.ConclusionImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getConclusion()
+		 * @generated
+		 */
+		EClass CONCLUSION = eINSTANCE.getConclusion();
+
+		/**
+		 * The meta object literal for the '<em><b>From</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCLUSION__FROM = eINSTANCE.getConclusion_From();
+
+		/**
+		 * The meta object literal for the '<em><b>To</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCLUSION__TO = eINSTANCE.getConclusion_To();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.ConditionImpl <em>Condition</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.ConditionImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getCondition()
+		 * @generated
+		 */
+		EClass CONDITION = eINSTANCE.getCondition();
+
+		/**
+		 * The meta object literal for the '<em><b>Ocl Predicate</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONDITION__OCL_PREDICATE = eINSTANCE.getCondition_OclPredicate();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.ConfigurationImpl <em>Configuration</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.ConfigurationImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getConfiguration()
+		 * @generated
+		 */
+		EClass CONFIGURATION = eINSTANCE.getConfiguration();
+
+		/**
+		 * The meta object literal for the '<em><b>Concept</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONFIGURATION__CONCEPT = eINSTANCE.getConfiguration_Concept();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.SymbolDefImpl <em>Symbol Def</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.SymbolDefImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSymbolDef()
+		 * @generated
+		 */
+		EClass SYMBOL_DEF = eINSTANCE.getSymbolDef();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SYMBOL_DEF__NAME = eINSTANCE.getSymbolDef_Name();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.DefConfigurationImpl <em>Def Configuration</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.DefConfigurationImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getDefConfiguration()
+		 * @generated
+		 */
+		EClass DEF_CONFIGURATION = eINSTANCE.getDefConfiguration();
+
+		/**
+		 * The meta object literal for the '<em><b>Childs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DEF_CONFIGURATION__CHILDS = eINSTANCE.getDefConfiguration_Childs();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.RefConfigurationImpl <em>Ref Configuration</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.RefConfigurationImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getRefConfiguration()
+		 * @generated
+		 */
+		EClass REF_CONFIGURATION = eINSTANCE.getRefConfiguration();
+
+		/**
+		 * The meta object literal for the '<em><b>Childs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REF_CONFIGURATION__CHILDS = eINSTANCE.getRefConfiguration_Childs();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.SymbolRefImpl <em>Symbol Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.SymbolRefImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSymbolRef()
+		 * @generated
+		 */
+		EClass SYMBOL_REF = eINSTANCE.getSymbolRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Def</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SYMBOL_REF__DEF = eINSTANCE.getSymbolRef_Def();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.SemanticDomainUpdateImpl <em>Semantic Domain Update</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.SemanticDomainUpdateImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSemanticDomainUpdate()
+		 * @generated
+		 */
+		EClass SEMANTIC_DOMAIN_UPDATE = eINSTANCE.getSemanticDomainUpdate();
+
+		/**
+		 * The meta object literal for the '<em><b>Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SEMANTIC_DOMAIN_UPDATE__PATH = eINSTANCE.getSemanticDomainUpdate_Path();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SEMANTIC_DOMAIN_UPDATE__VALUE = eINSTANCE.getSemanticDomainUpdate_Value();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.SemanticDomainAccessImpl <em>Semantic Domain Access</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.SemanticDomainAccessImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSemanticDomainAccess()
+		 * @generated
+		 */
+		EClass SEMANTIC_DOMAIN_ACCESS = eINSTANCE.getSemanticDomainAccess();
+
+		/**
+		 * The meta object literal for the '<em><b>Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SEMANTIC_DOMAIN_ACCESS__PATH = eINSTANCE.getSemanticDomainAccess_Path();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.ConclusionOutput <em>Conclusion Output</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.ConclusionOutput
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getConclusionOutput()
+		 * @generated
+		 */
+		EClass CONCLUSION_OUTPUT = eINSTANCE.getConclusionOutput();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.PremiseImpl <em>Premise</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.PremiseImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getPremise()
+		 * @generated
+		 */
+		EClass PREMISE = eINSTANCE.getPremise();
+
+		/**
+		 * The meta object literal for the '<em><b>From</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PREMISE__FROM = eINSTANCE.getPremise_From();
+
+		/**
+		 * The meta object literal for the '<em><b>To</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PREMISE__TO = eINSTANCE.getPremise_To();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.TermDef <em>Term Def</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.TermDef
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getTermDef()
+		 * @generated
+		 */
+		EClass TERM_DEF = eINSTANCE.getTermDef();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.TermRef <em>Term Ref</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.TermRef
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getTermRef()
+		 * @generated
+		 */
+		EClass TERM_REF = eINSTANCE.getTermRef();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.Reduction <em>Reduction</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.Reduction
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getReduction()
+		 * @generated
+		 */
+		EClass REDUCTION = eINSTANCE.getReduction();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.impl.SemanticImpl <em>Semantic</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.impl.SemanticImpl
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getSemantic()
+		 * @generated
+		 */
+		EClass SEMANTIC = eINSTANCE.getSemantic();
+
+		/**
+		 * The meta object literal for the '<em><b>Import URI</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SEMANTIC__IMPORT_URI = eINSTANCE.getSemantic_ImportURI();
+
+		/**
+		 * The meta object literal for the '{@link semanticadaptation.AdaptationType <em>Adaptation Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see semanticadaptation.AdaptationType
+		 * @see semanticadaptation.impl.SemanticadaptationPackageImpl#getAdaptationType()
+		 * @generated
+		 */
+		EEnum ADAPTATION_TYPE = eINSTANCE.getAdaptationType();
+
+	}
+
+} //SemanticadaptationPackage

@@ -1,0 +1,44 @@
+/**
+ */
+package semanticadaptation;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Symbol Ref</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link semanticadaptation.SymbolRef#getDef <em>Def</em>}</li>
+ * </ul>
+ *
+ * @see semanticadaptation.SemanticadaptationPackage#getSymbolRef()
+ * @model
+ * @generated
+ */
+public interface SymbolRef extends TermRef {
+	/**
+	 * Returns the value of the '<em><b>Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Def</em>' reference.
+	 * @see #setDef(SymbolDef)
+	 * @see semanticadaptation.SemanticadaptationPackage#getSymbolRef_Def()
+	 * @model required="true"
+	 * @generated
+	 */
+	SymbolDef getDef();
+
+	/**
+	 * Sets the value of the '{@link semanticadaptation.SymbolRef#getDef <em>Def</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Def</em>' reference.
+	 * @see #getDef()
+	 * @generated
+	 */
+	void setDef(SymbolDef value);
+
+} // SymbolRef

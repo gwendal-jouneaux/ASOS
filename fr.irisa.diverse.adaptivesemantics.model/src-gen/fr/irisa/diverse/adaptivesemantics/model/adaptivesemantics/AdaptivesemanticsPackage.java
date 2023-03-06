@@ -68,22 +68,22 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	int BINDING = 0;
 
 	/**
-	 * The feature id for the '<em><b>Ocl Expression</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINDING__OCL_EXPRESSION = 0;
-
-	/**
 	 * The feature id for the '<em><b>Assignee</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING__ASSIGNEE = 1;
+	int BINDING__ASSIGNEE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING__EXPR = 1;
 
 	/**
 	 * The number of structural features of the '<em>Binding</em>' class.
@@ -325,13 +325,13 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	int CONDITION = 5;
 
 	/**
-	 * The feature id for the '<em><b>Ocl Predicate</b></em>' attribute.
+	 * The feature id for the '<em><b>Cond</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONDITION__OCL_PREDICATE = 0;
+	int CONDITION__COND = 0;
 
 	/**
 	 * The number of structural features of the '<em>Condition</em>' class.
@@ -1044,6 +1044,62 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	int ASSIGNEE_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignable <em>Assignable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignable
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getAssignable()
+	 * @generated
+	 */
+	int ASSIGNABLE = 45;
+
+	/**
+	 * The number of structural features of the '<em>Assignable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSIGNABLE_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Assignable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSIGNABLE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr <em>Expr</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getExpr()
+	 * @generated
+	 */
+	int EXPR = 29;
+
+	/**
+	 * The number of structural features of the '<em>Expr</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPR_FEATURE_COUNT = ASSIGNABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Expr</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPR_OPERATION_COUNT = ASSIGNABLE_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DomainAccessExpression <em>Domain Access Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1060,7 +1116,7 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_ACCESS_EXPRESSION_FEATURE_COUNT = 0;
+	int DOMAIN_ACCESS_EXPRESSION_FEATURE_COUNT = EXPR_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of operations of the '<em>Domain Access Expression</em>' class.
@@ -1069,7 +1125,7 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_ACCESS_EXPRESSION_OPERATION_COUNT = 0;
+	int DOMAIN_ACCESS_EXPRESSION_OPERATION_COUNT = EXPR_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.SemanticDomainAccessImpl <em>Semantic Domain Access</em>}' class.
@@ -1146,6 +1202,790 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	int SELF_OPERATION_COUNT = DOMAIN_ACCESS_EXPRESSION_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.BinExprImpl <em>Bin Expr</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.BinExprImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getBinExpr()
+	 * @generated
+	 */
+	int BIN_EXPR = 35;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BIN_EXPR__RHS = EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BIN_EXPR__LHS = EXPR_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Bin Expr</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BIN_EXPR_FEATURE_COUNT = EXPR_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Bin Expr</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BIN_EXPR_OPERATION_COUNT = EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.EqualImpl <em>Equal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.EqualImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getEqual()
+	 * @generated
+	 */
+	int EQUAL = 26;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EQUAL__RHS = BIN_EXPR__RHS;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EQUAL__LHS = BIN_EXPR__LHS;
+
+	/**
+	 * The number of structural features of the '<em>Equal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EQUAL_FEATURE_COUNT = BIN_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Equal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EQUAL_OPERATION_COUNT = BIN_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.NotEqualImpl <em>Not Equal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.NotEqualImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getNotEqual()
+	 * @generated
+	 */
+	int NOT_EQUAL = 27;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_EQUAL__RHS = BIN_EXPR__RHS;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_EQUAL__LHS = BIN_EXPR__LHS;
+
+	/**
+	 * The number of structural features of the '<em>Not Equal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_EQUAL_FEATURE_COUNT = BIN_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Not Equal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_EQUAL_OPERATION_COUNT = BIN_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.CondExpr <em>Cond Expr</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.CondExpr
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getCondExpr()
+	 * @generated
+	 */
+	int COND_EXPR = 28;
+
+	/**
+	 * The number of structural features of the '<em>Cond Expr</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COND_EXPR_FEATURE_COUNT = 0;
+
+	/**
+	 * The number of operations of the '<em>Cond Expr</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COND_EXPR_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OrImpl <em>Or</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OrImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getOr()
+	 * @generated
+	 */
+	int OR = 30;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR__RHS = BIN_EXPR__RHS;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR__LHS = BIN_EXPR__LHS;
+
+	/**
+	 * The number of structural features of the '<em>Or</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_FEATURE_COUNT = BIN_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Or</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_OPERATION_COUNT = BIN_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AndImpl <em>And</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AndImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getAnd()
+	 * @generated
+	 */
+	int AND = 31;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND__RHS = BIN_EXPR__RHS;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND__LHS = BIN_EXPR__LHS;
+
+	/**
+	 * The number of structural features of the '<em>And</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_FEATURE_COUNT = BIN_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>And</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_OPERATION_COUNT = BIN_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.NotImpl <em>Not</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.NotImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getNot()
+	 * @generated
+	 */
+	int NOT = 32;
+
+	/**
+	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT__EXPR = COND_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Not</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_FEATURE_COUNT = COND_EXPR_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Not</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_OPERATION_COUNT = COND_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.LessImpl <em>Less</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.LessImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getLess()
+	 * @generated
+	 */
+	int LESS = 33;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS__RHS = BIN_EXPR__RHS;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS__LHS = BIN_EXPR__LHS;
+
+	/**
+	 * The number of structural features of the '<em>Less</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS_FEATURE_COUNT = BIN_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Less</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS_OPERATION_COUNT = BIN_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.LessEqImpl <em>Less Eq</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.LessEqImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getLessEq()
+	 * @generated
+	 */
+	int LESS_EQ = 34;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS_EQ__RHS = BIN_EXPR__RHS;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS_EQ__LHS = BIN_EXPR__LHS;
+
+	/**
+	 * The number of structural features of the '<em>Less Eq</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS_EQ_FEATURE_COUNT = BIN_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Less Eq</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS_EQ_OPERATION_COUNT = BIN_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DivImpl <em>Div</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DivImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getDiv()
+	 * @generated
+	 */
+	int DIV = 36;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV__RHS = BIN_EXPR__RHS;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV__LHS = BIN_EXPR__LHS;
+
+	/**
+	 * The number of structural features of the '<em>Div</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV_FEATURE_COUNT = BIN_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Div</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV_OPERATION_COUNT = BIN_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.MultImpl <em>Mult</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.MultImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getMult()
+	 * @generated
+	 */
+	int MULT = 37;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULT__RHS = BIN_EXPR__RHS;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULT__LHS = BIN_EXPR__LHS;
+
+	/**
+	 * The number of structural features of the '<em>Mult</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULT_FEATURE_COUNT = BIN_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Mult</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULT_OPERATION_COUNT = BIN_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.MinusImpl <em>Minus</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.MinusImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getMinus()
+	 * @generated
+	 */
+	int MINUS = 38;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS__RHS = BIN_EXPR__RHS;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS__LHS = BIN_EXPR__LHS;
+
+	/**
+	 * The number of structural features of the '<em>Minus</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS_FEATURE_COUNT = BIN_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Minus</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS_OPERATION_COUNT = BIN_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.PlusImpl <em>Plus</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.PlusImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getPlus()
+	 * @generated
+	 */
+	int PLUS = 39;
+
+	/**
+	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS__RHS = BIN_EXPR__RHS;
+
+	/**
+	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS__LHS = BIN_EXPR__LHS;
+
+	/**
+	 * The number of structural features of the '<em>Plus</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS_FEATURE_COUNT = BIN_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Plus</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS_OPERATION_COUNT = BIN_EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Const <em>Const</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Const
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getConst()
+	 * @generated
+	 */
+	int CONST = 40;
+
+	/**
+	 * The number of structural features of the '<em>Const</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONST_FEATURE_COUNT = EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Const</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONST_OPERATION_COUNT = EXPR_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.IntConstantImpl <em>Int Constant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.IntConstantImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getIntConstant()
+	 * @generated
+	 */
+	int INT_CONSTANT = 41;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_CONSTANT__VALUE = CONST_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Int Constant</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_CONSTANT_FEATURE_COUNT = CONST_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Int Constant</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_CONSTANT_OPERATION_COUNT = CONST_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.BoolConstantImpl <em>Bool Constant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.BoolConstantImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getBoolConstant()
+	 * @generated
+	 */
+	int BOOL_CONSTANT = 42;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOL_CONSTANT__VALUE = CONST_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Bool Constant</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOL_CONSTANT_FEATURE_COUNT = CONST_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Bool Constant</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOL_CONSTANT_OPERATION_COUNT = CONST_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.StringConstantImpl <em>String Constant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.StringConstantImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getStringConstant()
+	 * @generated
+	 */
+	int STRING_CONSTANT = 43;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CONSTANT__VALUE = CONST_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>String Constant</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CONSTANT_FEATURE_COUNT = CONST_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>String Constant</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_CONSTANT_OPERATION_COUNT = CONST_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DoubleConstantImpl <em>Double Constant</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DoubleConstantImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getDoubleConstant()
+	 * @generated
+	 */
+	int DOUBLE_CONSTANT = 44;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOUBLE_CONSTANT__VALUE = CONST_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Double Constant</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOUBLE_CONSTANT_FEATURE_COUNT = CONST_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Double Constant</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOUBLE_CONSTANT_OPERATION_COUNT = CONST_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OppositeImpl <em>Opposite</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OppositeImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getOpposite()
+	 * @generated
+	 */
+	int OPPOSITE = 46;
+
+	/**
+	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPPOSITE__EXPR = EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Opposite</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPPOSITE_FEATURE_COUNT = EXPR_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Opposite</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPPOSITE_OPERATION_COUNT = EXPR_OPERATION_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding <em>Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1154,17 +1994,6 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getBinding();
-
-	/**
-	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding#getOclExpression <em>Ocl Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Ocl Expression</em>'.
-	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding#getOclExpression()
-	 * @see #getBinding()
-	 * @generated
-	 */
-	EAttribute getBinding_OclExpression();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding#getAssignee <em>Assignee</em>}'.
@@ -1176,6 +2005,17 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getBinding_Assignee();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding#getExpr <em>Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Expr</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding#getExpr()
+	 * @see #getBinding()
+	 * @generated
+	 */
+	EReference getBinding_Expr();
 
 	/**
 	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics <em>Adaptive Semantics</em>}'.
@@ -1349,15 +2189,15 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	EClass getCondition();
 
 	/**
-	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition#getOclPredicate <em>Ocl Predicate</em>}'.
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition#getCond <em>Cond</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Ocl Predicate</em>'.
-	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition#getOclPredicate()
+	 * @return the meta object for the containment reference '<em>Cond</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition#getCond()
 	 * @see #getCondition()
 	 * @generated
 	 */
-	EAttribute getCondition_OclPredicate();
+	EReference getCondition_Cond();
 
 	/**
 	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule <em>Rule</em>}'.
@@ -1824,6 +2664,304 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	EClass getSelf();
 
 	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal <em>Equal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Equal</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal
+	 * @generated
+	 */
+	EClass getEqual();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual <em>Not Equal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Not Equal</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual
+	 * @generated
+	 */
+	EClass getNotEqual();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.CondExpr <em>Cond Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Cond Expr</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.CondExpr
+	 * @generated
+	 */
+	EClass getCondExpr();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr <em>Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Expr</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr
+	 * @generated
+	 */
+	EClass getExpr();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or <em>Or</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Or</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or
+	 * @generated
+	 */
+	EClass getOr();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And <em>And</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>And</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And
+	 * @generated
+	 */
+	EClass getAnd();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not <em>Not</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Not</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not
+	 * @generated
+	 */
+	EClass getNot();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not#getExpr <em>Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Expr</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not#getExpr()
+	 * @see #getNot()
+	 * @generated
+	 */
+	EReference getNot_Expr();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less <em>Less</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Less</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less
+	 * @generated
+	 */
+	EClass getLess();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq <em>Less Eq</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Less Eq</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq
+	 * @generated
+	 */
+	EClass getLessEq();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BinExpr <em>Bin Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Bin Expr</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BinExpr
+	 * @generated
+	 */
+	EClass getBinExpr();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BinExpr#getRhs <em>Rhs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Rhs</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BinExpr#getRhs()
+	 * @see #getBinExpr()
+	 * @generated
+	 */
+	EReference getBinExpr_Rhs();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BinExpr#getLhs <em>Lhs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Lhs</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BinExpr#getLhs()
+	 * @see #getBinExpr()
+	 * @generated
+	 */
+	EReference getBinExpr_Lhs();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div <em>Div</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Div</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div
+	 * @generated
+	 */
+	EClass getDiv();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult <em>Mult</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Mult</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult
+	 * @generated
+	 */
+	EClass getMult();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus <em>Minus</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Minus</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus
+	 * @generated
+	 */
+	EClass getMinus();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus <em>Plus</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Plus</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus
+	 * @generated
+	 */
+	EClass getPlus();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Const <em>Const</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Const</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Const
+	 * @generated
+	 */
+	EClass getConst();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant <em>Int Constant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Int Constant</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant
+	 * @generated
+	 */
+	EClass getIntConstant();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant#getValue()
+	 * @see #getIntConstant()
+	 * @generated
+	 */
+	EAttribute getIntConstant_Value();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant <em>Bool Constant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Bool Constant</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant
+	 * @generated
+	 */
+	EClass getBoolConstant();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant#isValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant#isValue()
+	 * @see #getBoolConstant()
+	 * @generated
+	 */
+	EAttribute getBoolConstant_Value();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant <em>String Constant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>String Constant</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant
+	 * @generated
+	 */
+	EClass getStringConstant();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant#getValue()
+	 * @see #getStringConstant()
+	 * @generated
+	 */
+	EAttribute getStringConstant_Value();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant <em>Double Constant</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Double Constant</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant
+	 * @generated
+	 */
+	EClass getDoubleConstant();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant#getValue()
+	 * @see #getDoubleConstant()
+	 * @generated
+	 */
+	EAttribute getDoubleConstant_Value();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignable <em>Assignable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assignable</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignable
+	 * @generated
+	 */
+	EClass getAssignable();
+
+	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite <em>Opposite</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Opposite</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite
+	 * @generated
+	 */
+	EClass getOpposite();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite#getExpr <em>Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Expr</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite#getExpr()
+	 * @see #getOpposite()
+	 * @generated
+	 */
+	EReference getOpposite_Expr();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1857,20 +2995,20 @@ public interface AdaptivesemanticsPackage extends EPackage {
 		EClass BINDING = eINSTANCE.getBinding();
 
 		/**
-		 * The meta object literal for the '<em><b>Ocl Expression</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute BINDING__OCL_EXPRESSION = eINSTANCE.getBinding_OclExpression();
-
-		/**
 		 * The meta object literal for the '<em><b>Assignee</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference BINDING__ASSIGNEE = eINSTANCE.getBinding_Assignee();
+
+		/**
+		 * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BINDING__EXPR = eINSTANCE.getBinding_Expr();
 
 		/**
 		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptiveSemanticsImpl <em>Adaptive Semantics</em>}' class.
@@ -2011,12 +3149,12 @@ public interface AdaptivesemanticsPackage extends EPackage {
 		EClass CONDITION = eINSTANCE.getCondition();
 
 		/**
-		 * The meta object literal for the '<em><b>Ocl Predicate</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Cond</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONDITION__OCL_PREDICATE = eINSTANCE.getCondition_OclPredicate();
+		EReference CONDITION__COND = eINSTANCE.getCondition_Cond();
 
 		/**
 		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.RuleImpl <em>Rule</em>}' class.
@@ -2409,6 +3547,280 @@ public interface AdaptivesemanticsPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SELF = eINSTANCE.getSelf();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.EqualImpl <em>Equal</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.EqualImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getEqual()
+		 * @generated
+		 */
+		EClass EQUAL = eINSTANCE.getEqual();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.NotEqualImpl <em>Not Equal</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.NotEqualImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getNotEqual()
+		 * @generated
+		 */
+		EClass NOT_EQUAL = eINSTANCE.getNotEqual();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.CondExpr <em>Cond Expr</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.CondExpr
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getCondExpr()
+		 * @generated
+		 */
+		EClass COND_EXPR = eINSTANCE.getCondExpr();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr <em>Expr</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getExpr()
+		 * @generated
+		 */
+		EClass EXPR = eINSTANCE.getExpr();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OrImpl <em>Or</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OrImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getOr()
+		 * @generated
+		 */
+		EClass OR = eINSTANCE.getOr();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AndImpl <em>And</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AndImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getAnd()
+		 * @generated
+		 */
+		EClass AND = eINSTANCE.getAnd();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.NotImpl <em>Not</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.NotImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getNot()
+		 * @generated
+		 */
+		EClass NOT = eINSTANCE.getNot();
+
+		/**
+		 * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NOT__EXPR = eINSTANCE.getNot_Expr();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.LessImpl <em>Less</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.LessImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getLess()
+		 * @generated
+		 */
+		EClass LESS = eINSTANCE.getLess();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.LessEqImpl <em>Less Eq</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.LessEqImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getLessEq()
+		 * @generated
+		 */
+		EClass LESS_EQ = eINSTANCE.getLessEq();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.BinExprImpl <em>Bin Expr</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.BinExprImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getBinExpr()
+		 * @generated
+		 */
+		EClass BIN_EXPR = eINSTANCE.getBinExpr();
+
+		/**
+		 * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BIN_EXPR__RHS = eINSTANCE.getBinExpr_Rhs();
+
+		/**
+		 * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BIN_EXPR__LHS = eINSTANCE.getBinExpr_Lhs();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DivImpl <em>Div</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DivImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getDiv()
+		 * @generated
+		 */
+		EClass DIV = eINSTANCE.getDiv();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.MultImpl <em>Mult</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.MultImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getMult()
+		 * @generated
+		 */
+		EClass MULT = eINSTANCE.getMult();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.MinusImpl <em>Minus</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.MinusImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getMinus()
+		 * @generated
+		 */
+		EClass MINUS = eINSTANCE.getMinus();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.PlusImpl <em>Plus</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.PlusImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getPlus()
+		 * @generated
+		 */
+		EClass PLUS = eINSTANCE.getPlus();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Const <em>Const</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Const
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getConst()
+		 * @generated
+		 */
+		EClass CONST = eINSTANCE.getConst();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.IntConstantImpl <em>Int Constant</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.IntConstantImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getIntConstant()
+		 * @generated
+		 */
+		EClass INT_CONSTANT = eINSTANCE.getIntConstant();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INT_CONSTANT__VALUE = eINSTANCE.getIntConstant_Value();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.BoolConstantImpl <em>Bool Constant</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.BoolConstantImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getBoolConstant()
+		 * @generated
+		 */
+		EClass BOOL_CONSTANT = eINSTANCE.getBoolConstant();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BOOL_CONSTANT__VALUE = eINSTANCE.getBoolConstant_Value();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.StringConstantImpl <em>String Constant</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.StringConstantImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getStringConstant()
+		 * @generated
+		 */
+		EClass STRING_CONSTANT = eINSTANCE.getStringConstant();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STRING_CONSTANT__VALUE = eINSTANCE.getStringConstant_Value();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DoubleConstantImpl <em>Double Constant</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.DoubleConstantImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getDoubleConstant()
+		 * @generated
+		 */
+		EClass DOUBLE_CONSTANT = eINSTANCE.getDoubleConstant();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DOUBLE_CONSTANT__VALUE = eINSTANCE.getDoubleConstant_Value();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignable <em>Assignable</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignable
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getAssignable()
+		 * @generated
+		 */
+		EClass ASSIGNABLE = eINSTANCE.getAssignable();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OppositeImpl <em>Opposite</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OppositeImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getOpposite()
+		 * @generated
+		 */
+		EClass OPPOSITE = eINSTANCE.getOpposite();
+
+		/**
+		 * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OPPOSITE__EXPR = eINSTANCE.getOpposite_Expr();
 
 	}
 

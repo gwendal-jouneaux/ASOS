@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated adaptivesemantics -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.presentation.AdaptivesemanticsModelWizardID"
+            name="%_UI_AdaptivesemanticsModelWizard_label"
+            class="fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.presentation.AdaptivesemanticsModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/AdaptivesemanticsModelFile.gif">
+         <description>%_UI_AdaptivesemanticsModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated adaptivesemantics -->
+      <editor
+            id="fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.presentation.AdaptivesemanticsEditorID"
+            name="%_UI_AdaptivesemanticsEditor_label"
+            icon="icons/full/obj16/AdaptivesemanticsModelFile.gif"
+            extensions="adaptivesemantics"
+            class="fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.presentation.AdaptivesemanticsEditor"
+            contributorClass="fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.presentation.AdaptivesemanticsActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

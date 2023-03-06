@@ -13,8 +13,8 @@
   <genPackages prefix="Adaptivesemantics" basePackage="fr.irisa.diverse.adaptivesemantics.model"
       disposableProviderFactory="true" ecorePackage="adaptivesemantics.ecore#/">
     <genClasses ecoreClass="adaptivesemantics.ecore#//Binding">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Binding/oclExpression"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Binding/assignee"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Binding/expr"/>
     </genClasses>
     <genClasses ecoreClass="adaptivesemantics.ecore#//AdaptiveSemantics">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//AdaptiveSemantics/imports"/>
@@ -36,7 +36,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Premise/termination"/>
     </genClasses>
     <genClasses ecoreClass="adaptivesemantics.ecore#//Condition">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//Condition/oclPredicate"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Condition/cond"/>
     </genClasses>
     <genClasses ecoreClass="adaptivesemantics.ecore#//Rule">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Rule/conclusion"/>
@@ -94,5 +94,41 @@
     </genClasses>
     <genClasses image="false" ecoreClass="adaptivesemantics.ecore#//DomainAccessExpression"/>
     <genClasses ecoreClass="adaptivesemantics.ecore#//Self"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Equal"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//NotEqual"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//CondExpr"/>
+    <genClasses image="false" ecoreClass="adaptivesemantics.ecore#//Expr"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Or"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//And"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Not">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Not/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Less"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//LessEq"/>
+    <genClasses image="false" ecoreClass="adaptivesemantics.ecore#//BinExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//BinExpr/rhs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//BinExpr/lhs"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Div"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Mult"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Minus"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Plus"/>
+    <genClasses image="false" ecoreClass="adaptivesemantics.ecore#//Const"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//IntConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//IntConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//BoolConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//BoolConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//StringConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//StringConstant/value"/>
+    </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//DoubleConstant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute adaptivesemantics.ecore#//DoubleConstant/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="adaptivesemantics.ecore#//Assignable"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Opposite">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Opposite/expr"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

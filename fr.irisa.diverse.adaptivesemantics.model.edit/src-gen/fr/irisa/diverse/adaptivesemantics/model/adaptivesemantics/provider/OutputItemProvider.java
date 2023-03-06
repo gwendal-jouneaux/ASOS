@@ -178,9 +178,6 @@ public class OutputItemProvider extends ItemProviderAdapter implements IEditingD
 
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.OUTPUT__ARGS,
 				AdaptivesemanticsFactory.eINSTANCE.createVoidList()));
-
-		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.OUTPUT__ARGS,
-				AdaptivesemanticsFactory.eINSTANCE.createSemanticDomainAccess()));
 	}
 
 	/**

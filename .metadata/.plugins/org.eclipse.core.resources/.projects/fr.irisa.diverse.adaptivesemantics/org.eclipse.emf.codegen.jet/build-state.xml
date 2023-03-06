@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<state>
+  <java target="platform:/resource/fr.irisa.diverse.adaptivesemantics/src/org/eclipse/emf/codegen/ecore/templates/model/Class.java">
+    <template source="platform:/resource/fr.irisa.diverse.adaptivesemantics/templates/model/Class.javajet"/>
+  </java>
+</state>

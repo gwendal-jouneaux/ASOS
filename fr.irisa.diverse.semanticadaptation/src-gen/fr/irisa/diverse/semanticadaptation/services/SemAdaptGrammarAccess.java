@@ -451,10 +451,10 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	//Rule returns Rule:
 	//    'rule' name=ID ','
 	//        conclusion=Conclusion
-	//    ('where' conditions+=Condition*)?
-	//    ('resolve' premises+=Premise*)?
-	//    ('bind' bindings+=Binding*)?
-	//    ('IO' (inputs+=Input | outputs+=Output)*)?
+	//    ('where' conditions+=Condition (';' conditions+=Condition)*)?
+	//    ('resolve' premises+=Premise (';' premises+=Premise)*)?
+	//    ('bind' bindings+=Binding (';' bindings+=Binding)*)?
+	//    ('IO' (inputs+=Input | outputs+=Output) (';' (inputs+=Input | outputs+=Output))*)?
 	//;
 	public AdaptSemGrammarAccess.RuleElements getRuleAccess() {
 		return gaAdaptSem.getRuleAccess();
@@ -465,7 +465,7 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//Condition returns Condition:
-	//    {Condition} oclPredicate=EString
+	//    {Condition} cond=CondExpr
 	//;
 	public AdaptSemGrammarAccess.ConditionElements getConditionAccess() {
 		return gaAdaptSem.getConditionAccess();
@@ -500,7 +500,7 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//Binding returns Binding:
-	//    assignee=Assignee "=" oclExpression=EString
+	//    assignee=Assignee "=" expr=Assignable
 	//;
 	public AdaptSemGrammarAccess.BindingElements getBindingAccess() {
 		return gaAdaptSem.getBindingAccess();
@@ -508,6 +508,17 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	
 	public ParserRule getBindingRule() {
 		return getBindingAccess().getRule();
+	}
+	
+	//Assignable returns Assignable:
+	//    Expr | RefConfiguration | SemanticDomainAccess
+	//;
+	public AdaptSemGrammarAccess.AssignableElements getAssignableAccess() {
+		return gaAdaptSem.getAssignableAccess();
+	}
+	
+	public ParserRule getAssignableRule() {
+		return getAssignableAccess().getRule();
 	}
 	
 	//Assignee returns Assignee:
@@ -613,7 +624,7 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//SingleTermRef:
-	//    => RefConfiguration | SymbolRef | SemanticDomainAccess
+	//    => RefConfiguration | SymbolRef
 	//;
 	public AdaptSemGrammarAccess.SingleTermRefElements getSingleTermRefAccess() {
 		return gaAdaptSem.getSingleTermRefAccess();
@@ -704,6 +715,199 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	
 	public ParserRule getVoidListRule() {
 		return getVoidListAccess().getRule();
+	}
+	
+	//CondExpr returns CondExpr:
+	//    CondOr | CondAnd | CondEquality | CondComparison | CondNot
+	//;
+	public AdaptSemGrammarAccess.CondExprElements getCondExprAccess() {
+		return gaAdaptSem.getCondExprAccess();
+	}
+	
+	public ParserRule getCondExprRule() {
+		return getCondExprAccess().getRule();
+	}
+	
+	//CondNot returns CondExpr:
+	//    {Not} "!" expr=Expr
+	//;
+	public AdaptSemGrammarAccess.CondNotElements getCondNotAccess() {
+		return gaAdaptSem.getCondNotAccess();
+	}
+	
+	public ParserRule getCondNotRule() {
+		return getCondNotAccess().getRule();
+	}
+	
+	//CondOr returns CondExpr:
+	//    {Or} lhs=And "||" rhs=And
+	//;
+	public AdaptSemGrammarAccess.CondOrElements getCondOrAccess() {
+		return gaAdaptSem.getCondOrAccess();
+	}
+	
+	public ParserRule getCondOrRule() {
+		return getCondOrAccess().getRule();
+	}
+	
+	//CondAnd returns CondExpr:
+	//    {And} lhs=Equality "&&" rhs=Equality
+	//;
+	public AdaptSemGrammarAccess.CondAndElements getCondAndAccess() {
+		return gaAdaptSem.getCondAndAccess();
+	}
+	
+	public ParserRule getCondAndRule() {
+		return getCondAndAccess().getRule();
+	}
+	
+	//CondEquality returns CondExpr:
+	//    ({Equal} lhs=Comparison '==' rhs=Comparison) |
+	//    ({NotEqual} lhs=Comparison '!=' rhs=Comparison)
+	//;
+	public AdaptSemGrammarAccess.CondEqualityElements getCondEqualityAccess() {
+		return gaAdaptSem.getCondEqualityAccess();
+	}
+	
+	public ParserRule getCondEqualityRule() {
+		return getCondEqualityAccess().getRule();
+	}
+	
+	//CondComparison returns CondExpr:
+	//    ({Less} lhs=PlusOrMinus '<' rhs=PlusOrMinus) |
+	//    ({LessEq} lhs=PlusOrMinus '<=' rhs=PlusOrMinus)
+	//;
+	public AdaptSemGrammarAccess.CondComparisonElements getCondComparisonAccess() {
+		return gaAdaptSem.getCondComparisonAccess();
+	}
+	
+	public ParserRule getCondComparisonRule() {
+		return getCondComparisonAccess().getRule();
+	}
+	
+	//Expr returns Expr:
+	//    Or
+	//;
+	public AdaptSemGrammarAccess.ExprElements getExprAccess() {
+		return gaAdaptSem.getExprAccess();
+	}
+	
+	public ParserRule getExprRule() {
+		return getExprAccess().getRule();
+	}
+	
+	//Or returns Expr:
+	//    And (
+	//        {Or.lhs=current} "||" rhs=And
+	//    )*;
+	public AdaptSemGrammarAccess.OrElements getOrAccess() {
+		return gaAdaptSem.getOrAccess();
+	}
+	
+	public ParserRule getOrRule() {
+		return getOrAccess().getRule();
+	}
+	
+	//And returns Expr:
+	//    Equality (
+	//        {And.lhs=current} "&&" rhs=Equality
+	//    )*;
+	public AdaptSemGrammarAccess.AndElements getAndAccess() {
+		return gaAdaptSem.getAndAccess();
+	}
+	
+	public ParserRule getAndRule() {
+		return getAndAccess().getRule();
+	}
+	
+	//Equality returns Expr:
+	//    Comparison (
+	//        ({Equal.lhs=current} '==' | {NotEqual.lhs=current} '!=')
+	//        rhs=Comparison
+	//    )*;
+	public AdaptSemGrammarAccess.EqualityElements getEqualityAccess() {
+		return gaAdaptSem.getEqualityAccess();
+	}
+	
+	public ParserRule getEqualityRule() {
+		return getEqualityAccess().getRule();
+	}
+	
+	//Comparison returns Expr:
+	//    PlusOrMinus (
+	//        ({Less.lhs=current} '<' | {LessEq.lhs=current} '<=')
+	//        rhs=PlusOrMinus
+	//    )*;
+	public AdaptSemGrammarAccess.ComparisonElements getComparisonAccess() {
+		return gaAdaptSem.getComparisonAccess();
+	}
+	
+	public ParserRule getComparisonRule() {
+		return getComparisonAccess().getRule();
+	}
+	
+	//PlusOrMinus returns Expr:
+	//    MulOrDiv (
+	//        ({Plus.lhs=current} '+' | {Minus.lhs=current} '-')
+	//        rhs=MulOrDiv
+	//    )*;
+	public AdaptSemGrammarAccess.PlusOrMinusElements getPlusOrMinusAccess() {
+		return gaAdaptSem.getPlusOrMinusAccess();
+	}
+	
+	public ParserRule getPlusOrMinusRule() {
+		return getPlusOrMinusAccess().getRule();
+	}
+	
+	//MulOrDiv returns Expr:
+	//    Primary (
+	//        ({Mult.lhs=current} '*' | {Div.lhs=current} '/')
+	//        rhs=Primary
+	//    )*;
+	public AdaptSemGrammarAccess.MulOrDivElements getMulOrDivAccess() {
+		return gaAdaptSem.getMulOrDivAccess();
+	}
+	
+	public ParserRule getMulOrDivRule() {
+		return getMulOrDivAccess().getRule();
+	}
+	
+	//Primary returns Expr:
+	//    '(' Expr ')' |
+	//    {Not} "!" expr=Primary |
+	//    {Opposite} "-" expr=Primary |
+	//    Atomic;
+	public AdaptSemGrammarAccess.PrimaryElements getPrimaryAccess() {
+		return gaAdaptSem.getPrimaryAccess();
+	}
+	
+	public ParserRule getPrimaryRule() {
+		return getPrimaryAccess().getRule();
+	}
+	
+	//Atomic returns Expr:
+	//    {IntConstant} value=INT |
+	//    {DoubleConstant} value=DOUBLE |
+	//    {StringConstant} value=STRING |
+	//    {BoolConstant} value=BOOL |
+	//    SemanticDomainAccess |
+	//    TerminalAccessExpression;
+	public AdaptSemGrammarAccess.AtomicElements getAtomicAccess() {
+		return gaAdaptSem.getAtomicAccess();
+	}
+	
+	public ParserRule getAtomicRule() {
+		return getAtomicAccess().getRule();
+	}
+	
+	//terminal BOOL returns ecore::EBoolean: ('true' | 'false');
+	public TerminalRule getBOOLRule() {
+		return gaAdaptSem.getBOOLRule();
+	}
+	
+	//terminal DOUBLE returns ecore::EDouble: ('0'..'9')+"."('0'..'9')+;
+	public TerminalRule getDOUBLERule() {
+		return gaAdaptSem.getDOUBLERule();
 	}
 	
 	//EString returns ecore::EString:

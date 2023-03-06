@@ -20,18 +20,14 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class SemAdaptSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected SemAdaptGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_Rule_BindKeyword_6_0_q;
-	protected AbstractElementAlias match_Rule_IOKeyword_7_0_q;
-	protected AbstractElementAlias match_Rule_ResolveKeyword_5_0_q;
-	protected AbstractElementAlias match_Rule_WhereKeyword_4_0_q;
+	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_0_0_a;
+	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_0_0_p;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (SemAdaptGrammarAccess) access;
-		match_Rule_BindKeyword_6_0_q = new TokenAlias(false, true, grammarAccess.getRuleAccess().getBindKeyword_6_0());
-		match_Rule_IOKeyword_7_0_q = new TokenAlias(false, true, grammarAccess.getRuleAccess().getIOKeyword_7_0());
-		match_Rule_ResolveKeyword_5_0_q = new TokenAlias(false, true, grammarAccess.getRuleAccess().getResolveKeyword_5_0());
-		match_Rule_WhereKeyword_4_0_q = new TokenAlias(false, true, grammarAccess.getRuleAccess().getWhereKeyword_4_0());
+		match_Primary_LeftParenthesisKeyword_0_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_0_0());
+		match_Primary_LeftParenthesisKeyword_0_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_0_0());
 	}
 	
 	@Override
@@ -46,81 +42,61 @@ public class SemAdaptSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_Rule_BindKeyword_6_0_q.equals(syntax))
-				emit_Rule_BindKeyword_6_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_Rule_IOKeyword_7_0_q.equals(syntax))
-				emit_Rule_IOKeyword_7_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_Rule_ResolveKeyword_5_0_q.equals(syntax))
-				emit_Rule_ResolveKeyword_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_Rule_WhereKeyword_4_0_q.equals(syntax))
-				emit_Rule_WhereKeyword_4_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if (match_Primary_LeftParenthesisKeyword_0_0_a.equals(syntax))
+				emit_Primary_LeftParenthesisKeyword_0_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_Primary_LeftParenthesisKeyword_0_0_p.equals(syntax))
+				emit_Primary_LeftParenthesisKeyword_0_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
 	/**
 	 * Ambiguous syntax:
-	 *     'bind'?
+	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     conclusion=Conclusion 'where'? 'resolve'? (ambiguity) 'IO' inputs+=Input
-	 *     conclusion=Conclusion 'where'? 'resolve'? (ambiguity) 'IO' outputs+=Output
-	 *     conclusion=Conclusion 'where'? 'resolve'? (ambiguity) 'IO'? (rule end)
-	 *     conditions+=Condition 'resolve'? (ambiguity) 'IO' inputs+=Input
-	 *     conditions+=Condition 'resolve'? (ambiguity) 'IO' outputs+=Output
-	 *     conditions+=Condition 'resolve'? (ambiguity) 'IO'? (rule end)
-	 *     premises+=Premise (ambiguity) 'IO' inputs+=Input
-	 *     premises+=Premise (ambiguity) 'IO' outputs+=Output
-	 *     premises+=Premise (ambiguity) 'IO'? (rule end)
+	 *     (rule start) (ambiguity) '!' expr=Primary
+	 *     (rule start) (ambiguity) '-' expr=Primary
+	 *     (rule start) (ambiguity) 'self' (rule start)
+	 *     (rule start) (ambiguity) def=[SymbolDef|ID]
+	 *     (rule start) (ambiguity) reciever=TerminalAccessExpression
+	 *     (rule start) (ambiguity) value=BOOL
+	 *     (rule start) (ambiguity) value=DOUBLE
+	 *     (rule start) (ambiguity) value=INT
+	 *     (rule start) (ambiguity) value=STRING
+	 *     (rule start) (ambiguity) {And.lhs=}
+	 *     (rule start) (ambiguity) {Div.lhs=}
+	 *     (rule start) (ambiguity) {Equal.lhs=}
+	 *     (rule start) (ambiguity) {Less.lhs=}
+	 *     (rule start) (ambiguity) {LessEq.lhs=}
+	 *     (rule start) (ambiguity) {Minus.lhs=}
+	 *     (rule start) (ambiguity) {Mult.lhs=}
+	 *     (rule start) (ambiguity) {NotEqual.lhs=}
+	 *     (rule start) (ambiguity) {Or.lhs=}
+	 *     (rule start) (ambiguity) {Plus.lhs=}
+	 *     (rule start) (ambiguity) {SemanticDomainAccess.reciever=}
 	 */
-	protected void emit_Rule_BindKeyword_6_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Primary_LeftParenthesisKeyword_0_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
 	 * Ambiguous syntax:
-	 *     'IO'?
+	 *     '('+
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     bindings+=Binding (ambiguity) (rule end)
-	 *     conclusion=Conclusion 'where'? 'resolve'? 'bind'? (ambiguity) (rule end)
-	 *     conditions+=Condition 'resolve'? 'bind'? (ambiguity) (rule end)
-	 *     premises+=Premise 'bind'? (ambiguity) (rule end)
+	 *     (rule start) (ambiguity) {And.lhs=}
+	 *     (rule start) (ambiguity) {Div.lhs=}
+	 *     (rule start) (ambiguity) {Equal.lhs=}
+	 *     (rule start) (ambiguity) {Less.lhs=}
+	 *     (rule start) (ambiguity) {LessEq.lhs=}
+	 *     (rule start) (ambiguity) {Minus.lhs=}
+	 *     (rule start) (ambiguity) {Mult.lhs=}
+	 *     (rule start) (ambiguity) {NotEqual.lhs=}
+	 *     (rule start) (ambiguity) {Or.lhs=}
+	 *     (rule start) (ambiguity) {Plus.lhs=}
 	 */
-	protected void emit_Rule_IOKeyword_7_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     'resolve'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     conclusion=Conclusion 'where'? (ambiguity) 'bind' bindings+=Binding
-	 *     conclusion=Conclusion 'where'? (ambiguity) 'bind'? 'IO' inputs+=Input
-	 *     conclusion=Conclusion 'where'? (ambiguity) 'bind'? 'IO' outputs+=Output
-	 *     conclusion=Conclusion 'where'? (ambiguity) 'bind'? 'IO'? (rule end)
-	 *     conditions+=Condition (ambiguity) 'bind' bindings+=Binding
-	 *     conditions+=Condition (ambiguity) 'bind'? 'IO' inputs+=Input
-	 *     conditions+=Condition (ambiguity) 'bind'? 'IO' outputs+=Output
-	 *     conditions+=Condition (ambiguity) 'bind'? 'IO'? (rule end)
-	 */
-	protected void emit_Rule_ResolveKeyword_5_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     'where'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     conclusion=Conclusion (ambiguity) 'resolve' premises+=Premise
-	 *     conclusion=Conclusion (ambiguity) 'resolve'? 'bind' bindings+=Binding
-	 *     conclusion=Conclusion (ambiguity) 'resolve'? 'bind'? 'IO' inputs+=Input
-	 *     conclusion=Conclusion (ambiguity) 'resolve'? 'bind'? 'IO' outputs+=Output
-	 *     conclusion=Conclusion (ambiguity) 'resolve'? 'bind'? 'IO'? (rule end)
-	 */
-	protected void emit_Rule_WhereKeyword_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Primary_LeftParenthesisKeyword_0_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

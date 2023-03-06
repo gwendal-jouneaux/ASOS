@@ -1,12 +1,16 @@
 package fr.irisa.diverse.adaptivesemantics.generator
 
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DomainAccessExpression
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Self
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainAccess
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
 import java.util.HashMap
 import java.util.Map
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolPath
 
 class NamingUtils {
 	
@@ -31,10 +35,91 @@ class NamingUtils {
 	}
 	
 	static def String computedNameFor(SymbolRef symbol){
-		"computed_" + symbol.def.name
+		computedNameFor(symbol.def.name)
+	}
+	
+	static def String computedNameFor(String name){
+		"computed_" + name
+	}
+	
+	static def String localNameFor(String name){
+		"local_" + name
+	}
+	
+	static def String pathFor(DomainAccessExpression fqn, Map<SymbolDef, SymbolPath> ruleTable){
+		if(fqn instanceof SymbolDef){
+			return ruleTable.get(fqn).unknownForm
+		}
+		if(fqn instanceof SemanticDomainAccess){
+			return pathFor(fqn.reciever, ruleTable) + ".get" + fqn.field.toFirstUpper + "()"
+		}
+		if(fqn instanceof Self){
+			return "node"
+		}
 	}
 	
 	static def Map<SymbolDef, String> getPathForSymbols(DefConfiguration conf){
+		val concept = conf.concept
+		val features = concept.EAllStructuralFeatures
+		val childs = conf.childs
+		val len = childs.size
+		
+		val out = new HashMap
+		
+		for (var i = 0; i < len; i++) {
+			val child = childs.get(i)
+			val featureGetter = "node.get" + features.get(i).name.toFirstUpper + "()"
+			val computedVar = computedNameFor(features.get(i).name)
+			
+			if(child instanceof SymbolDef){
+				val conditionalAccess = "(" + computedVar + " == null ? " + featureGetter + " : " + computedVar + ")"
+				out.put(child, conditionalAccess)
+			} else if (child instanceof DefConfiguration){
+				if(! RuleUtils.isValue(child.concept)){
+					val map = getPathForSymbolsRec(child)
+					for (symbol : map.keySet) {
+						val s = map.get(symbol)
+						map.put(symbol, featureGetter + s)	
+					}
+					out.putAll(map)
+				} else {
+					val type = child.concept.name
+					val castedComputedVar = '''((«type») «computedVar»)'''
+					val map = getPathForSymbolsRec(child)
+					for (symbol : map.keySet) {
+						val s = map.get(symbol)
+						map.put(symbol, castedComputedVar + s)	
+					}
+					out.putAll(map)
+				}
+			} else if (child instanceof ListDef){
+				val head = child.head
+				val tail = child.tail
+				
+				val headGetter = ".get(" + features.get(i).name + "_index)"
+				//val tailGetter = ".stream().skip(1).collect(Collectors.toCollection(BasicEList::new))"
+				val tailGetter = ""
+				
+				out.put(tail, featureGetter + tailGetter)
+				
+				if(head instanceof SymbolDef){
+					out.put(head, featureGetter + headGetter)
+				} else if (head instanceof DefConfiguration){
+					val map = getPathForSymbolsRec(head)
+					for (symbol : map.keySet) {
+						val s = map.get(symbol)
+						map.put(symbol, featureGetter + headGetter + s)	
+					}
+					out.putAll(map)
+				}
+			}
+		}
+		
+		
+		return out
+	}
+	
+	static def Map<SymbolDef, String> getPathForSymbolsRec(DefConfiguration conf){
 		val concept = conf.concept
 		val features = concept.EAllStructuralFeatures
 		val childs = conf.childs
@@ -49,27 +134,19 @@ class NamingUtils {
 			if(child instanceof SymbolDef){
 				out.put(child, featureGetter)
 			} else if (child instanceof DefConfiguration){
-				if(! child.concept.EPackage.equals(AdaptSemGenerator.semanticDomain)){
-					val map = getPathForSymbols(child)
-					for (symbol : map.keySet) {
-						val s = map.get(symbol)
-						map.put(symbol, featureGetter + s)	
-					}
-					out.putAll(map)
-				} else {
-					val map = getPathForSymbols(child)
-					for (symbol : map.keySet) {
-						val s = map.get(symbol)
-						map.put(symbol, "computed_" + features.get(i).name + s)	
-					}
-					out.putAll(map)
+				val map = getPathForSymbols(child)
+				for (symbol : map.keySet) {
+					val s = map.get(symbol)
+					map.put(symbol, featureGetter + s)	
 				}
+				out.putAll(map)
 			} else if (child instanceof ListDef){
 				val head = child.head
 				val tail = child.tail
 				
 				val headGetter = ".get(" + features.get(i).name + "_index)"
-				val tailGetter = ".stream().skip(1).collect(Collectors.toCollection(BasicEList::new))"
+				//val tailGetter = ".stream().skip(1).collect(Collectors.toCollection(BasicEList::new))"
+				val tailGetter = ""
 				
 				out.put(tail, featureGetter + tailGetter)
 				

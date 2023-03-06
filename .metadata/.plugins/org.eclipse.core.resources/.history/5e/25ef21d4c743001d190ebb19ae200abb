@@ -1,0 +1,36 @@
+/**
+ */
+package fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics;
+
+import org.eclipse.emf.common.util.EList;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>List Append</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListAppend#getElements <em>Elements</em>}</li>
+ * </ul>
+ *
+ * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getListAppend()
+ * @model
+ * @generated
+ */
+public interface ListAppend extends TermRef {
+	/**
+	 * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
+	 * The list contents are of type {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Elements</em>' containment reference list.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getListAppend_Elements()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	EList<TermRef> getElements();
+
+} // ListAppend

@@ -1,0 +1,164 @@
+grammar fr.irisa.diverse.adaptivesemantics.AdaptSem with org.eclipse.xtext.common.Terminals
+
+import "http://www.diverse-team.fr/adaptivesemantics" 
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+AdaptiveSemantics returns AdaptiveSemantics:
+	model=Model
+	imports+=Import*
+	rules+=Rule*;
+
+
+
+
+
+Model returns Model:
+	'model' importURI=EString "with" semanticdomain=[ecore::EPackage|FQN];
+
+Import returns Import:
+	'import' importURI=EString "as" name=ID;
+
+Rule returns Rule:
+	'rule' name=ID ','
+		conclusion=Conclusion
+	('where' conditions+=Condition*)?
+	('resolve' premises+=Premise*)?
+	('bind' bindings+=Binding*)?
+	('IO' (inputs+=Input | outputs+=Output)*)?
+;
+
+
+
+
+
+Condition returns Condition:
+	{Condition} oclPredicate=EString
+;
+	
+	
+
+
+	
+Input returns Input:
+	assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "(" ")"
+;
+
+Output returns Output:
+	operation=[ecore::EOperation|OperationFQN] "(" 
+		(args+=TermRef (","  args+=TermRef)*)? 
+	")"
+;
+	
+	
+	
+
+	
+Binding returns Binding:
+	assignee=Assignee "=" oclExpression=EString
+;
+
+Assignee returns Assignee:
+	SymbolDef | SemanticDomainAccess
+;
+
+//SemanticDomainAccess returns SemanticDomainAccess:
+//	reciever=DomainAccessExpression "." field=EString
+//;
+
+SemanticDomainAccess returns SemanticDomainAccess:
+	 reciever=TerminalAccessExpression '.' field=ID ({SemanticDomainAccess.reciever=current} '.' field=ID)*
+;
+
+TerminalAccessExpression returns DomainAccessExpression:
+	SymbolRef | Self
+;
+
+Self returns Self:
+	{Self} "self"
+;
+
+
+
+
+
+Conclusion returns Conclusion:
+	from=DefConfiguration '->' (termination?="termination")? to=SingleTermRef
+;
+
+Premise returns Premise:
+	from=SymbolRef '->' (termination?="termination")? to=SingleTermDef
+;
+
+TermDef:
+	SingleTermDef | ListDef | VoidList
+;
+
+TermRef:
+	SingleTermRef | ListRef | VoidList
+;
+
+SingleTermDef:
+	DefConfiguration | SymbolDef
+;
+
+SingleTermRef:
+	=> RefConfiguration | SymbolRef | SemanticDomainAccess
+;
+
+	
+	
+	
+
+DefConfiguration returns DefConfiguration:
+	concept=[ecore::EClass|FQN] "(" 
+		(childs+=TermDef ("," childs+=TermDef)*)? 
+	")"
+;
+	
+RefConfiguration returns RefConfiguration:
+	concept=[ecore::EClass|FQN] "(" 
+		(childs+=TermRef ("," childs+=TermRef)*)? 
+	")"
+;
+
+SymbolDef returns SymbolDef:
+	{SymbolDef}
+	name=ID
+;
+
+SymbolRef returns SymbolRef:
+	{SymbolRef}
+	def=[SymbolDef]
+;
+
+ListDef returns ListDef:
+	"[" head=SingleTermDef "|" tail=SymbolDef "]"
+;
+
+ListRef returns ListRef:
+	"[" head=SymbolRef "|" tail=SymbolRef "]"
+;
+
+VoidList returns VoidList:
+	{VoidList} "[]"
+;
+
+
+
+
+
+EString returns ecore::EString:
+	STRING | ID;
+	
+FQN: ID ("." ID)*;
+
+OperationFQN: ID ("." ID)+;
+
+
+	
+	
+	
+
+	
+	
+	

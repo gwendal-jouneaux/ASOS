@@ -1,0 +1,67 @@
+/**
+ */
+package fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Name Binding</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NameBinding#getOclExpression <em>Ocl Expression</em>}</li>
+ *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NameBinding#getSymbol <em>Symbol</em>}</li>
+ * </ul>
+ *
+ * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getNameBinding()
+ * @model
+ * @generated
+ */
+public interface NameBinding extends Binding {
+	/**
+	 * Returns the value of the '<em><b>Ocl Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ocl Expression</em>' attribute.
+	 * @see #setOclExpression(String)
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getNameBinding_OclExpression()
+	 * @model required="true"
+	 * @generated
+	 */
+	String getOclExpression();
+
+	/**
+	 * Sets the value of the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NameBinding#getOclExpression <em>Ocl Expression</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Ocl Expression</em>' attribute.
+	 * @see #getOclExpression()
+	 * @generated
+	 */
+	void setOclExpression(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Symbol</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Symbol</em>' containment reference.
+	 * @see #setSymbol(SymbolDef)
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getNameBinding_Symbol()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	SymbolDef getSymbol();
+
+	/**
+	 * Sets the value of the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NameBinding#getSymbol <em>Symbol</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Symbol</em>' containment reference.
+	 * @see #getSymbol()
+	 * @generated
+	 */
+	void setSymbol(SymbolDef value);
+
+} // NameBinding

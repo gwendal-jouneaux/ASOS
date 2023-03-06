@@ -1,0 +1,103 @@
+package fr.irisa.diverse.adaptivesemantics.generator.visitors
+
+import fr.irisa.diverse.adaptivesemantics.generator.AdaptSemGenerator
+import fr.irisa.diverse.adaptivesemantics.generator.RuleUtils
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList
+import java.util.Map
+import org.eclipse.emf.ecore.EClass
+
+class RefConfigurationCompiler {
+	
+	static val Map<EClass,Integer> varIndexes = newHashMap
+	val Map<SymbolDef, SymbolPath> ruleTable
+	var lastRefConfig = ""
+	
+	new(Map<SymbolDef, SymbolPath> table){
+		ruleTable = table
+	}
+	
+	def dispatch String compile(RefConfiguration node){
+		var out = ""
+		
+		val concept = node.concept
+		val features = concept.EAllStructuralFeatures
+		val childs = node.childs
+		val len = childs.size
+		
+		val classindex = varIndexes.getOrDefault(concept, 0)
+		varIndexes.put(concept, classindex+1)
+		
+		if(RuleUtils.isValue(concept)){
+			out = '''
+			«concept.name» «concept.name.toFirstLower»«classindex» = «AdaptSemGenerator.semanticDomain.name»Factory.eINSTANCE.create«concept.name»();
+			'''
+		} else {
+			out = '''
+			«concept.name» «concept.name.toFirstLower»«classindex» = «AdaptSemGenerator.modelName.toFirstUpper»Factory.eINSTANCE.create«concept.name»();
+			'''
+		}
+		
+		for (var i = 0; i < len; i++) {
+			val child = childs.get(i)
+			val featureSetter = ".set" + features.get(i).name.toFirstUpper
+			var featureType = features.get(i).EType.instanceClassName
+			var needsCopy = true
+			if (featureType === null) {
+				featureType = features.get(i).EType.name 
+				needsCopy = false
+			}
+			
+			if(child instanceof SymbolRef){
+				out = '''
+				«out»
+				«IF needsCopy»
+				«concept.name.toFirstLower»«classindex»«featureSetter»(EcoreUtil.copy((«featureType») «child.compile»));
+				«ELSE»
+				«concept.name.toFirstLower»«classindex»«featureSetter»((«featureType») «child.compile»);
+				«ENDIF»
+				'''
+			} else if (child instanceof RefConfiguration){
+				out = '''
+				«child.compile»
+				
+				«out»
+				«concept.name.toFirstLower»«classindex»«featureSetter»((«featureType») «lastRefConfig»);
+				'''
+			} else if (child instanceof ListRef){
+				out = '''
+				«out»
+				«concept.name.toFirstLower»«classindex»«featureSetter»((«featureType») «child.compile»);
+				'''
+			}
+		}
+		
+		lastRefConfig = concept.name.toFirstLower + classindex
+		
+		return out
+	}
+	
+	def dispatch String compile(VoidList node){
+		return "new ArrayList()"
+	}
+	
+	def dispatch String compile(ListRef node){
+		return node.tail.compile
+	}
+	
+	def dispatch String compile(SymbolRef node){
+		val paths = ruleTable.get(node.def)
+		if(paths !== null){
+			return '''EcoreUtil.copy((EObject) «paths.unknownForm»)'''
+		} else {
+			return '''«node.def.name»'''
+		}
+	}
+	
+	def String getLastRefConfig(){
+		return lastRefConfig
+	}
+}

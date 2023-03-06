@@ -130,6 +130,8 @@ public class AdaptivesemanticsSwitch<T> extends Switch<T> {
 			if (result == null)
 				result = caseSingleTermRef(refConfiguration);
 			if (result == null)
+				result = caseAssignable(refConfiguration);
+			if (result == null)
 				result = caseTermRef(refConfiguration);
 			if (result == null)
 				result = defaultCase(theEObject);
@@ -170,6 +172,10 @@ public class AdaptivesemanticsSwitch<T> extends Switch<T> {
 				result = caseDomainAccessExpression(symbolRef);
 			if (result == null)
 				result = caseTermRef(symbolRef);
+			if (result == null)
+				result = caseExpr(symbolRef);
+			if (result == null)
+				result = caseAssignable(symbolRef);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -271,9 +277,9 @@ public class AdaptivesemanticsSwitch<T> extends Switch<T> {
 			if (result == null)
 				result = caseAssignee(semanticDomainAccess);
 			if (result == null)
-				result = caseSingleTermRef(semanticDomainAccess);
+				result = caseExpr(semanticDomainAccess);
 			if (result == null)
-				result = caseTermRef(semanticDomainAccess);
+				result = caseAssignable(semanticDomainAccess);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -281,6 +287,10 @@ public class AdaptivesemanticsSwitch<T> extends Switch<T> {
 		case AdaptivesemanticsPackage.DOMAIN_ACCESS_EXPRESSION: {
 			DomainAccessExpression domainAccessExpression = (DomainAccessExpression) theEObject;
 			T result = caseDomainAccessExpression(domainAccessExpression);
+			if (result == null)
+				result = caseExpr(domainAccessExpression);
+			if (result == null)
+				result = caseAssignable(domainAccessExpression);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -290,6 +300,273 @@ public class AdaptivesemanticsSwitch<T> extends Switch<T> {
 			T result = caseSelf(self);
 			if (result == null)
 				result = caseDomainAccessExpression(self);
+			if (result == null)
+				result = caseExpr(self);
+			if (result == null)
+				result = caseAssignable(self);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.EQUAL: {
+			Equal equal = (Equal) theEObject;
+			T result = caseEqual(equal);
+			if (result == null)
+				result = caseBinExpr(equal);
+			if (result == null)
+				result = caseCondExpr(equal);
+			if (result == null)
+				result = caseExpr(equal);
+			if (result == null)
+				result = caseAssignable(equal);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.NOT_EQUAL: {
+			NotEqual notEqual = (NotEqual) theEObject;
+			T result = caseNotEqual(notEqual);
+			if (result == null)
+				result = caseBinExpr(notEqual);
+			if (result == null)
+				result = caseCondExpr(notEqual);
+			if (result == null)
+				result = caseExpr(notEqual);
+			if (result == null)
+				result = caseAssignable(notEqual);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.COND_EXPR: {
+			CondExpr condExpr = (CondExpr) theEObject;
+			T result = caseCondExpr(condExpr);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.EXPR: {
+			Expr expr = (Expr) theEObject;
+			T result = caseExpr(expr);
+			if (result == null)
+				result = caseAssignable(expr);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.OR: {
+			Or or = (Or) theEObject;
+			T result = caseOr(or);
+			if (result == null)
+				result = caseBinExpr(or);
+			if (result == null)
+				result = caseCondExpr(or);
+			if (result == null)
+				result = caseExpr(or);
+			if (result == null)
+				result = caseAssignable(or);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.AND: {
+			And and = (And) theEObject;
+			T result = caseAnd(and);
+			if (result == null)
+				result = caseBinExpr(and);
+			if (result == null)
+				result = caseCondExpr(and);
+			if (result == null)
+				result = caseExpr(and);
+			if (result == null)
+				result = caseAssignable(and);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.NOT: {
+			Not not = (Not) theEObject;
+			T result = caseNot(not);
+			if (result == null)
+				result = caseCondExpr(not);
+			if (result == null)
+				result = caseExpr(not);
+			if (result == null)
+				result = caseAssignable(not);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.LESS: {
+			Less less = (Less) theEObject;
+			T result = caseLess(less);
+			if (result == null)
+				result = caseBinExpr(less);
+			if (result == null)
+				result = caseCondExpr(less);
+			if (result == null)
+				result = caseExpr(less);
+			if (result == null)
+				result = caseAssignable(less);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.LESS_EQ: {
+			LessEq lessEq = (LessEq) theEObject;
+			T result = caseLessEq(lessEq);
+			if (result == null)
+				result = caseBinExpr(lessEq);
+			if (result == null)
+				result = caseCondExpr(lessEq);
+			if (result == null)
+				result = caseExpr(lessEq);
+			if (result == null)
+				result = caseAssignable(lessEq);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.BIN_EXPR: {
+			BinExpr binExpr = (BinExpr) theEObject;
+			T result = caseBinExpr(binExpr);
+			if (result == null)
+				result = caseExpr(binExpr);
+			if (result == null)
+				result = caseAssignable(binExpr);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.DIV: {
+			Div div = (Div) theEObject;
+			T result = caseDiv(div);
+			if (result == null)
+				result = caseBinExpr(div);
+			if (result == null)
+				result = caseExpr(div);
+			if (result == null)
+				result = caseAssignable(div);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.MULT: {
+			Mult mult = (Mult) theEObject;
+			T result = caseMult(mult);
+			if (result == null)
+				result = caseBinExpr(mult);
+			if (result == null)
+				result = caseExpr(mult);
+			if (result == null)
+				result = caseAssignable(mult);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.MINUS: {
+			Minus minus = (Minus) theEObject;
+			T result = caseMinus(minus);
+			if (result == null)
+				result = caseBinExpr(minus);
+			if (result == null)
+				result = caseExpr(minus);
+			if (result == null)
+				result = caseAssignable(minus);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.PLUS: {
+			Plus plus = (Plus) theEObject;
+			T result = casePlus(plus);
+			if (result == null)
+				result = caseBinExpr(plus);
+			if (result == null)
+				result = caseExpr(plus);
+			if (result == null)
+				result = caseAssignable(plus);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.CONST: {
+			Const const_ = (Const) theEObject;
+			T result = caseConst(const_);
+			if (result == null)
+				result = caseExpr(const_);
+			if (result == null)
+				result = caseAssignable(const_);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.INT_CONSTANT: {
+			IntConstant intConstant = (IntConstant) theEObject;
+			T result = caseIntConstant(intConstant);
+			if (result == null)
+				result = caseConst(intConstant);
+			if (result == null)
+				result = caseExpr(intConstant);
+			if (result == null)
+				result = caseAssignable(intConstant);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.BOOL_CONSTANT: {
+			BoolConstant boolConstant = (BoolConstant) theEObject;
+			T result = caseBoolConstant(boolConstant);
+			if (result == null)
+				result = caseConst(boolConstant);
+			if (result == null)
+				result = caseExpr(boolConstant);
+			if (result == null)
+				result = caseAssignable(boolConstant);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.STRING_CONSTANT: {
+			StringConstant stringConstant = (StringConstant) theEObject;
+			T result = caseStringConstant(stringConstant);
+			if (result == null)
+				result = caseConst(stringConstant);
+			if (result == null)
+				result = caseExpr(stringConstant);
+			if (result == null)
+				result = caseAssignable(stringConstant);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.DOUBLE_CONSTANT: {
+			DoubleConstant doubleConstant = (DoubleConstant) theEObject;
+			T result = caseDoubleConstant(doubleConstant);
+			if (result == null)
+				result = caseConst(doubleConstant);
+			if (result == null)
+				result = caseExpr(doubleConstant);
+			if (result == null)
+				result = caseAssignable(doubleConstant);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.ASSIGNABLE: {
+			Assignable assignable = (Assignable) theEObject;
+			T result = caseAssignable(assignable);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case AdaptivesemanticsPackage.OPPOSITE: {
+			Opposite opposite = (Opposite) theEObject;
+			T result = caseOpposite(opposite);
+			if (result == null)
+				result = caseExpr(opposite);
+			if (result == null)
+				result = caseAssignable(opposite);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -686,6 +963,321 @@ public class AdaptivesemanticsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSelf(Self object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Equal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Equal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEqual(Equal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Not Equal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Not Equal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNotEqual(NotEqual object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Cond Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Cond Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCondExpr(CondExpr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExpr(Expr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Or</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Or</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOr(Or object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>And</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>And</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAnd(And object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Not</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Not</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNot(Not object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Less</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Less</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLess(Less object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Less Eq</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Less Eq</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLessEq(LessEq object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Bin Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Bin Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBinExpr(BinExpr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Div</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Div</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDiv(Div object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Mult</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Mult</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMult(Mult object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Minus</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Minus</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMinus(Minus object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Plus</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Plus</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePlus(Plus object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Const</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Const</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConst(Const object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Int Constant</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Int Constant</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIntConstant(IntConstant object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Bool Constant</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Bool Constant</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBoolConstant(BoolConstant object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>String Constant</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>String Constant</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStringConstant(StringConstant object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Double Constant</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Double Constant</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDoubleConstant(DoubleConstant object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assignable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assignable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssignable(Assignable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Opposite</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Opposite</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOpposite(Opposite object) {
 		return null;
 	}
 

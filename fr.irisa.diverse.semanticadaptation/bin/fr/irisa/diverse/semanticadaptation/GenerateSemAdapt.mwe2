@@ -42,6 +42,12 @@ Workflow {
 				generateXtendStub = true
 			}
 
+			parserGenerator = {
+				options = {
+					backtrack = true
+				}
+			}
+			
 			serializer = {
 				generateStub = false
 			}

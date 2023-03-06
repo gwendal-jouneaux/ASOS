@@ -1,0 +1,18 @@
+/**
+ */
+package fr.irisa.diverse.semanticadaptation.model.semanticadaptation;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Term Def</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ *
+ * @see fr.irisa.diverse.semanticadaptation.model.semanticadaptation.SemanticadaptationPackage#getTermDef()
+ * @model interface="true" abstract="true"
+ * @generated
+ */
+public interface TermDef extends EObject {
+} // TermDef

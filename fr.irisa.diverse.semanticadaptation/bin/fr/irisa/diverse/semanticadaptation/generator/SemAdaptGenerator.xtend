@@ -16,10 +16,26 @@ import org.eclipse.xtext.generator.IGeneratorContext
 class SemAdaptGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(Greeting)
-//				.map[name]
-//				.join(', '))
+//		val metamodel = resource.allContents.filter(Model).head as Model
+//		semanticdomain = metamodel.semanticdomain
+//		modelName = NamingUtils.nameOf(metamodel)
+//		
+//		val rules = resource.allContents.filter(Rule).toList
+//		conceptRules = rules.groupBy[conclusion.from.concept]
+//			
+//		//SemanticInterfaceGenerator.compileInterfaces(conceptRules, fsa)
+//		val interface = compileInterface(rules)
+//		fsa.generateFile(NamingUtils.interfacePathFor(modelName, modelName), interface)
+//			
+//		groupRulesByConcept(conceptRules)
+//		createSymbolTableForRules()
+//		
+//		
+//		val concepts = allRulesForConcept.keySet
+//		for (concept : concepts) {
+//			val conceptName = concept.name
+//			val operation = compileOperationFor(concept)
+//			fsa.generateFile(NamingUtils.operationPathFor(modelName, conceptName), operation)
+//		}
 	}
 }

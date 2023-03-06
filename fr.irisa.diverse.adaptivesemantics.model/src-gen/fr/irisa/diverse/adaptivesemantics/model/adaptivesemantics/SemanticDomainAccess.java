@@ -19,7 +19,7 @@ package fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics;
  * @model
  * @generated
  */
-public interface SemanticDomainAccess extends DomainAccessExpression, Assignee, SingleTermRef {
+public interface SemanticDomainAccess extends DomainAccessExpression, Assignee, Assignable {
 	/**
 	 * Returns the value of the '<em><b>Field</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -6,21 +6,37 @@ package fr.irisa.diverse.semanticadaptation.serializer;
 import com.google.inject.Inject;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptiveSemantics;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Conclusion;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Import;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Premise;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Self;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SemanticDomainAccess;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList;
@@ -60,8 +76,40 @@ public class SemAdaptSemanticSequencer extends AdaptSemSemanticSequencer {
 			case AdaptivesemanticsPackage.ADAPTIVE_SEMANTICS:
 				sequence_AdaptiveSemantics(context, (AdaptiveSemantics) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.AND:
+				if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_And(context, (And) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondAndRule()) {
+					sequence_CondAnd(context, (And) semanticObject); 
+					return; 
+				}
+				else break;
 			case AdaptivesemanticsPackage.BINDING:
 				sequence_Binding(context, (Binding) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.BOOL_CONSTANT:
+				sequence_Atomic(context, (BoolConstant) semanticObject); 
 				return; 
 			case AdaptivesemanticsPackage.CONCLUSION:
 				sequence_Conclusion(context, (Conclusion) semanticObject); 
@@ -72,23 +120,218 @@ public class SemAdaptSemanticSequencer extends AdaptSemSemanticSequencer {
 			case AdaptivesemanticsPackage.DEF_CONFIGURATION:
 				sequence_DefConfiguration(context, (DefConfiguration) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.DIV:
+				sequence_MulOrDiv(context, (Div) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.DOUBLE_CONSTANT:
+				sequence_Atomic(context, (DoubleConstant) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.EQUAL:
+				if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondEqualityRule()) {
+					sequence_CondEquality(context, (Equal) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Equality(context, (Equal) semanticObject); 
+					return; 
+				}
+				else break;
 			case AdaptivesemanticsPackage.IMPORT:
 				sequence_Import(context, (Import) semanticObject); 
 				return; 
 			case AdaptivesemanticsPackage.INPUT:
 				sequence_Input(context, (Input) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.INT_CONSTANT:
+				sequence_Atomic(context, (IntConstant) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.LESS:
+				if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Comparison(context, (Less) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondComparisonRule()) {
+					sequence_CondComparison(context, (Less) semanticObject); 
+					return; 
+				}
+				else break;
+			case AdaptivesemanticsPackage.LESS_EQ:
+				if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Comparison(context, (LessEq) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondComparisonRule()) {
+					sequence_CondComparison(context, (LessEq) semanticObject); 
+					return; 
+				}
+				else break;
 			case AdaptivesemanticsPackage.LIST_DEF:
 				sequence_ListDef(context, (ListDef) semanticObject); 
 				return; 
 			case AdaptivesemanticsPackage.LIST_REF:
 				sequence_ListRef(context, (ListRef) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.MINUS:
+				sequence_PlusOrMinus(context, (Minus) semanticObject); 
+				return; 
 			case AdaptivesemanticsPackage.MODEL:
 				sequence_Model(context, (Model) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.MULT:
+				sequence_MulOrDiv(context, (Mult) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.NOT:
+				if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondNotRule()) {
+					sequence_CondNot(context, (Not) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Primary(context, (Not) semanticObject); 
+					return; 
+				}
+				else break;
+			case AdaptivesemanticsPackage.NOT_EQUAL:
+				if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondEqualityRule()) {
+					sequence_CondEquality(context, (NotEqual) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Equality(context, (NotEqual) semanticObject); 
+					return; 
+				}
+				else break;
+			case AdaptivesemanticsPackage.OPPOSITE:
+				sequence_Primary(context, (Opposite) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.OR:
+				if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondOrRule()) {
+					sequence_CondOr(context, (Or) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Or(context, (Or) semanticObject); 
+					return; 
+				}
+				else break;
 			case AdaptivesemanticsPackage.OUTPUT:
 				sequence_Output(context, (Output) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.PLUS:
+				sequence_PlusOrMinus(context, (Plus) semanticObject); 
 				return; 
 			case AdaptivesemanticsPackage.PREMISE:
 				sequence_Premise(context, (Premise) semanticObject); 
@@ -104,6 +347,9 @@ public class SemAdaptSemanticSequencer extends AdaptSemSemanticSequencer {
 				return; 
 			case AdaptivesemanticsPackage.SEMANTIC_DOMAIN_ACCESS:
 				sequence_SemanticDomainAccess(context, (SemanticDomainAccess) semanticObject); 
+				return; 
+			case AdaptivesemanticsPackage.STRING_CONSTANT:
+				sequence_Atomic(context, (StringConstant) semanticObject); 
 				return; 
 			case AdaptivesemanticsPackage.SYMBOL_DEF:
 				sequence_SymbolDef(context, (SymbolDef) semanticObject); 

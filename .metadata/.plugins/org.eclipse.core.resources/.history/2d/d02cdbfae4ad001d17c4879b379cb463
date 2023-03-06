@@ -1,0 +1,35 @@
+package fr.irisa.diverse.adaptivesemantics.generator.visitors
+
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant
+
+class ExpressionAccepts {
+	def <T> T accept(Plus node, ExpressionVisitor<T> vis){}
+	def <T> T accept(Minus node, ExpressionVisitor<T> vis){}
+	def <T> T accept(Div node, ExpressionVisitor<T> vis){}
+	def <T> T accept(Mult node, ExpressionVisitor<T> vis){}
+	def <T> T accept(Or node, ExpressionVisitor<T> vis){}
+	def <T> T accept(And node, ExpressionVisitor<T> vis){}
+	def <T> T accept(Not node, ExpressionVisitor<T> vis){}
+	def <T> T accept(Less node, ExpressionVisitor<T> vis){}
+	def <T> T accept(LessEq node, ExpressionVisitor<T> vis){}
+	def <T> T accept(Equal node, ExpressionVisitor<T> vis){}
+	def <T> T accept(NotEqual node, ExpressionVisitor<T> vis){}
+	def <T> T accept(IntConstant node, ExpressionVisitor<T> vis){}
+	def <T> T accept(BoolConstant node, ExpressionVisitor<T> vis){}
+	def <T> T accept(StringConstant node, ExpressionVisitor<T> vis){}
+	def <T> T accept(DoubleConstant node, ExpressionVisitor<T> vis){}
+}

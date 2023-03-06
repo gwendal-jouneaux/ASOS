@@ -1,0 +1,36 @@
+/**
+ */
+package fr.irisa.diverse.semanticadaptation.model.semanticadaptation;
+
+import org.eclipse.emf.common.util.EList;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Ref Configuration</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link fr.irisa.diverse.semanticadaptation.model.semanticadaptation.RefConfiguration#getChilds <em>Childs</em>}</li>
+ * </ul>
+ *
+ * @see fr.irisa.diverse.semanticadaptation.model.semanticadaptation.SemanticadaptationPackage#getRefConfiguration()
+ * @model
+ * @generated
+ */
+public interface RefConfiguration extends Configuration, TermRef {
+	/**
+	 * Returns the value of the '<em><b>Childs</b></em>' containment reference list.
+	 * The list contents are of type {@link fr.irisa.diverse.semanticadaptation.model.semanticadaptation.SymbolRef}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Childs</em>' containment reference list.
+	 * @see fr.irisa.diverse.semanticadaptation.model.semanticadaptation.SemanticadaptationPackage#getRefConfiguration_Childs()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<SymbolRef> getChilds();
+
+} // RefConfiguration
