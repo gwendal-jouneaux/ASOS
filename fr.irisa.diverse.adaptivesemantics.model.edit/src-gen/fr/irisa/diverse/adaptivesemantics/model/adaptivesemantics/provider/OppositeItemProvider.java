@@ -206,6 +206,9 @@ public class OppositeItemProvider extends ItemProviderAdapter implements IEditin
 
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.OPPOSITE__EXPR,
 				AdaptivesemanticsFactory.eINSTANCE.createOpposite()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.OPPOSITE__EXPR,
+				AdaptivesemanticsFactory.eINSTANCE.createIs()));
 	}
 
 	/**

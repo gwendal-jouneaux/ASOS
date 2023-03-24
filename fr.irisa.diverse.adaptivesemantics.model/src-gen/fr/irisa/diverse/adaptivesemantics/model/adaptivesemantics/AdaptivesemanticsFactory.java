@@ -338,6 +338,15 @@ public interface AdaptivesemanticsFactory extends EFactory {
 	Opposite createOpposite();
 
 	/**
+	 * Returns a new object of class '<em>Is</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Is</em>'.
+	 * @generated
+	 */
+	Is createIs();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -198,6 +198,9 @@ public class BinExprItemProvider extends ItemProviderAdapter implements IEditing
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS,
 				AdaptivesemanticsFactory.eINSTANCE.createOpposite()));
 
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.BIN_EXPR__RHS,
+				AdaptivesemanticsFactory.eINSTANCE.createIs()));
+
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS,
 				AdaptivesemanticsFactory.eINSTANCE.createSymbolRef()));
 
@@ -254,6 +257,9 @@ public class BinExprItemProvider extends ItemProviderAdapter implements IEditing
 
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS,
 				AdaptivesemanticsFactory.eINSTANCE.createOpposite()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.BIN_EXPR__LHS,
+				AdaptivesemanticsFactory.eINSTANCE.createIs()));
 	}
 
 	/**

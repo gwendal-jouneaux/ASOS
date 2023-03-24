@@ -1981,6 +1981,18 @@ ruleCondExpr returns [EObject current=null]
 			$current = $this_CondNot_4.current;
 			afterParserOrEnumRuleCall();
 		}
+		    |
+		{
+			/* */
+		}
+		{
+			newCompositeNode(grammarAccess.getCondExprAccess().getCondIsParserRuleCall_5());
+		}
+		this_CondIs_5=ruleCondIs
+		{
+			$current = $this_CondIs_5.current;
+			afterParserOrEnumRuleCall();
+		}
 	)
 ;
 
@@ -2429,6 +2441,77 @@ ruleCondComparison returns [EObject current=null]
 						afterParserOrEnumRuleCall();
 					}
 				)
+			)
+		)
+	)
+;
+
+// Entry rule entryRuleCondIs
+entryRuleCondIs returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getCondIsRule()); }
+	iv_ruleCondIs=ruleCondIs
+	{ $current=$iv_ruleCondIs.current; }
+	EOF;
+
+// Rule CondIs
+ruleCondIs returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		(
+			{
+				/* */
+			}
+			{
+				$current = forceCreateModelElement(
+					grammarAccess.getCondIsAccess().getIsAction_0(),
+					$current);
+			}
+		)
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getCondIsAccess().getPatternDefConfigurationParserRuleCall_1_0());
+				}
+				lv_pattern_1_0=ruleDefConfiguration
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getCondIsRule());
+					}
+					set(
+						$current,
+						"pattern",
+						lv_pattern_1_0,
+						"fr.irisa.diverse.adaptivesemantics.AdaptSem.DefConfiguration");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_2='match'
+		{
+			newLeafNode(otherlv_2, grammarAccess.getCondIsAccess().getMatchKeyword_2());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getCondIsAccess().getExprExprParserRuleCall_3_0());
+				}
+				lv_expr_3_0=ruleExpr
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getCondIsRule());
+					}
+					set(
+						$current,
+						"expr",
+						lv_expr_3_0,
+						"fr.irisa.diverse.adaptivesemantics.AdaptSem.Expr");
+					afterParserOrEnumRuleCall();
+				}
 			)
 		)
 	)
@@ -3046,15 +3129,70 @@ rulePrimary returns [EObject current=null]
 			)
 		)
 		    |
+		(
+			(
+				{
+					/* */
+				}
+				{
+					$current = forceCreateModelElement(
+						grammarAccess.getPrimaryAccess().getIsAction_3_0(),
+						$current);
+				}
+			)
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getPrimaryAccess().getPatternDefConfigurationParserRuleCall_3_1_0());
+					}
+					lv_pattern_10_0=ruleDefConfiguration
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getPrimaryRule());
+						}
+						set(
+							$current,
+							"pattern",
+							lv_pattern_10_0,
+							"fr.irisa.diverse.adaptivesemantics.AdaptSem.DefConfiguration");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			otherlv_11='match'
+			{
+				newLeafNode(otherlv_11, grammarAccess.getPrimaryAccess().getMatchKeyword_3_2());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getPrimaryAccess().getExprPrimaryParserRuleCall_3_3_0());
+					}
+					lv_expr_12_0=rulePrimary
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getPrimaryRule());
+						}
+						set(
+							$current,
+							"expr",
+							lv_expr_12_0,
+							"fr.irisa.diverse.adaptivesemantics.AdaptSem.Primary");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)
+		    |
 		{
 			/* */
 		}
 		{
-			newCompositeNode(grammarAccess.getPrimaryAccess().getAtomicParserRuleCall_3());
+			newCompositeNode(grammarAccess.getPrimaryAccess().getAtomicParserRuleCall_4());
 		}
-		this_Atomic_9=ruleAtomic
+		this_Atomic_13=ruleAtomic
 		{
-			$current = $this_Atomic_9.current;
+			$current = $this_Atomic_13.current;
 			afterParserOrEnumRuleCall();
 		}
 	)

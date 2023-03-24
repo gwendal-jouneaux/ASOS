@@ -102,6 +102,7 @@ public class SemAdaptParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getCondEqualityAccess().getGroup_1(), "rule__CondEquality__Group_1__0");
 			builder.put(grammarAccess.getCondComparisonAccess().getGroup_0(), "rule__CondComparison__Group_0__0");
 			builder.put(grammarAccess.getCondComparisonAccess().getGroup_1(), "rule__CondComparison__Group_1__0");
+			builder.put(grammarAccess.getCondIsAccess().getGroup(), "rule__CondIs__Group__0");
 			builder.put(grammarAccess.getOrAccess().getGroup(), "rule__Or__Group__0");
 			builder.put(grammarAccess.getOrAccess().getGroup_1(), "rule__Or__Group_1__0");
 			builder.put(grammarAccess.getAndAccess().getGroup(), "rule__And__Group__0");
@@ -125,6 +126,7 @@ public class SemAdaptParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getPrimaryAccess().getGroup_0(), "rule__Primary__Group_0__0");
 			builder.put(grammarAccess.getPrimaryAccess().getGroup_1(), "rule__Primary__Group_1__0");
 			builder.put(grammarAccess.getPrimaryAccess().getGroup_2(), "rule__Primary__Group_2__0");
+			builder.put(grammarAccess.getPrimaryAccess().getGroup_3(), "rule__Primary__Group_3__0");
 			builder.put(grammarAccess.getAtomicAccess().getGroup_0(), "rule__Atomic__Group_0__0");
 			builder.put(grammarAccess.getAtomicAccess().getGroup_1(), "rule__Atomic__Group_1__0");
 			builder.put(grammarAccess.getAtomicAccess().getGroup_2(), "rule__Atomic__Group_2__0");
@@ -208,6 +210,8 @@ public class SemAdaptParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getCondComparisonAccess().getRhsAssignment_0_3(), "rule__CondComparison__RhsAssignment_0_3");
 			builder.put(grammarAccess.getCondComparisonAccess().getLhsAssignment_1_1(), "rule__CondComparison__LhsAssignment_1_1");
 			builder.put(grammarAccess.getCondComparisonAccess().getRhsAssignment_1_3(), "rule__CondComparison__RhsAssignment_1_3");
+			builder.put(grammarAccess.getCondIsAccess().getPatternAssignment_1(), "rule__CondIs__PatternAssignment_1");
+			builder.put(grammarAccess.getCondIsAccess().getExprAssignment_3(), "rule__CondIs__ExprAssignment_3");
 			builder.put(grammarAccess.getOrAccess().getRhsAssignment_1_2(), "rule__Or__RhsAssignment_1_2");
 			builder.put(grammarAccess.getAndAccess().getRhsAssignment_1_2(), "rule__And__RhsAssignment_1_2");
 			builder.put(grammarAccess.getEqualityAccess().getRhsAssignment_1_1(), "rule__Equality__RhsAssignment_1_1");
@@ -216,6 +220,8 @@ public class SemAdaptParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getMulOrDivAccess().getRhsAssignment_1_1(), "rule__MulOrDiv__RhsAssignment_1_1");
 			builder.put(grammarAccess.getPrimaryAccess().getExprAssignment_1_2(), "rule__Primary__ExprAssignment_1_2");
 			builder.put(grammarAccess.getPrimaryAccess().getExprAssignment_2_2(), "rule__Primary__ExprAssignment_2_2");
+			builder.put(grammarAccess.getPrimaryAccess().getPatternAssignment_3_1(), "rule__Primary__PatternAssignment_3_1");
+			builder.put(grammarAccess.getPrimaryAccess().getExprAssignment_3_3(), "rule__Primary__ExprAssignment_3_3");
 			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_0_1(), "rule__Atomic__ValueAssignment_0_1");
 			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_1_1(), "rule__Atomic__ValueAssignment_1_1");
 			builder.put(grammarAccess.getAtomicAccess().getValueAssignment_2_1(), "rule__Atomic__ValueAssignment_2_1");

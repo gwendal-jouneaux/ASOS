@@ -1098,13 +1098,14 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		private final RuleCall cCondEqualityParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cCondComparisonParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		private final RuleCall cCondNotParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cCondIsParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//CondExpr returns CondExpr:
-		//    CondOr | CondAnd | CondEquality | CondComparison | CondNot
+		//    CondOr | CondAnd | CondEquality | CondComparison | CondNot | CondIs
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//CondOr | CondAnd | CondEquality | CondComparison | CondNot
+		//CondOr | CondAnd | CondEquality | CondComparison | CondNot | CondIs
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//CondOr
@@ -1121,6 +1122,9 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		
 		//CondNot
 		public RuleCall getCondNotParserRuleCall_4() { return cCondNotParserRuleCall_4; }
+		
+		//CondIs
+		public RuleCall getCondIsParserRuleCall_5() { return cCondIsParserRuleCall_5; }
 	}
 	public class CondNotElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "fr.irisa.diverse.adaptivesemantics.AdaptSem.CondNot");
@@ -1361,6 +1365,42 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		
 		//PlusOrMinus
 		public RuleCall getRhsPlusOrMinusParserRuleCall_1_3_0() { return cRhsPlusOrMinusParserRuleCall_1_3_0; }
+	}
+	public class CondIsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "fr.irisa.diverse.adaptivesemantics.AdaptSem.CondIs");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cIsAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cPatternAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cPatternDefConfigurationParserRuleCall_1_0 = (RuleCall)cPatternAssignment_1.eContents().get(0);
+		private final Keyword cMatchKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cExprAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cExprExprParserRuleCall_3_0 = (RuleCall)cExprAssignment_3.eContents().get(0);
+		
+		//CondIs returns CondExpr:
+		//    ({Is} pattern=DefConfiguration 'match' expr=Expr)
+		//;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//({Is} pattern=DefConfiguration 'match' expr=Expr)
+		public Group getGroup() { return cGroup; }
+		
+		//{Is}
+		public Action getIsAction_0() { return cIsAction_0; }
+		
+		//pattern=DefConfiguration
+		public Assignment getPatternAssignment_1() { return cPatternAssignment_1; }
+		
+		//DefConfiguration
+		public RuleCall getPatternDefConfigurationParserRuleCall_1_0() { return cPatternDefConfigurationParserRuleCall_1_0; }
+		
+		//'match'
+		public Keyword getMatchKeyword_2() { return cMatchKeyword_2; }
+		
+		//expr=Expr
+		public Assignment getExprAssignment_3() { return cExprAssignment_3; }
+		
+		//Expr
+		public RuleCall getExprExprParserRuleCall_3_0() { return cExprExprParserRuleCall_3_0; }
 	}
 	public class ExprElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "fr.irisa.diverse.adaptivesemantics.AdaptSem.Expr");
@@ -1729,18 +1769,27 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		private final Keyword cHyphenMinusKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		private final Assignment cExprAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
 		private final RuleCall cExprPrimaryParserRuleCall_2_2_0 = (RuleCall)cExprAssignment_2_2.eContents().get(0);
-		private final RuleCall cAtomicParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
+		private final Action cIsAction_3_0 = (Action)cGroup_3.eContents().get(0);
+		private final Assignment cPatternAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cPatternDefConfigurationParserRuleCall_3_1_0 = (RuleCall)cPatternAssignment_3_1.eContents().get(0);
+		private final Keyword cMatchKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final Assignment cExprAssignment_3_3 = (Assignment)cGroup_3.eContents().get(3);
+		private final RuleCall cExprPrimaryParserRuleCall_3_3_0 = (RuleCall)cExprAssignment_3_3.eContents().get(0);
+		private final RuleCall cAtomicParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//Primary returns Expr:
 		//    '(' Expr ')' |
 		//    {Not} "!" expr=Primary |
 		//    {Opposite} "-" expr=Primary |
+		//    {Is} pattern=DefConfiguration 'match' expr=Primary |
 		//    Atomic;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//'(' Expr ')' |
 		//{Not} "!" expr=Primary |
 		//{Opposite} "-" expr=Primary |
+		//{Is} pattern=DefConfiguration 'match' expr=Primary |
 		//Atomic
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
@@ -1786,8 +1835,29 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		//Primary
 		public RuleCall getExprPrimaryParserRuleCall_2_2_0() { return cExprPrimaryParserRuleCall_2_2_0; }
 		
+		//{Is} pattern=DefConfiguration 'match' expr=Primary
+		public Group getGroup_3() { return cGroup_3; }
+		
+		//{Is}
+		public Action getIsAction_3_0() { return cIsAction_3_0; }
+		
+		//pattern=DefConfiguration
+		public Assignment getPatternAssignment_3_1() { return cPatternAssignment_3_1; }
+		
+		//DefConfiguration
+		public RuleCall getPatternDefConfigurationParserRuleCall_3_1_0() { return cPatternDefConfigurationParserRuleCall_3_1_0; }
+		
+		//'match'
+		public Keyword getMatchKeyword_3_2() { return cMatchKeyword_3_2; }
+		
+		//expr=Primary
+		public Assignment getExprAssignment_3_3() { return cExprAssignment_3_3; }
+		
+		//Primary
+		public RuleCall getExprPrimaryParserRuleCall_3_3_0() { return cExprPrimaryParserRuleCall_3_3_0; }
+		
 		//Atomic
-		public RuleCall getAtomicParserRuleCall_3() { return cAtomicParserRuleCall_3; }
+		public RuleCall getAtomicParserRuleCall_4() { return cAtomicParserRuleCall_4; }
 	}
 	public class AtomicElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "fr.irisa.diverse.adaptivesemantics.AdaptSem.Atomic");
@@ -1987,6 +2057,7 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	private final CondAndElements pCondAnd;
 	private final CondEqualityElements pCondEquality;
 	private final CondComparisonElements pCondComparison;
+	private final CondIsElements pCondIs;
 	private final ExprElements pExpr;
 	private final OrElements pOr;
 	private final AndElements pAnd;
@@ -2043,6 +2114,7 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		this.pCondAnd = new CondAndElements();
 		this.pCondEquality = new CondEqualityElements();
 		this.pCondComparison = new CondComparisonElements();
+		this.pCondIs = new CondIsElements();
 		this.pExpr = new ExprElements();
 		this.pOr = new OrElements();
 		this.pAnd = new AndElements();
@@ -2388,7 +2460,7 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//CondExpr returns CondExpr:
-	//    CondOr | CondAnd | CondEquality | CondComparison | CondNot
+	//    CondOr | CondAnd | CondEquality | CondComparison | CondNot | CondIs
 	//;
 	public CondExprElements getCondExprAccess() {
 		return pCondExpr;
@@ -2453,6 +2525,17 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	
 	public ParserRule getCondComparisonRule() {
 		return getCondComparisonAccess().getRule();
+	}
+	
+	//CondIs returns CondExpr:
+	//    ({Is} pattern=DefConfiguration 'match' expr=Expr)
+	//;
+	public CondIsElements getCondIsAccess() {
+		return pCondIs;
+	}
+	
+	public ParserRule getCondIsRule() {
+		return getCondIsAccess().getRule();
 	}
 	
 	//Expr returns Expr:
@@ -2546,6 +2629,7 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	//    '(' Expr ')' |
 	//    {Not} "!" expr=Primary |
 	//    {Opposite} "-" expr=Primary |
+	//    {Is} pattern=DefConfiguration 'match' expr=Primary |
 	//    Atomic;
 	public PrimaryElements getPrimaryAccess() {
 		return pPrimary;

@@ -878,6 +878,29 @@ public class AdaptivesemanticsItemProviderAdapterFactory extends Adaptivesemanti
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected IsItemProvider isItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createIsAdapter() {
+		if (isItemProvider == null) {
+			isItemProvider = new IsItemProvider(this);
+		}
+
+		return isItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1046,6 +1069,8 @@ public class AdaptivesemanticsItemProviderAdapterFactory extends Adaptivesemanti
 			doubleConstantItemProvider.dispose();
 		if (oppositeItemProvider != null)
 			oppositeItemProvider.dispose();
+		if (isItemProvider != null)
+			isItemProvider.dispose();
 	}
 
 }

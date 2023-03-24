@@ -25,6 +25,7 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Import;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef;
@@ -395,6 +396,13 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 	 * @generated
 	 */
 	private EClass oppositeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass isEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1305,6 +1313,33 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getIs() {
+		return isEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIs_Expr() {
+		return (EReference) isEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIs_Pattern() {
+		return (EReference) isEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AdaptivesemanticsFactory getAdaptivesemanticsFactory() {
 		return (AdaptivesemanticsFactory) getEFactoryInstance();
 	}
@@ -1468,6 +1503,10 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 
 		oppositeEClass = createEClass(OPPOSITE);
 		createEReference(oppositeEClass, OPPOSITE__EXPR);
+
+		isEClass = createEClass(IS);
+		createEReference(isEClass, IS__EXPR);
+		createEReference(isEClass, IS__PATTERN);
 	}
 
 	/**
@@ -1548,6 +1587,8 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 		stringConstantEClass.getESuperTypes().add(this.getConst());
 		doubleConstantEClass.getESuperTypes().add(this.getConst());
 		oppositeEClass.getESuperTypes().add(this.getExpr());
+		isEClass.getESuperTypes().add(this.getCondExpr());
+		isEClass.getESuperTypes().add(this.getExpr());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(bindingEClass, Binding.class, "Binding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1790,6 +1831,13 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 		initEReference(getOpposite_Expr(), this.getExpr(), null, "expr", null, 1, 1, Opposite.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
+
+		initEClass(isEClass, Is.class, "Is", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getIs_Expr(), this.getExpr(), null, "expr", null, 1, 1, Is.class, !IS_TRANSIENT, !IS_VOLATILE,
+				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIs_Pattern(), this.getDefConfiguration(), null, "pattern", null, 1, 1, Is.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

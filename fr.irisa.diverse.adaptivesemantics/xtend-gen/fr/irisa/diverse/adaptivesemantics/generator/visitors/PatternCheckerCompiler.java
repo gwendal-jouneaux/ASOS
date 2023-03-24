@@ -82,6 +82,15 @@ public class PatternCheckerCompiler {
     return _builder.toString();
   }
   
+  public String generateConditionCheck(final DefConfiguration pattern, final String domainAccess) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("(true");
+    String _compile = this.compile(pattern, domainAccess);
+    _builder.append(_compile);
+    _builder.append(")");
+    return _builder.toString();
+  }
+  
   protected String _compile(final DefConfiguration node, final String path) {
     final EClass concept = node.getConcept();
     final EList<EStructuralFeature> features = concept.getEAllStructuralFeatures();

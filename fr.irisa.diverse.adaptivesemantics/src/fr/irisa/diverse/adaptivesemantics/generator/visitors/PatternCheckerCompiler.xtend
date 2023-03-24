@@ -45,6 +45,10 @@ class PatternCheckerCompiler {
 		'''
 	}
 	
+	def String generateConditionCheck(DefConfiguration pattern, String domainAccess){
+		return '''(true«pattern.compile(domainAccess)»)'''
+	}
+	
 	def dispatch String compile(DefConfiguration node, String path){
 		val concept = node.concept
 		val features = concept.EAllStructuralFeatures

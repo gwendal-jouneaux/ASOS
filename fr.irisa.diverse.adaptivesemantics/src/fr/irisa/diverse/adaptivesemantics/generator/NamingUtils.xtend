@@ -22,12 +22,32 @@ class NamingUtils {
 		conceptName + 'Interface'
 	}
 	
+	static def String moduleNameFor(String conceptName) {
+		conceptName + 'Module'
+	}
+	
+	static def String adaptationNameFor(String conceptName) {
+		conceptName + 'AdaptationRule'
+	}
+	
 	static def String operationPathFor(String modelName, String conceptName) {
 		modelName + "/operations/" + operationNameFor(conceptName) + '.java'
 	}
 	
 	static def String interfacePathFor(String modelName, String conceptName) {
 		modelName + "/interfaces/" + interfaceNameFor(conceptName) + '.java'
+	}
+	
+	static def String modulePathFor(String modelName, String conceptName) {
+		modelName + "/adaptations/modules/" + moduleNameFor(conceptName) + '.java'
+	}
+	
+	static def String adaptationPathFor(String modelName, String conceptName) {
+		modelName + "/adaptations/rules/" + adaptationNameFor(conceptName) + '.java'
+	}
+	
+	static def String indexNameFor(String feature){
+		return "index_" + feature
 	}
 	
 	static def String nameOf(Model model){

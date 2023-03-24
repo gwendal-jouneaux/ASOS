@@ -1986,6 +1986,52 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	int OPPOSITE_OPERATION_COUNT = EXPR_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.IsImpl <em>Is</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.IsImpl
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getIs()
+	 * @generated
+	 */
+	int IS = 47;
+
+	/**
+	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS__EXPR = COND_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Pattern</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS__PATTERN = COND_EXPR_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Is</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_FEATURE_COUNT = COND_EXPR_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of operations of the '<em>Is</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IS_OPERATION_COUNT = COND_EXPR_OPERATION_COUNT + 0;
+
+	/**
 	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding <em>Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2962,6 +3008,38 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	EReference getOpposite_Expr();
 
 	/**
+	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is <em>Is</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Is</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is
+	 * @generated
+	 */
+	EClass getIs();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is#getExpr <em>Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Expr</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is#getExpr()
+	 * @see #getIs()
+	 * @generated
+	 */
+	EReference getIs_Expr();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is#getPattern <em>Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Pattern</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is#getPattern()
+	 * @see #getIs()
+	 * @generated
+	 */
+	EReference getIs_Pattern();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3821,6 +3899,32 @@ public interface AdaptivesemanticsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference OPPOSITE__EXPR = eINSTANCE.getOpposite_Expr();
+
+		/**
+		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.IsImpl <em>Is</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.IsImpl
+		 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.AdaptivesemanticsPackageImpl#getIs()
+		 * @generated
+		 */
+		EClass IS = eINSTANCE.getIs();
+
+		/**
+		 * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference IS__EXPR = eINSTANCE.getIs_Expr();
+
+		/**
+		 * The meta object literal for the '<em><b>Pattern</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference IS__PATTERN = eINSTANCE.getIs_Pattern();
 
 	}
 

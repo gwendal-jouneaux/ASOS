@@ -1,6 +1,6 @@
 package fr.irisa.diverse.adaptivesemantics.generator.visitors
 
-import fr.irisa.diverse.adaptivesemantics.generator.RuleUtils
+import fr.irisa.diverse.adaptivesemantics.generator.NamingUtils
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef
@@ -10,8 +10,7 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList
 import java.util.Map
-import org.eclipse.emf.ecore.EClass
-import fr.irisa.diverse.adaptivesemantics.generator.NamingUtils
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class ConfigurationComparator {
 	val Map<SymbolDef, SymbolPath> ruleTable
@@ -33,12 +32,13 @@ class ConfigurationComparator {
 		for (var i = 0; i < len; i++) {
 			if(! equals(defChilds.get(i), refChilds.get(i))){
 				val feature = features.get(i)
-				val child = refChilds.get(i)
+				val defChild = defChilds.get(i)
+				val refChild = refChilds.get(i)
 				val refconfCompiler = new RefConfigurationCompiler(ruleTable)
 				
-				switch(child){
+				switch(refChild){
 					RefConfiguration:{
-						val create = refconfCompiler.compile(child)
+						val create = refconfCompiler.compile(refChild)
 						out =  '''
 						«out»
 						«create»
@@ -47,10 +47,20 @@ class ConfigurationComparator {
 					}
 					
 					default:{
-						out =  '''
-						«out»
-						«NamingUtils.computedNameFor(feature.name)» = «refconfCompiler.compile(child)»;
-						'''	
+						if(defChild instanceof ListDef && 
+							refChild instanceof SymbolRef && 
+							EcoreUtil.equals((refChild as SymbolRef).def, (defChild as ListDef).tail)
+						){
+							out =  '''
+							«out»
+							«NamingUtils.indexNameFor(feature.name)»++;
+							'''	
+						} else {
+							out =  '''
+							«out»
+							«NamingUtils.computedNameFor(feature.name)» = «refconfCompiler.compile(refChild)»;
+							'''	
+						}
 					}
 				}
 				

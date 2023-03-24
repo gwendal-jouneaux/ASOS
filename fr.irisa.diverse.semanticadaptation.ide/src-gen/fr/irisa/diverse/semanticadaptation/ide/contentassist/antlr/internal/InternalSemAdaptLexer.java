@@ -926,10 +926,10 @@ public class InternalSemAdaptLexer extends Lexer {
         try {
             int _type = RULE_BOOL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalSemAdapt.g:9160:11: ( ( 'true' | 'false' ) )
-            // InternalSemAdapt.g:9160:13: ( 'true' | 'false' )
+            // InternalSemAdapt.g:9473:11: ( ( 'true' | 'false' ) )
+            // InternalSemAdapt.g:9473:13: ( 'true' | 'false' )
             {
-            // InternalSemAdapt.g:9160:13: ( 'true' | 'false' )
+            // InternalSemAdapt.g:9473:13: ( 'true' | 'false' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -947,7 +947,7 @@ public class InternalSemAdaptLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // InternalSemAdapt.g:9160:14: 'true'
+                    // InternalSemAdapt.g:9473:14: 'true'
                     {
                     match("true"); 
 
@@ -955,7 +955,7 @@ public class InternalSemAdaptLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalSemAdapt.g:9160:21: 'false'
+                    // InternalSemAdapt.g:9473:21: 'false'
                     {
                     match("false"); 
 
@@ -981,10 +981,10 @@ public class InternalSemAdaptLexer extends Lexer {
         try {
             int _type = RULE_DOUBLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalSemAdapt.g:9162:13: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )+ )
-            // InternalSemAdapt.g:9162:15: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
+            // InternalSemAdapt.g:9475:13: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )+ )
+            // InternalSemAdapt.g:9475:15: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
             {
-            // InternalSemAdapt.g:9162:15: ( '0' .. '9' )+
+            // InternalSemAdapt.g:9475:15: ( '0' .. '9' )+
             int cnt2=0;
             loop2:
             do {
@@ -998,7 +998,7 @@ public class InternalSemAdaptLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // InternalSemAdapt.g:9162:16: '0' .. '9'
+            	    // InternalSemAdapt.g:9475:16: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1015,7 +1015,7 @@ public class InternalSemAdaptLexer extends Lexer {
             } while (true);
 
             match('.'); 
-            // InternalSemAdapt.g:9162:31: ( '0' .. '9' )+
+            // InternalSemAdapt.g:9475:31: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -1029,7 +1029,7 @@ public class InternalSemAdaptLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // InternalSemAdapt.g:9162:32: '0' .. '9'
+            	    // InternalSemAdapt.g:9475:32: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1061,10 +1061,10 @@ public class InternalSemAdaptLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalSemAdapt.g:9164:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalSemAdapt.g:9164:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalSemAdapt.g:9477:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalSemAdapt.g:9477:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalSemAdapt.g:9164:11: ( '^' )?
+            // InternalSemAdapt.g:9477:11: ( '^' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -1073,7 +1073,7 @@ public class InternalSemAdaptLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // InternalSemAdapt.g:9164:11: '^'
+                    // InternalSemAdapt.g:9477:11: '^'
                     {
                     match('^'); 
 
@@ -1091,7 +1091,7 @@ public class InternalSemAdaptLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalSemAdapt.g:9164:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalSemAdapt.g:9477:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop5:
             do {
                 int alt5=2;
@@ -1140,10 +1140,10 @@ public class InternalSemAdaptLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalSemAdapt.g:9166:10: ( ( '0' .. '9' )+ )
-            // InternalSemAdapt.g:9166:12: ( '0' .. '9' )+
+            // InternalSemAdapt.g:9479:10: ( ( '0' .. '9' )+ )
+            // InternalSemAdapt.g:9479:12: ( '0' .. '9' )+
             {
-            // InternalSemAdapt.g:9166:12: ( '0' .. '9' )+
+            // InternalSemAdapt.g:9479:12: ( '0' .. '9' )+
             int cnt6=0;
             loop6:
             do {
@@ -1157,7 +1157,7 @@ public class InternalSemAdaptLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // InternalSemAdapt.g:9166:13: '0' .. '9'
+            	    // InternalSemAdapt.g:9479:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1189,10 +1189,10 @@ public class InternalSemAdaptLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalSemAdapt.g:9168:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalSemAdapt.g:9168:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalSemAdapt.g:9481:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalSemAdapt.g:9481:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalSemAdapt.g:9168:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalSemAdapt.g:9481:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -1210,10 +1210,10 @@ public class InternalSemAdaptLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // InternalSemAdapt.g:9168:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalSemAdapt.g:9481:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalSemAdapt.g:9168:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalSemAdapt.g:9481:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop7:
                     do {
                         int alt7=3;
@@ -1229,7 +1229,7 @@ public class InternalSemAdaptLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // InternalSemAdapt.g:9168:21: '\\\\' .
+                    	    // InternalSemAdapt.g:9481:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1237,7 +1237,7 @@ public class InternalSemAdaptLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalSemAdapt.g:9168:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalSemAdapt.g:9481:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1262,10 +1262,10 @@ public class InternalSemAdaptLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalSemAdapt.g:9168:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalSemAdapt.g:9481:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalSemAdapt.g:9168:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalSemAdapt.g:9481:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop8:
                     do {
                         int alt8=3;
@@ -1281,7 +1281,7 @@ public class InternalSemAdaptLexer extends Lexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // InternalSemAdapt.g:9168:54: '\\\\' .
+                    	    // InternalSemAdapt.g:9481:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1289,7 +1289,7 @@ public class InternalSemAdaptLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalSemAdapt.g:9168:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalSemAdapt.g:9481:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1332,12 +1332,12 @@ public class InternalSemAdaptLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalSemAdapt.g:9170:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalSemAdapt.g:9170:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalSemAdapt.g:9483:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalSemAdapt.g:9483:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalSemAdapt.g:9170:24: ( options {greedy=false; } : . )*
+            // InternalSemAdapt.g:9483:24: ( options {greedy=false; } : . )*
             loop10:
             do {
                 int alt10=2;
@@ -1362,7 +1362,7 @@ public class InternalSemAdaptLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // InternalSemAdapt.g:9170:52: .
+            	    // InternalSemAdapt.g:9483:52: .
             	    {
             	    matchAny(); 
 
@@ -1392,12 +1392,12 @@ public class InternalSemAdaptLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalSemAdapt.g:9172:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalSemAdapt.g:9172:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalSemAdapt.g:9485:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalSemAdapt.g:9485:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalSemAdapt.g:9172:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalSemAdapt.g:9485:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop11:
             do {
                 int alt11=2;
@@ -1410,7 +1410,7 @@ public class InternalSemAdaptLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // InternalSemAdapt.g:9172:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalSemAdapt.g:9485:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1430,7 +1430,7 @@ public class InternalSemAdaptLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalSemAdapt.g:9172:40: ( ( '\\r' )? '\\n' )?
+            // InternalSemAdapt.g:9485:40: ( ( '\\r' )? '\\n' )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1439,9 +1439,9 @@ public class InternalSemAdaptLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // InternalSemAdapt.g:9172:41: ( '\\r' )? '\\n'
+                    // InternalSemAdapt.g:9485:41: ( '\\r' )? '\\n'
                     {
-                    // InternalSemAdapt.g:9172:41: ( '\\r' )?
+                    // InternalSemAdapt.g:9485:41: ( '\\r' )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -1450,7 +1450,7 @@ public class InternalSemAdaptLexer extends Lexer {
                     }
                     switch (alt12) {
                         case 1 :
-                            // InternalSemAdapt.g:9172:41: '\\r'
+                            // InternalSemAdapt.g:9485:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1482,10 +1482,10 @@ public class InternalSemAdaptLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalSemAdapt.g:9174:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalSemAdapt.g:9174:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalSemAdapt.g:9487:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalSemAdapt.g:9487:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalSemAdapt.g:9174:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalSemAdapt.g:9487:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt14=0;
             loop14:
             do {
@@ -1539,8 +1539,8 @@ public class InternalSemAdaptLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalSemAdapt.g:9176:16: ( . )
-            // InternalSemAdapt.g:9176:18: .
+            // InternalSemAdapt.g:9489:16: ( . )
+            // InternalSemAdapt.g:9489:18: .
             {
             matchAny(); 
 

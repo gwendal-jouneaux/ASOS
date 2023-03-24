@@ -18,6 +18,7 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus;
@@ -104,7 +105,27 @@ public class RuleCompiler {
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
-    _builder.append("if(result != null) return result;");
+    _builder.append("if(result != null){");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("if(! ((EObject) result).eClass().getEPackage().equals(");
+    String _name_6 = AdaptSemGenerator.getSemanticDomain().getName();
+    _builder.append(_name_6, "\t");
+    _builder.append("Package.eINSTANCE)){");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("return ((Node) result).accept(vis, execCtx);");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("return result;");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("}");
     _builder.newLine();
     final String core = _builder.toString();
     final String out = this.compileGuards(node, core);
@@ -250,8 +271,11 @@ public class RuleCompiler {
     if ((_to instanceof RefConfiguration)) {
       SingleTermRef _to_1 = node.getTo();
       final RefConfiguration conf = ((RefConfiguration) _to_1);
-      boolean _isValue = RuleUtils.isValue(conf.getConcept());
-      if (_isValue) {
+      boolean _equals = conf.getConcept().equals(node.getFrom().getConcept());
+      if (_equals) {
+        final ConfigurationComparator cp = new ConfigurationComparator(this.ruleTable);
+        return cp.updateNode(node.getFrom(), conf);
+      } else {
         StringConcatenation _builder = new StringConcatenation();
         String _generateInstanceOf = RuleUtils.generateInstanceOf(conf, "out", this.ruleTable);
         _builder.append(_generateInstanceOf);
@@ -259,48 +283,19 @@ public class RuleCompiler {
         _builder.append("result = out;");
         _builder.newLine();
         return _builder.toString();
-      } else {
-        boolean _equals = conf.getConcept().equals(node.getFrom().getConcept());
-        if (_equals) {
-          final ConfigurationComparator cp = new ConfigurationComparator(this.ruleTable);
-          return cp.updateNode(node.getFrom(), conf);
-        } else {
-          StringConcatenation _builder_1 = new StringConcatenation();
-          String _generateInstanceOf_1 = RuleUtils.generateInstanceOf(conf, "out", this.ruleTable);
-          _builder_1.append(_generateInstanceOf_1);
-          _builder_1.newLineIfNotEmpty();
-          _builder_1.append("result = ((Node)out).accept(vis, execCtx);");
-          _builder_1.newLine();
-          return _builder_1.toString();
-        }
       }
     }
     SingleTermRef _to_2 = node.getTo();
     if ((_to_2 instanceof SymbolRef)) {
       SingleTermRef _to_3 = node.getTo();
       final SymbolRef symbol = ((SymbolRef) _to_3);
-      StringConcatenation _builder_2 = new StringConcatenation();
-      _builder_2.append("Object out = ");
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("result = ");
       String _compile = this.compile(symbol);
-      _builder_2.append(_compile);
-      _builder_2.append(";");
-      _builder_2.newLineIfNotEmpty();
-      _builder_2.append("if(! ((EObject) out).eClass().getEPackage().equals(");
-      String _name = AdaptSemGenerator.getSemanticDomain().getName();
-      _builder_2.append(_name);
-      _builder_2.append("Package.eINSTANCE)){");
-      _builder_2.newLineIfNotEmpty();
-      _builder_2.append("\t");
-      _builder_2.append("result = ((Node)out).accept(vis, execCtx);");
-      _builder_2.newLine();
-      _builder_2.append("} else {");
-      _builder_2.newLine();
-      _builder_2.append("\t");
-      _builder_2.append("result = out;");
-      _builder_2.newLine();
-      _builder_2.append("}");
-      _builder_2.newLine();
-      return _builder_2.toString();
+      _builder_1.append(_compile);
+      _builder_1.append(";");
+      _builder_1.newLineIfNotEmpty();
+      return _builder_1.toString();
     }
     return null;
   }
@@ -473,6 +468,12 @@ public class RuleCompiler {
     return (((("(!" + lhs) + ".equals(") + rhs) + "))");
   }
   
+  protected String _compile(final Is node) {
+    final String expr = this.compile(node.getExpr());
+    final PatternCheckerCompiler patternChecker = new PatternCheckerCompiler();
+    return patternChecker.generateConditionCheck(node.getPattern(), expr);
+  }
+  
   protected String _compile(final IntConstant node) {
     return Integer.valueOf(node.getValue()).toString();
   }
@@ -562,6 +563,8 @@ public class RuleCompiler {
       return _compile((StringConstant)node);
     } else if (node instanceof SymbolRef) {
       return _compile((SymbolRef)node);
+    } else if (node instanceof Is) {
+      return _compile((Is)node);
     } else if (node instanceof Not) {
       return _compile((Not)node);
     } else if (node instanceof Binding) {

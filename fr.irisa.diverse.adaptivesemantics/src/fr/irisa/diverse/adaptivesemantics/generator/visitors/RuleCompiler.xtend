@@ -8,12 +8,14 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Binding
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.BoolConstant
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Conclusion
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus
@@ -34,7 +36,6 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
 import java.util.Map
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
-import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration
 
 class RuleCompiler {
 	
@@ -61,7 +62,13 @@ class RuleCompiler {
 			config.after_«node.name»().adapt(vis, node, execCtx, config);
 		}
 		
-		if(result != null) return result;
+		if(result != null){
+			if(! ((EObject) result).eClass().getEPackage().equals(«AdaptSemGenerator.semanticDomain.name»Package.eINSTANCE)){
+				return ((Node) result).accept(vis, execCtx);
+			} else {
+				return result;
+			}
+		}
 		'''
 		
 		val out = node.compileGuards(core)
@@ -131,31 +138,21 @@ class RuleCompiler {
 	def dispatch String compile(Conclusion node){
 		if(node.to instanceof RefConfiguration){
 			val conf = node.to as RefConfiguration
-			if(RuleUtils.isValue(conf.concept)){
-				return '''
-				«RuleUtils.generateInstanceOf(conf, "out", ruleTable)»
-				result = out;
-				'''
-			} else if (conf.concept.equals(node.from.concept)){				
+			if (conf.concept.equals(node.from.concept)){				
 				val cp = new ConfigurationComparator(ruleTable)
 				
 				return cp.updateNode(node.from, conf)
 			} else (
 				return '''
 				«RuleUtils.generateInstanceOf(conf, "out", ruleTable)»
-				result = ((Node)out).accept(vis, execCtx);
+				result = out;
 				'''
 			)
 		}
 		if(node.to instanceof SymbolRef){
 			val symbol = node.to as SymbolRef
 			return '''
-			Object out = «symbol.compile»;
-			if(! ((EObject) out).eClass().getEPackage().equals(«AdaptSemGenerator.semanticDomain.name»Package.eINSTANCE)){
-				result = ((Node)out).accept(vis, execCtx);
-			} else {
-				result = out;
-			}
+			result = «symbol.compile»;
 			'''
 		}
 	}
@@ -272,6 +269,12 @@ class RuleCompiler {
 		val lhs = node.lhs.compile
 		val rhs = node.rhs.compile
 		return "(!"+lhs+".equals("+rhs+"))"
+	}
+	
+	def dispatch String compile(Is node) {
+		val expr = node.expr.compile
+		val patternChecker = new PatternCheckerCompiler()
+		return patternChecker.generateConditionCheck(node.pattern, expr)
 	}
 	
 	def dispatch String compile(IntConstant node) {

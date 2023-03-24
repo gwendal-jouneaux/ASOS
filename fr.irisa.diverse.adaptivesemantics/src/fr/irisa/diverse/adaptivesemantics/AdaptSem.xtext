@@ -154,7 +154,7 @@ VoidList returns VoidList:
 
 
 CondExpr returns CondExpr:
-	CondOr | CondAnd | CondEquality | CondComparison | CondNot
+	CondOr | CondAnd | CondEquality | CondComparison | CondNot | CondIs
 ;
 
 CondNot returns CondExpr:
@@ -178,6 +178,10 @@ CondEquality returns CondExpr:
 CondComparison returns CondExpr:
 	({Less} lhs=PlusOrMinus '<' rhs=PlusOrMinus) | 
 	({LessEq} lhs=PlusOrMinus '<=' rhs=PlusOrMinus)
+;
+
+CondIs returns CondExpr:
+	({Is} pattern=DefConfiguration 'match' expr=Expr)
 ;
 
 Expr returns Expr:
@@ -222,6 +226,7 @@ Primary returns Expr:
 	'(' Expr ')' |
 	{Not} "!" expr=Primary |
 	{Opposite} "-" expr=Primary |
+	{Is} pattern=DefConfiguration 'match' expr=Primary |
 	Atomic;
 
 Atomic returns Expr:

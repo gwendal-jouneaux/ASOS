@@ -18,6 +18,7 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Import;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef;
@@ -164,6 +165,35 @@ public class SemAdaptSemanticSequencer extends AdaptSemSemanticSequencer {
 			case AdaptivesemanticsPackage.INT_CONSTANT:
 				sequence_Atomic(context, (IntConstant) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.IS:
+				if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondIsRule()) {
+					sequence_CondIs(context, (Is) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Primary(context, (Is) semanticObject); 
+					return; 
+				}
+				else break;
 			case AdaptivesemanticsPackage.LESS:
 				if (rule == grammarAccess.getAssignableRule()
 						|| rule == grammarAccess.getExprRule()

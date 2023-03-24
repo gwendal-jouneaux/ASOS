@@ -112,15 +112,6 @@ class AdaptSemGenerator extends AbstractGenerator {
 				resolver.resolveFor(rule)
 				val ruleSymbols = resolver.symbolTable
 				
-//				val ruleSymbols = NamingUtils.getPathForSymbols(rule.conclusion.from)
-//				
-//				for(premise : rule.premises){
-//					if(premise.to instanceof SymbolDef){
-//						ruleSymbols.put(premise.to as SymbolDef, NamingUtils.computedNameFor(premise.from))
-//					} else if (premise.to instanceof DefConfiguration){
-//						ruleSymbols.putAll(NamingUtils.getPathForSymbols(premise.to as DefConfiguration))
-//					}
-//				}
 				symbolTable.put(rule, ruleSymbols)
 			}
 		}

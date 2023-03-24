@@ -718,7 +718,7 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//CondExpr returns CondExpr:
-	//    CondOr | CondAnd | CondEquality | CondComparison | CondNot
+	//    CondOr | CondAnd | CondEquality | CondComparison | CondNot | CondIs
 	//;
 	public AdaptSemGrammarAccess.CondExprElements getCondExprAccess() {
 		return gaAdaptSem.getCondExprAccess();
@@ -783,6 +783,17 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	
 	public ParserRule getCondComparisonRule() {
 		return getCondComparisonAccess().getRule();
+	}
+	
+	//CondIs returns CondExpr:
+	//    ({Is} pattern=DefConfiguration 'match' expr=Expr)
+	//;
+	public AdaptSemGrammarAccess.CondIsElements getCondIsAccess() {
+		return gaAdaptSem.getCondIsAccess();
+	}
+	
+	public ParserRule getCondIsRule() {
+		return getCondIsAccess().getRule();
 	}
 	
 	//Expr returns Expr:
@@ -876,6 +887,7 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	//    '(' Expr ')' |
 	//    {Not} "!" expr=Primary |
 	//    {Opposite} "-" expr=Primary |
+	//    {Is} pattern=DefConfiguration 'match' expr=Primary |
 	//    Atomic;
 	public AdaptSemGrammarAccess.PrimaryElements getPrimaryAccess() {
 		return gaAdaptSem.getPrimaryAccess();

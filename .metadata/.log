@@ -9604,3 +9604,23 @@ java.lang.NullPointerException
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at java.base/java.lang.Thread.run(Thread.java:829)
+!SESSION 2023-03-10 14:34:02.964 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.18
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.gemoc.gemoc_studio.branding.gemoc_studio
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.gemoc.gemoc_studio.branding.gemoc_studio
+
+!ENTRY org.eclipse.core.resources 2 10035 2023-03-10 14:34:09.106
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2023-03-13 15:39:54.794 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.18
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.gemoc.gemoc_studio.branding.gemoc_studio
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.gemoc.gemoc_studio.branding.gemoc_studio
+
+!ENTRY org.eclipse.core.resources 2 10035 2023-03-13 15:40:05.131
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.

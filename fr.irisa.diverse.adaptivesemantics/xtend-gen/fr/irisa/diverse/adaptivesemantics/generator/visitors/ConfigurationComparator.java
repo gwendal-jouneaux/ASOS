@@ -16,6 +16,7 @@ import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtend2.lib.StringConcatenation;
 
 @SuppressWarnings("all")
@@ -38,12 +39,13 @@ public class ConfigurationComparator {
       boolean _not = (!_equals);
       if (_not) {
         final EStructuralFeature feature = features.get(i);
-        final TermRef child = refChilds.get(i);
+        final TermDef defChild = defChilds.get(i);
+        final TermRef refChild = refChilds.get(i);
         final RefConfigurationCompiler refconfCompiler = new RefConfigurationCompiler(this.ruleTable);
         boolean _matched = false;
-        if (child instanceof RefConfiguration) {
+        if (refChild instanceof RefConfiguration) {
           _matched=true;
-          final String create = refconfCompiler.compile(child);
+          final String create = refconfCompiler.compile(refChild);
           StringConcatenation _builder = new StringConcatenation();
           _builder.append(out);
           _builder.newLineIfNotEmpty();
@@ -59,17 +61,30 @@ public class ConfigurationComparator {
           out = _builder.toString();
         }
         if (!_matched) {
-          StringConcatenation _builder = new StringConcatenation();
-          _builder.append(out);
-          _builder.newLineIfNotEmpty();
-          String _computedNameFor = NamingUtils.computedNameFor(feature.getName());
-          _builder.append(_computedNameFor);
-          _builder.append(" = ");
-          String _compile = refconfCompiler.compile(child);
-          _builder.append(_compile);
-          _builder.append(";");
-          _builder.newLineIfNotEmpty();
-          out = _builder.toString();
+          if ((((defChild instanceof ListDef) && 
+            (refChild instanceof SymbolRef)) && 
+            EcoreUtil.equals(((SymbolRef) refChild).getDef(), ((ListDef) defChild).getTail()))) {
+            StringConcatenation _builder = new StringConcatenation();
+            _builder.append(out);
+            _builder.newLineIfNotEmpty();
+            String _indexNameFor = NamingUtils.indexNameFor(feature.getName());
+            _builder.append(_indexNameFor);
+            _builder.append("++;");
+            _builder.newLineIfNotEmpty();
+            out = _builder.toString();
+          } else {
+            StringConcatenation _builder_1 = new StringConcatenation();
+            _builder_1.append(out);
+            _builder_1.newLineIfNotEmpty();
+            String _computedNameFor = NamingUtils.computedNameFor(feature.getName());
+            _builder_1.append(_computedNameFor);
+            _builder_1.append(" = ");
+            String _compile = refconfCompiler.compile(refChild);
+            _builder_1.append(_compile);
+            _builder_1.append(";");
+            _builder_1.newLineIfNotEmpty();
+            out = _builder_1.toString();
+          }
         }
         return out;
       }

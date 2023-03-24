@@ -18,6 +18,7 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Import;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.IntConstant;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Less;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.LessEq;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef;
@@ -157,6 +158,35 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 			case AdaptivesemanticsPackage.INT_CONSTANT:
 				sequence_Atomic(context, (IntConstant) semanticObject); 
 				return; 
+			case AdaptivesemanticsPackage.IS:
+				if (rule == grammarAccess.getCondExprRule()
+						|| rule == grammarAccess.getCondIsRule()) {
+					sequence_CondIs(context, (Is) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAssignableRule()
+						|| rule == grammarAccess.getExprRule()
+						|| rule == grammarAccess.getOrRule()
+						|| action == grammarAccess.getOrAccess().getOrLhsAction_1_0()
+						|| rule == grammarAccess.getAndRule()
+						|| action == grammarAccess.getAndAccess().getAndLhsAction_1_0()
+						|| rule == grammarAccess.getEqualityRule()
+						|| action == grammarAccess.getEqualityAccess().getEqualLhsAction_1_0_0_0()
+						|| action == grammarAccess.getEqualityAccess().getNotEqualLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getComparisonRule()
+						|| action == grammarAccess.getComparisonAccess().getLessLhsAction_1_0_0_0()
+						|| action == grammarAccess.getComparisonAccess().getLessEqLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPlusOrMinusRule()
+						|| action == grammarAccess.getPlusOrMinusAccess().getPlusLhsAction_1_0_0_0()
+						|| action == grammarAccess.getPlusOrMinusAccess().getMinusLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getMulOrDivRule()
+						|| action == grammarAccess.getMulOrDivAccess().getMultLhsAction_1_0_0_0()
+						|| action == grammarAccess.getMulOrDivAccess().getDivLhsAction_1_0_1_0()
+						|| rule == grammarAccess.getPrimaryRule()) {
+					sequence_Primary(context, (Is) semanticObject); 
+					return; 
+				}
+				else break;
 			case AdaptivesemanticsPackage.LESS:
 				if (rule == grammarAccess.getAssignableRule()
 						|| rule == grammarAccess.getExprRule()
@@ -780,6 +810,28 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	
 	/**
 	 * Contexts:
+	 *     CondExpr returns Is
+	 *     CondIs returns Is
+	 *
+	 * Constraint:
+	 *     (pattern=DefConfiguration expr=Expr)
+	 */
+	protected void sequence_CondIs(ISerializationContext context, Is semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.IS__PATTERN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.IS__PATTERN));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.IS__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.IS__EXPR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getCondIsAccess().getPatternDefConfigurationParserRuleCall_1_0(), semanticObject.getPattern());
+		feeder.accept(grammarAccess.getCondIsAccess().getExprExprParserRuleCall_3_0(), semanticObject.getExpr());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     CondExpr returns Not
 	 *     CondNot returns Not
 	 *
@@ -1252,6 +1304,45 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 */
 	protected void sequence_Premise(ISerializationContext context, Premise semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Assignable returns Is
+	 *     Expr returns Is
+	 *     Or returns Is
+	 *     Or.Or_1_0 returns Is
+	 *     And returns Is
+	 *     And.And_1_0 returns Is
+	 *     Equality returns Is
+	 *     Equality.Equal_1_0_0_0 returns Is
+	 *     Equality.NotEqual_1_0_1_0 returns Is
+	 *     Comparison returns Is
+	 *     Comparison.Less_1_0_0_0 returns Is
+	 *     Comparison.LessEq_1_0_1_0 returns Is
+	 *     PlusOrMinus returns Is
+	 *     PlusOrMinus.Plus_1_0_0_0 returns Is
+	 *     PlusOrMinus.Minus_1_0_1_0 returns Is
+	 *     MulOrDiv returns Is
+	 *     MulOrDiv.Mult_1_0_0_0 returns Is
+	 *     MulOrDiv.Div_1_0_1_0 returns Is
+	 *     Primary returns Is
+	 *
+	 * Constraint:
+	 *     (pattern=DefConfiguration expr=Primary)
+	 */
+	protected void sequence_Primary(ISerializationContext context, Is semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.IS__PATTERN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.IS__PATTERN));
+			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.IS__EXPR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.IS__EXPR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getPrimaryAccess().getPatternDefConfigurationParserRuleCall_3_1_0(), semanticObject.getPattern());
+		feeder.accept(grammarAccess.getPrimaryAccess().getExprPrimaryParserRuleCall_3_3_0(), semanticObject.getExpr());
+		feeder.finish();
 	}
 	
 	

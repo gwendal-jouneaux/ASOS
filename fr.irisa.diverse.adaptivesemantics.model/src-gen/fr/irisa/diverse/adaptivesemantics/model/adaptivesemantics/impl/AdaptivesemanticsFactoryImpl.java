@@ -126,6 +126,8 @@ public class AdaptivesemanticsFactoryImpl extends EFactoryImpl implements Adapti
 			return createDoubleConstant();
 		case AdaptivesemanticsPackage.OPPOSITE:
 			return createOpposite();
+		case AdaptivesemanticsPackage.IS:
+			return createIs();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -479,6 +481,16 @@ public class AdaptivesemanticsFactoryImpl extends EFactoryImpl implements Adapti
 	public Opposite createOpposite() {
 		OppositeImpl opposite = new OppositeImpl();
 		return opposite;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Is createIs() {
+		IsImpl is = new IsImpl();
+		return is;
 	}
 
 	/**

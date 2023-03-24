@@ -206,6 +206,9 @@ public class NotItemProvider extends ItemProviderAdapter implements IEditingDoma
 
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.NOT__EXPR,
 				AdaptivesemanticsFactory.eINSTANCE.createOpposite()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.NOT__EXPR,
+				AdaptivesemanticsFactory.eINSTANCE.createIs()));
 	}
 
 	/**

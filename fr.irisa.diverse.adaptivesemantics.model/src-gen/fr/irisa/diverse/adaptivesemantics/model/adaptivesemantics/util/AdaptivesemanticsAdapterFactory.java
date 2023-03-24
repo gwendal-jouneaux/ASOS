@@ -302,6 +302,11 @@ public class AdaptivesemanticsAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseIs(Is object) {
+			return createIsAdapter();
+		}
+
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -975,6 +980,20 @@ public class AdaptivesemanticsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createOppositeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is <em>Is</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Is
+	 * @generated
+	 */
+	public Adapter createIsAdapter() {
 		return null;
 	}
 

@@ -59,6 +59,7 @@ public class AdaptSemSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '-' expr=Primary
 	 *     (rule start) (ambiguity) 'self' (rule start)
 	 *     (rule start) (ambiguity) def=[SymbolDef|ID]
+	 *     (rule start) (ambiguity) pattern=DefConfiguration
 	 *     (rule start) (ambiguity) reciever=TerminalAccessExpression
 	 *     (rule start) (ambiguity) value=BOOL
 	 *     (rule start) (ambiguity) value=DOUBLE

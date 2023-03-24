@@ -169,6 +169,9 @@ public class ConditionItemProvider extends ItemProviderAdapter implements IEditi
 
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONDITION__COND,
 				AdaptivesemanticsFactory.eINSTANCE.createLessEq()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.CONDITION__COND,
+				AdaptivesemanticsFactory.eINSTANCE.createIs()));
 	}
 
 	/**

@@ -130,5 +130,9 @@
     <genClasses ecoreClass="adaptivesemantics.ecore#//Opposite">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Opposite/expr"/>
     </genClasses>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//Is">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Is/expr"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Is/pattern"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

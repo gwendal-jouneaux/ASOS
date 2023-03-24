@@ -3,10 +3,33 @@
  */
 package fr.irisa.diverse.semanticadaptation.generator;
 
+import com.google.common.collect.Iterators;
+import fr.irisa.diverse.adaptivesemantics.generator.NamingUtils;
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.PatternCheckerCompiler;
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.RuleCompiler;
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolPath;
+import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolResolver;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
+import semanticadaptation.Adaptation;
+import semanticadaptation.After;
+import semanticadaptation.Before;
+import semanticadaptation.Pointcut;
+import semanticadaptation.Specialization;
 
 /**
  * Generates code from your model files on save.
@@ -15,7 +38,266 @@ import org.eclipse.xtext.generator.IGeneratorContext;
  */
 @SuppressWarnings("all")
 public class SemAdaptGenerator extends AbstractGenerator {
+  private static String modelName;
+  
+  private Map<Rule, Map<SymbolDef, SymbolPath>> symbolTable = CollectionLiterals.<Rule, Map<SymbolDef, SymbolPath>>newHashMap();
+  
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
+    Model _head = IteratorExtensions.<Model>head(Iterators.<Model>filter(resource.getAllContents(), Model.class));
+    final Model metamodel = ((Model) _head);
+    SemAdaptGenerator.modelName = NamingUtils.nameOf(metamodel);
+    final List<Adaptation> adaptations = IteratorExtensions.<Adaptation>toList(Iterators.<Adaptation>filter(resource.getAllContents(), Adaptation.class));
+    final Function1<Adaptation, Rule> _function = (Adaptation adaptation) -> {
+      return adaptation.getAdaptation();
+    };
+    final List<Rule> adaptationRules = ListExtensions.<Adaptation, Rule>map(adaptations, _function);
+    this.createSymbolTableForRules(adaptationRules);
+    final List<semanticadaptation.Module> modules = IteratorExtensions.<semanticadaptation.Module>toList(Iterators.<semanticadaptation.Module>filter(resource.getAllContents(), semanticadaptation.Module.class));
+    for (final semanticadaptation.Module module : modules) {
+      {
+        final String moduleName = module.getName();
+        final String moduleCode = this.compileModule(module, fsa);
+        fsa.generateFile(NamingUtils.modulePathFor(SemAdaptGenerator.modelName, moduleName), moduleCode);
+      }
+    }
+  }
+  
+  /**
+   * Resolve symbols defined in rules to EMF model queries
+   */
+  public void createSymbolTableForRules(final List<Rule> rules) {
+    for (final Rule rule : rules) {
+      {
+        final SymbolResolver resolver = new SymbolResolver();
+        resolver.resolveFor(rule);
+        final Map<SymbolDef, SymbolPath> ruleSymbols = resolver.getSymbolTable();
+        this.symbolTable.put(rule, ruleSymbols);
+      }
+    }
+  }
+  
+  public String compileModule(final semanticadaptation.Module module, final IFileSystemAccess2 fsa) {
+    String matches = "";
+    String addRules = "";
+    EList<Adaptation> _adaptations = module.getAdaptations();
+    for (final Adaptation adaptation : _adaptations) {
+      {
+        final String adaptationCode = this.compileAdaptationRule(adaptation.getAdaptation());
+        fsa.generateFile(NamingUtils.adaptationPathFor(SemAdaptGenerator.modelName, NamingUtils.adaptationNameFor(adaptation.getAdaptation().getName())), adaptationCode);
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(addRules);
+        _builder.newLineIfNotEmpty();
+        String _compileAdaptation = this.compileAdaptation(adaptation);
+        _builder.append(_compileAdaptation);
+        _builder.newLineIfNotEmpty();
+        addRules = _builder.toString();
+      }
+    }
+    EList<Pointcut> _pointcuts = module.getPointcuts();
+    for (final Pointcut pointcut : _pointcuts) {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append(matches);
+      _builder.newLineIfNotEmpty();
+      String _compilePointcut = this.compilePointcut(pointcut);
+      _builder.append(_compilePointcut);
+      _builder.newLineIfNotEmpty();
+      matches = _builder.toString();
+    }
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("package ");
+    _builder_1.append(SemAdaptGenerator.modelName);
+    _builder_1.append(".adaptations.modules;");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.newLine();
+    _builder_1.append("import ");
+    _builder_1.append(SemAdaptGenerator.modelName);
+    _builder_1.append(".interfaces.");
+    String _interfaceNameFor = NamingUtils.interfaceNameFor(SemAdaptGenerator.modelName);
+    _builder_1.append(_interfaceNameFor);
+    _builder_1.append(";");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.newLine();
+    _builder_1.append("public class ");
+    String _moduleNameFor = NamingUtils.moduleNameFor(module.getName());
+    _builder_1.append(_moduleNameFor);
+    _builder_1.append(" extends SelfAdaptationModule<");
+    _builder_1.append(SemAdaptGenerator.modelName);
+    _builder_1.append("AdaptationContext, AdaptableNode<");
+    String _interfaceNameFor_1 = NamingUtils.interfaceNameFor(SemAdaptGenerator.modelName);
+    _builder_1.append(_interfaceNameFor_1);
+    _builder_1.append(">, ");
+    String _interfaceNameFor_2 = NamingUtils.interfaceNameFor(SemAdaptGenerator.modelName);
+    _builder_1.append(_interfaceNameFor_2);
+    _builder_1.append("> {");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.newLine();
+    _builder_1.append("\t");
+    _builder_1.newLine();
+    _builder_1.append("\t");
+    _builder_1.append("public ");
+    String _moduleNameFor_1 = NamingUtils.moduleNameFor(module.getName());
+    _builder_1.append(_moduleNameFor_1, "\t");
+    _builder_1.append("() {");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append("\t\t");
+    _builder_1.append("super(\"");
+    String _name = module.getName();
+    _builder_1.append(_name, "\t\t");
+    _builder_1.append("\", AdaptableNode.class);");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append("\t");
+    _builder_1.append("}");
+    _builder_1.newLine();
+    _builder_1.newLine();
+    _builder_1.append("\t");
+    _builder_1.append("@Override");
+    _builder_1.newLine();
+    _builder_1.append("\t");
+    _builder_1.append("public ");
+    String _interfaceNameFor_3 = NamingUtils.interfaceNameFor(SemAdaptGenerator.modelName);
+    _builder_1.append(_interfaceNameFor_3, "\t");
+    _builder_1.append(" adapt(");
+    String _interfaceNameFor_4 = NamingUtils.interfaceNameFor(SemAdaptGenerator.modelName);
+    _builder_1.append(_interfaceNameFor_4, "\t");
+    _builder_1.append(" configInterface) {");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append("\t\t");
+    _builder_1.append(addRules, "\t\t");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append("\t");
+    _builder_1.append("}");
+    _builder_1.newLine();
+    _builder_1.newLine();
+    _builder_1.append("\t");
+    _builder_1.append("@Override");
+    _builder_1.newLine();
+    _builder_1.append("\t");
+    _builder_1.append("public boolean isTargetedNode(AdaptableNode<");
+    String _interfaceNameFor_5 = NamingUtils.interfaceNameFor(SemAdaptGenerator.modelName);
+    _builder_1.append(_interfaceNameFor_5, "\t");
+    _builder_1.append("> adaptableNode) {");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append("\t\t");
+    _builder_1.append(matches, "\t\t");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append("\t");
+    _builder_1.append("}");
+    _builder_1.newLine();
+    _builder_1.append("}");
+    _builder_1.newLine();
+    return _builder_1.toString();
+  }
+  
+  protected String _compileAdaptation(final Specialization adaptation) {
+    final String adaptationRuleName = NamingUtils.adaptationNameFor(adaptation.getAdaptation().getName());
+    final String adaptedRuleName = adaptation.getTarget().getName();
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("configInterface.add_specialize_");
+    _builder.append(adaptedRuleName);
+    _builder.append("(new ");
+    _builder.append(adaptationRuleName);
+    _builder.append("())");
+    return _builder.toString();
+  }
+  
+  protected String _compileAdaptation(final Before adaptation) {
+    final String adaptationRuleName = NamingUtils.adaptationNameFor(adaptation.getAdaptation().getName());
+    final String adaptedRuleName = adaptation.getTarget().getName();
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("configInterface.add_before_");
+    _builder.append(adaptedRuleName);
+    _builder.append("(new ");
+    _builder.append(adaptationRuleName);
+    _builder.append("())");
+    return _builder.toString();
+  }
+  
+  protected String _compileAdaptation(final After adaptation) {
+    final String adaptationRuleName = NamingUtils.adaptationNameFor(adaptation.getAdaptation().getName());
+    final String adaptedRuleName = adaptation.getTarget().getName();
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("configInterface.add_after_");
+    _builder.append(adaptedRuleName);
+    _builder.append("(new ");
+    _builder.append(adaptationRuleName);
+    _builder.append("())");
+    return _builder.toString();
+  }
+  
+  public String compileAdaptationRule(final Rule rule) {
+    final Map<SymbolDef, SymbolPath> ruleTable = this.symbolTable.get(rule);
+    final RuleCompiler ruleCompiler = new RuleCompiler(ruleTable);
+    final String compiledRule = ruleCompiler.compile(rule);
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package ");
+    _builder.append(SemAdaptGenerator.modelName);
+    _builder.append(".adaptations.modules;");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("public class ");
+    String _adaptationNameFor = NamingUtils.adaptationNameFor(rule.getName());
+    _builder.append(_adaptationNameFor);
+    _builder.append(" extend AdaptationRule {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("@Override");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public Object adapt(SelfAdaptiveVisitor vis, AdaptableNode<? extends SemanticsAdaptationInterface> node, Object execCtx, SemanticsAdaptationInterface config){");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("Object result = null;");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append(compiledRule, "\t\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("return result");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder.toString();
+  }
+  
+  public String compilePointcut(final Pointcut pointcut) {
+    String out = "";
+    boolean _isRecursive = pointcut.isRecursive();
+    if (_isRecursive) {
+    } else {
+    }
+    final PatternCheckerCompiler patternCompiler = new PatternCheckerCompiler();
+    StringConcatenation _builder = new StringConcatenation();
+    String _generateInputCheck = patternCompiler.generateInputCheck(pointcut.getStructure());
+    _builder.append(_generateInputCheck);
+    _builder.append("{");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append(out, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    out = _builder.toString();
+    return out;
+  }
+  
+  public String compileAdaptation(final Adaptation adaptation) {
+    if (adaptation instanceof After) {
+      return _compileAdaptation((After)adaptation);
+    } else if (adaptation instanceof Before) {
+      return _compileAdaptation((Before)adaptation);
+    } else if (adaptation instanceof Specialization) {
+      return _compileAdaptation((Specialization)adaptation);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(adaptation).toString());
+    }
   }
 }

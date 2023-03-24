@@ -30,6 +30,14 @@ public class NamingUtils {
     return (conceptName + "Interface");
   }
   
+  public static String moduleNameFor(final String conceptName) {
+    return (conceptName + "Module");
+  }
+  
+  public static String adaptationNameFor(final String conceptName) {
+    return (conceptName + "AdaptationRule");
+  }
+  
   public static String operationPathFor(final String modelName, final String conceptName) {
     String _operationNameFor = NamingUtils.operationNameFor(conceptName);
     String _plus = ((modelName + "/operations/") + _operationNameFor);
@@ -40,6 +48,22 @@ public class NamingUtils {
     String _interfaceNameFor = NamingUtils.interfaceNameFor(conceptName);
     String _plus = ((modelName + "/interfaces/") + _interfaceNameFor);
     return (_plus + ".java");
+  }
+  
+  public static String modulePathFor(final String modelName, final String conceptName) {
+    String _moduleNameFor = NamingUtils.moduleNameFor(conceptName);
+    String _plus = ((modelName + "/adaptations/modules/") + _moduleNameFor);
+    return (_plus + ".java");
+  }
+  
+  public static String adaptationPathFor(final String modelName, final String conceptName) {
+    String _adaptationNameFor = NamingUtils.adaptationNameFor(conceptName);
+    String _plus = ((modelName + "/adaptations/rules/") + _adaptationNameFor);
+    return (_plus + ".java");
+  }
+  
+  public static String indexNameFor(final String feature) {
+    return ("index_" + feature);
   }
   
   public static String nameOf(final Model model) {

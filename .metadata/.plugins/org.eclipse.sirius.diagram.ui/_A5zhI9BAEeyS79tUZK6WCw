@@ -1,10 +1,10 @@
-#Fri Mar 03 10:28:35 CET 2023
+#Tue Mar 07 10:38:16 CET 2023
 print.useInches=true
 rulergrid.rulerunit=0
 print.margin.left=0.5
-viewport.x=2681
+viewport.x=1359
 rulergrid.gridlinestyle=6
-viewport.y=382
+viewport.y=293
 zoom=1.0
 print.usePortrait=true
 print.page.height=11.0
