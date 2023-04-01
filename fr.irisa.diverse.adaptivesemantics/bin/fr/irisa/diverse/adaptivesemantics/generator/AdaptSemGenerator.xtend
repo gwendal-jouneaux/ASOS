@@ -144,6 +144,9 @@ class AdaptSemGenerator extends AbstractGenerator {
 			computedTerms = '''
 			«computedTerms»
 			Object «NamingUtils.computedNameFor(feature.name)» = null;
+			«IF feature.upperBound != 1»
+			int «NamingUtils.indexNameFor(feature.name)» = 0;
+			«ENDIF»
 			'''
 			
 		}
@@ -181,6 +184,7 @@ class AdaptSemGenerator extends AbstractGenerator {
 		return '''
 		package «modelName».operations;
 		
+		import java.util.List;
 		import org.eclipse.emf.ecore.EObject;
 		import org.eclipse.emf.ecore.util.EcoreUtil;
 		import fr.gjouneau.savm.framework.lang.semantics.AdaptiveOperation;
@@ -202,9 +206,13 @@ class AdaptSemGenerator extends AbstractGenerator {
 				
 				«computedTerms»
 				
-				«out»
+				while(true){
+					Object termination = null;
 				
-				return result;
+					«out»
+				
+					return termination;
+				}
 			}
 		}
 		'''
@@ -217,7 +225,7 @@ class AdaptSemGenerator extends AbstractGenerator {
 	 */
 	def String compileRule(Rule r){
 		val ruleTable = symbolTable.get(r)
-		val ruleCompiler = new RuleCompiler(ruleTable)
+		val ruleCompiler = new RuleCompiler(ruleTable, semanticdomain)
 		return ruleCompiler.compile(r)
 	}
 	

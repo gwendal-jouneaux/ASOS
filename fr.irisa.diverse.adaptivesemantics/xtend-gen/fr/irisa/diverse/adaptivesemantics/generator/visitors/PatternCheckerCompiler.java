@@ -134,7 +134,7 @@ public class PatternCheckerCompiler {
     _builder.append(path, " ");
     _builder.append(" instanceof List && ");
     _builder.append(path, " ");
-    _builder.append(".empty())");
+    _builder.append(".isEmpty())");
     return _builder.toString();
   }
   

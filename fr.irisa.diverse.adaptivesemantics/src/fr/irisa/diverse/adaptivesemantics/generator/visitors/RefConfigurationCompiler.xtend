@@ -1,6 +1,5 @@
 package fr.irisa.diverse.adaptivesemantics.generator.visitors
 
-import fr.irisa.diverse.adaptivesemantics.generator.AdaptSemGenerator
 import fr.irisa.diverse.adaptivesemantics.generator.RuleUtils
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration
@@ -9,15 +8,20 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList
 import java.util.Map
 import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EPackage
 
 class RefConfigurationCompiler {
 	
 	static val Map<EClass,Integer> varIndexes = newHashMap
 	val Map<SymbolDef, SymbolPath> ruleTable
+	val String modelName
+	val EPackage semanticdomain;
 	var lastRefConfig = ""
 	
-	new(Map<SymbolDef, SymbolPath> table){
+	new(Map<SymbolDef, SymbolPath> table, String modelname, EPackage sd){
 		ruleTable = table
+		semanticdomain = sd
+		modelName = modelname
 	}
 	
 	def dispatch String compile(RefConfiguration node){
@@ -33,11 +37,11 @@ class RefConfigurationCompiler {
 		
 		if(RuleUtils.isValue(concept)){
 			out = '''
-			«concept.name» «concept.name.toFirstLower»«classindex» = «AdaptSemGenerator.semanticDomain.name»Factory.eINSTANCE.create«concept.name»();
+			«concept.name» «concept.name.toFirstLower»«classindex» = «semanticdomain.name»Factory.eINSTANCE.create«concept.name»();
 			'''
 		} else {
 			out = '''
-			«concept.name» «concept.name.toFirstLower»«classindex» = «AdaptSemGenerator.modelName.toFirstUpper»Factory.eINSTANCE.create«concept.name»();
+			«concept.name» «concept.name.toFirstLower»«classindex» = «modelName.toFirstUpper»Factory.eINSTANCE.create«concept.name»();
 			'''
 		}
 		

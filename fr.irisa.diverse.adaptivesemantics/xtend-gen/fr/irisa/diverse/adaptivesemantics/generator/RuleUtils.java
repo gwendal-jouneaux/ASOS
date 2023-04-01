@@ -1,7 +1,6 @@
 package fr.irisa.diverse.adaptivesemantics.generator;
 
 import com.google.common.base.Objects;
-import fr.irisa.diverse.adaptivesemantics.generator.visitors.RefConfigurationCompiler;
 import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolPath;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Conversions;
 
 @SuppressWarnings("all")
@@ -23,21 +21,8 @@ public class RuleUtils {
   }
   
   public static String generateInstanceOf(final RefConfiguration conf, final String name, final Map<SymbolDef, SymbolPath> ruleTable) {
-    final RefConfigurationCompiler refconfCompiler = new RefConfigurationCompiler(ruleTable);
-    String out = refconfCompiler.compile(conf);
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append(out);
-    _builder.newLineIfNotEmpty();
-    String _name = conf.getConcept().getName();
-    _builder.append(_name);
-    _builder.append(" ");
-    _builder.append(name);
-    _builder.append(" = ");
-    String _lastRefConfig = refconfCompiler.getLastRefConfig();
-    _builder.append(_lastRefConfig);
-    _builder.append(";");
-    _builder.newLineIfNotEmpty();
-    return _builder.toString();
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The constructor RefConfigurationCompiler(Map<SymbolDef, SymbolPath>, String, EPackage) is not applicable for the arguments (Map<SymbolDef, SymbolPath>)");
   }
   
   public static int compareRules(final Rule r1, final Rule r2) {

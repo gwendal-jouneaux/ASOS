@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.EStructuralFeature
 
 class SymbolResolver {
 	
-	val Map<EStructuralFeature, SymbolPath> featureAccessors = newHashMap;
-	val Map<SymbolDef, EStructuralFeature> symbolFeature = newHashMap;
 	val Map<SymbolDef, SymbolPath> symbolTable = newHashMap;
 	
 	def void resolveFor(Rule node){
@@ -30,12 +28,6 @@ class SymbolResolver {
 				
 		for(premise : node.premises){
 			premise.propagate()
-		}
-		
-		for (symbol : symbolFeature.keySet) {
-			val feature = symbolFeature.get(symbol)
-			val paths = featureAccessors.get(feature)
-			symbolTable.put(symbol, paths)
 		}
 	}
 	
@@ -61,12 +53,12 @@ class SymbolResolver {
 		val featureGetter = ".get" + feature.name.toFirstUpper + "()"
 		val headGetter = featureGetter+".get("+NamingUtils.indexNameFor(feature.name)+")"
 		val tailGetter = featureGetter
-		var headSymbolPath = new SymbolPath(sp.termForm + headGetter , sp.valueForm + headGetter, sp.unknownForm + headGetter)
-		var tailSymbolPath = new SymbolPath(sp.termForm + tailGetter , sp.valueForm + tailGetter, sp.unknownForm + tailGetter)
+//		var headSymbolPath = new SymbolPath(sp.termForm + headGetter , sp.valueForm + headGetter, sp.unknownForm + headGetter)
+//		var tailSymbolPath = new SymbolPath(sp.termForm + tailGetter , sp.valueForm + tailGetter, sp.unknownForm + tailGetter)
+		var headSymbolPath = new SymbolPath(sp.termForm + headGetter , sp.valueForm, sp.unknownForm + headGetter)
+		var tailSymbolPath = new SymbolPath(sp.termForm + tailGetter , sp.valueForm, sp.unknownForm + tailGetter)
 		
 		if(node.head instanceof SymbolDef){
-//			featureAccessors.put(feature, headSymbolPath)
-//			symbolFeature.put(node.head as SymbolDef, feature)
 			symbolTable.put(node.head as SymbolDef, headSymbolPath)
 		} else {
 			val head = node.head as DefConfiguration
@@ -84,8 +76,6 @@ class SymbolResolver {
 			}
 		}
 		
-//		featureAccessors.put(feature, tailSymbolPath)
-//		symbolFeature.put(node.tail, feature)
 		symbolTable.put(node.tail as SymbolDef, tailSymbolPath)
 	}
 	
@@ -93,8 +83,7 @@ class SymbolResolver {
 		val featureGetter = ".get" + feature.name.toFirstUpper + "()"
 		var newSymbolPath = new SymbolPath(sp.termForm + featureGetter , sp.valueForm + featureGetter, sp.unknownForm + featureGetter)
 		
-		featureAccessors.put(feature, newSymbolPath)
-		symbolFeature.put(node, feature)
+		symbolTable.put(node, newSymbolPath)
 	}
 	
 	def dispatch void resolveFirst(DefConfiguration node, EStructuralFeature feature, SymbolPath sp){
@@ -127,12 +116,12 @@ class SymbolResolver {
 				'''«NamingUtils.computedNameFor(feature.name)»''', 
 				'''(«NamingUtils.computedNameFor(feature.name)» == null ? «sp.termForm + featureGetter» : «NamingUtils.computedNameFor(feature.name)»)''')
 		
-		var headSymbolPath = new SymbolPath(firstSp.termForm + headGetter , firstSp.valueForm + headGetter, firstSp.unknownForm + headGetter)
-		var tailSymbolPath = new SymbolPath(firstSp.termForm + tailGetter , firstSp.valueForm + tailGetter, firstSp.unknownForm + tailGetter)
+//		var headSymbolPath = new SymbolPath(firstSp.termForm + headGetter , firstSp.valueForm + headGetter, firstSp.unknownForm + headGetter)
+//		var tailSymbolPath = new SymbolPath(firstSp.termForm + tailGetter , firstSp.valueForm + tailGetter, firstSp.unknownForm + tailGetter)
+		var headSymbolPath = new SymbolPath(firstSp.termForm + headGetter , firstSp.valueForm, firstSp.unknownForm + headGetter)
+		var tailSymbolPath = new SymbolPath(firstSp.termForm + tailGetter , firstSp.valueForm, firstSp.unknownForm + tailGetter)
 		
 		if(node.head instanceof SymbolDef){
-//			featureAccessors.put(feature, headSymbolPath)
-//			symbolFeature.put(node.head as SymbolDef, feature)
 			symbolTable.put(node.head as SymbolDef, headSymbolPath)
 		} else {
 			val head = node.head as DefConfiguration
@@ -150,8 +139,6 @@ class SymbolResolver {
 			}
 		}
 		
-//		featureAccessors.put(feature, tailSymbolPath)
-//		symbolFeature.put(node.tail, feature)
 		symbolTable.put(node.tail as SymbolDef, tailSymbolPath)
 	}
 	
@@ -162,19 +149,17 @@ class SymbolResolver {
 				'''«NamingUtils.computedNameFor(feature.name)»''', 
 				'''(«NamingUtils.computedNameFor(feature.name)» == null ? «sp.termForm + featureGetter» : «NamingUtils.computedNameFor(feature.name)»)''')
 		
-		featureAccessors.put(feature, newSymbolPath)
-		symbolFeature.put(node, feature)
+		symbolTable.put(node, newSymbolPath)
 	}
 	
 	def void propagate(Premise node){
-		val feature = symbolFeature.get(node.from.def)
+		val sp = symbolTable.get(node.from.def)
 		
 		// For sure not computed here (premise)
-		val sp = featureAccessors.get(feature)
-		val newSP = new SymbolPath(sp.termForm, sp.valueForm, sp.termForm)
-		featureAccessors.put(feature, newSP)
+		val newSP = new SymbolPath(sp.termForm, sp.valueForm, sp.valueForm)
+		symbolTable.put(node.from.def, newSP)
 		
-		node.to.propagateFirst(feature, sp)
+		node.to.propagateFirst(newSP)
 	}
 	
 	
@@ -208,7 +193,7 @@ class SymbolResolver {
 		symbolTable.put(node, newSymbolPath)
 	}
 	
-	def dispatch void propagateFirst(DefConfiguration node, EStructuralFeature feature, SymbolPath sp){
+	def dispatch void propagateFirst(DefConfiguration node, SymbolPath sp){
 		val concept = node.concept
 		val features = concept.EAllStructuralFeatures
 		val childs = node.childs
@@ -216,9 +201,9 @@ class SymbolResolver {
 		
 		val type = node.concept.name
 		var newSymbolPath = new SymbolPath(
-				'''((«type») «NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.name))»)''' , 
-				'''((«type») «NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.name))»)''', 
-				'''((«type») «NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.name))»)''')
+				'''((«type») «NamingUtils.localNameFor(sp.termForm)»)''' , 
+				'''((«type») «NamingUtils.localNameFor(sp.valueForm)»)''', 
+				'''((«type») «NamingUtils.localNameFor(sp.unknownForm)»)''')
 		
 		for (var i = 0; i < len; i++) {
 			val child = childs.get(i)
@@ -226,11 +211,11 @@ class SymbolResolver {
 		}
 	}
 	
-	def dispatch void propagateFirst(SymbolDef node, EStructuralFeature feature, SymbolPath sp){
+	def dispatch void propagateFirst(SymbolDef node, SymbolPath sp){
 		var newSymbolPath = new SymbolPath(
-				'''«NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.name))»''' , 
-				'''«NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.name))»''', 
-				'''«NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.name))»''')
+				'''«NamingUtils.localNameFor(sp.termForm)»''' , 
+				'''«NamingUtils.localNameFor(sp.valueForm)»''', 
+				'''«NamingUtils.localNameFor(sp.unknownForm)»''')
 		
 		symbolTable.put(node, newSymbolPath)
 	}

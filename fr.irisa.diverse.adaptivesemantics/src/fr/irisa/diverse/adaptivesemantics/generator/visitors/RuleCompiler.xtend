@@ -36,13 +36,17 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
 import java.util.Map
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EPackage
 
 class RuleCompiler {
 	
 	val Map<SymbolDef, SymbolPath> ruleTable
+	var String currentCore = "";
+	val EPackage semanticdomain;
 	
-	new(Map<SymbolDef, SymbolPath> table){
+	new(Map<SymbolDef, SymbolPath> table, EPackage semanticdomain){
 		ruleTable = table
+		this.semanticdomain = semanticdomain
 	}
 	
 	def dispatch String compile(Rule node){
@@ -63,11 +67,13 @@ class RuleCompiler {
 		}
 		
 		if(result != null){
-			if(! ((EObject) result).eClass().getEPackage().equals(«AdaptSemGenerator.semanticDomain.name»Package.eINSTANCE)){
+			if(! ((EObject) result).eClass().getEPackage().equals(«semanticdomain.name»Package.eINSTANCE)){
 				return ((Node) result).accept(vis, execCtx);
 			} else {
 				return result;
 			}
+		} else {
+			continue;
 		}
 		'''
 		
@@ -85,32 +91,22 @@ class RuleCompiler {
 	}
 	
 	def String compileGuards(Rule node, String effect){
-		var out = effect
+		currentCore = effect
 		for (resolve : node.premises.reverse) {
-			out = '''
-			«resolve.compile»
-				{
-					«out»
-				}
-			}
-			'''
+			currentCore = resolve.compile
 		}
 		
 		for (cond : node.conditions.reverse) {
-			out = '''
-			«cond.compile»{
-				«out»
-			}
-			'''
+			currentCore = cond.compile
 		}
 		
 		val patternCompiler = new PatternCheckerCompiler()
-		out = '''
+		val out = '''
 		«patternCompiler.generateInputCheck(node.conclusion.from)»{
-			«out»
+			«currentCore»
 		}
 		'''
-		
+		currentCore = ""
 		return out
 	}
 	
@@ -119,18 +115,37 @@ class RuleCompiler {
 		var expectedPattern = ""
 		if(node.to instanceof DefConfiguration){
 			val pattern = node.to as DefConfiguration
-			expectedPattern = patternBuilder.generatePremiseCheck(pattern, NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm))
+			val toCheck = '''«IF node.termination»((Termination)«ENDIF»«NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)»«IF node.termination»).unbox()«ENDIF»'''
+			expectedPattern = patternBuilder.generatePremiseCheck(pattern, toCheck)
+			
 			return '''
 			if(«ruleTable.get(node.from.def).valueForm» == null){
 				Object «NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)» = ((Node) «ruleTable.get(node.from.def).termForm»).accept(vis, execCtx);
-				«expectedPattern»
-					if(«IF ! node.termination»!«ENDIF»(«NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)» instanceof Termination))
+				if(«IF ! node.termination»!«ENDIF»(«NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)» instanceof Termination)){
+					«expectedPattern»{
+						«currentCore»
+					}
+				}
+				«IF ! node.termination»
+				else {
+					termination = «NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)»;
+				}
+				«ENDIF»
+			}
 			'''
 		} else { // SymbolDef then
 			return '''
 			if(«ruleTable.get(node.from.def).valueForm» == null){
 				Object «NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)» = ((Node) «ruleTable.get(node.from.def).termForm»).accept(vis, execCtx);
-				if(«IF ! node.termination»!«ENDIF»(«NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)» instanceof Termination))
+				if(«IF ! node.termination»!«ENDIF»(«NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)» instanceof Termination)){
+					«currentCore»
+				}
+				«IF ! node.termination»
+				else {
+					termination = «NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)»;
+				}
+				«ENDIF»
+			}
 			'''
 		}
 	}
@@ -145,21 +160,33 @@ class RuleCompiler {
 			} else (
 				return '''
 				«RuleUtils.generateInstanceOf(conf, "out", ruleTable)»
+				«IF node.termination»
+				result = new Termination(out);
+				«ELSE»
 				result = out;
+				«ENDIF»
 				'''
 			)
 		}
 		if(node.to instanceof SymbolRef){
 			val symbol = node.to as SymbolRef
-			return '''
-			result = «symbol.compile»;
-			'''
+			if(node.termination){
+				return '''
+				result = new Termination(«symbol.compile»);
+				'''
+			} else {
+				return '''
+				result = «symbol.compile»;
+				'''
+			}
 		}
 	}
 	
 	def dispatch String compile(Condition node){
 		return '''
-		if(«(node.cond as Expr).compile»)
+		if(«(node.cond as Expr).compile»){
+			«currentCore»
+		}
 		'''
 	}
 	
@@ -195,14 +222,49 @@ class RuleCompiler {
 	}
 	
 	def dispatch String compile(Input node){
+		val assignee = node.assignee
+		if(assignee instanceof SymbolDef){
+			return '''
+			Object «assignee.name» = node.«node.operation.name»();
+			'''
+		}
+		if(assignee instanceof SemanticDomainAccess){
+			return '''
+			«NamingUtils.pathFor(assignee.reciever, ruleTable)».set«assignee.field.toFirstUpper»(node.«node.operation.name»());
+			'''
+		}
 		return '''
-		Object «node.assignee» = «node.operation.name»
+		Object «assignee» = node.«node.operation.name»();
 		'''
 	}
 	
 	def dispatch String compile(Output node){
+		var args = ""
+		var prelude = ""
+		var params = node.operation.EParameters
+		for (var i = 0; i<node.args.size; i++) {
+			val arg = node.args.get(i)
+			val param = params.get(i)
+			var paramType = param.EType.instanceClassName
+			if (paramType === null) {
+				paramType = param.EType.name
+			}
+			
+			
+			if(arg instanceof RefConfiguration){
+				prelude = '''
+				«prelude»
+				«RuleUtils.generateInstanceOf(arg, "arg"+i, ruleTable)»
+				'''
+				args = args + ''', («paramType») arg''' + i
+			} else {
+				val refconfCompiler = new RefConfigurationCompiler(ruleTable)
+				args = args + ''', («paramType») ''' + refconfCompiler.compile(arg)
+			}
+			
+		}
 		return '''
-		«node.operation.name»();
+		node.«node.operation.name»(«args.substring(2)»);
 		'''
 	}
 	

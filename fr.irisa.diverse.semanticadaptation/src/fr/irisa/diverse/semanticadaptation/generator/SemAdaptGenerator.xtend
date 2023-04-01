@@ -13,6 +13,7 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef
 import java.util.List
 import java.util.Map
+import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -32,12 +33,13 @@ import semanticadaptation.Specialization
 class SemAdaptGenerator extends AbstractGenerator {
 	
 	static var String modelName;
+	static var EPackage semanticdomain;
 
 	var Map<Rule, Map<SymbolDef, SymbolPath>> symbolTable = newHashMap;
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val metamodel = resource.allContents.filter(Model).head as Model
-		//semanticdomain = metamodel.semanticdomain
+		semanticdomain = metamodel.semanticdomain
 		modelName = NamingUtils.nameOf(metamodel)
 		
 		val adaptations = resource.allContents.filter(Adaptation).toList
@@ -91,7 +93,7 @@ class SemAdaptGenerator extends AbstractGenerator {
 		
 		for (adaptation : module.adaptations) {
 			val adaptationCode = compileAdaptationRule(adaptation.adaptation)
-			fsa.generateFile(NamingUtils.adaptationPathFor(modelName, NamingUtils.adaptationNameFor(adaptation.adaptation.name)), adaptationCode)
+			fsa.generateFile(NamingUtils.adaptationPathFor(modelName, adaptation.adaptation.name), adaptationCode)
 			
 			addRules = '''
 			«addRules»
@@ -151,12 +153,23 @@ class SemAdaptGenerator extends AbstractGenerator {
 	
 	def String compileAdaptationRule(Rule rule){
 		val ruleTable = symbolTable.get(rule)
-		val ruleCompiler = new RuleCompiler(ruleTable)
+		val ruleCompiler = new RuleCompiler(ruleTable, semanticdomain)
 		val compiledRule = ruleCompiler.compile(rule)
 		return '''
-		package «modelName».adaptations.modules;
+		package «modelName».adaptations.rules;
 		
-		public class «NamingUtils.adaptationNameFor(rule.name)» extend AdaptationRule {
+		import org.eclipse.emf.ecore.EObject;
+		import org.eclipse.emf.ecore.util.EcoreUtil;
+		
+		import fr.gjouneau.savm.framework.lang.semantics.AdaptableNode;
+		import fr.gjouneau.savm.framework.lang.semantics.Node;
+		import fr.gjouneau.savm.framework.lang.semantics.SelfAdaptiveVisitor;
+		import fr.gjouneau.savm.framework.lang.semantics.SemanticsAdaptationInterface;
+		import «modelName».*;
+		import «modelName».ASOS.AdaptationRule;
+		import «modelName».«semanticdomain.name».*;
+		
+		public class «NamingUtils.adaptationNameFor(rule.name)» extends AdaptationRule {
 			@Override
 			public Object adapt(SelfAdaptiveVisitor vis, AdaptableNode<? extends SemanticsAdaptationInterface> node, Object execCtx, SemanticsAdaptationInterface config){
 				Object result = null;

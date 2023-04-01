@@ -1,7 +1,6 @@
 package fr.irisa.diverse.adaptivesemantics.generator.visitors;
 
 import com.google.common.base.Objects;
-import fr.irisa.diverse.adaptivesemantics.generator.NamingUtils;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListDef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef;
@@ -14,10 +13,6 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList;
 import java.util.Arrays;
 import java.util.Map;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtend2.lib.StringConcatenation;
 
 @SuppressWarnings("all")
 public class ConfigurationComparator {
@@ -28,68 +23,8 @@ public class ConfigurationComparator {
   }
   
   public String updateNode(final DefConfiguration deff, final RefConfiguration ref) {
-    String out = "";
-    final EList<TermDef> defChilds = deff.getChilds();
-    final EList<TermRef> refChilds = ref.getChilds();
-    final int len = defChilds.size();
-    final EClass concept = ref.getConcept();
-    final EList<EStructuralFeature> features = concept.getEAllStructuralFeatures();
-    for (int i = 0; (i < len); i++) {
-      boolean _equals = this.equals(defChilds.get(i), refChilds.get(i));
-      boolean _not = (!_equals);
-      if (_not) {
-        final EStructuralFeature feature = features.get(i);
-        final TermDef defChild = defChilds.get(i);
-        final TermRef refChild = refChilds.get(i);
-        final RefConfigurationCompiler refconfCompiler = new RefConfigurationCompiler(this.ruleTable);
-        boolean _matched = false;
-        if (refChild instanceof RefConfiguration) {
-          _matched=true;
-          final String create = refconfCompiler.compile(refChild);
-          StringConcatenation _builder = new StringConcatenation();
-          _builder.append(out);
-          _builder.newLineIfNotEmpty();
-          _builder.append(create);
-          _builder.newLineIfNotEmpty();
-          String _computedNameFor = NamingUtils.computedNameFor(feature.getName());
-          _builder.append(_computedNameFor);
-          _builder.append(" = ");
-          String _lastRefConfig = refconfCompiler.getLastRefConfig();
-          _builder.append(_lastRefConfig);
-          _builder.append(";");
-          _builder.newLineIfNotEmpty();
-          out = _builder.toString();
-        }
-        if (!_matched) {
-          if ((((defChild instanceof ListDef) && 
-            (refChild instanceof SymbolRef)) && 
-            EcoreUtil.equals(((SymbolRef) refChild).getDef(), ((ListDef) defChild).getTail()))) {
-            StringConcatenation _builder = new StringConcatenation();
-            _builder.append(out);
-            _builder.newLineIfNotEmpty();
-            String _indexNameFor = NamingUtils.indexNameFor(feature.getName());
-            _builder.append(_indexNameFor);
-            _builder.append("++;");
-            _builder.newLineIfNotEmpty();
-            out = _builder.toString();
-          } else {
-            StringConcatenation _builder_1 = new StringConcatenation();
-            _builder_1.append(out);
-            _builder_1.newLineIfNotEmpty();
-            String _computedNameFor = NamingUtils.computedNameFor(feature.getName());
-            _builder_1.append(_computedNameFor);
-            _builder_1.append(" = ");
-            String _compile = refconfCompiler.compile(refChild);
-            _builder_1.append(_compile);
-            _builder_1.append(";");
-            _builder_1.newLineIfNotEmpty();
-            out = _builder_1.toString();
-          }
-        }
-        return out;
-      }
-    }
-    return out;
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The constructor RefConfigurationCompiler(Map<SymbolDef, SymbolPath>, String, EPackage) is not applicable for the arguments (Map<SymbolDef, SymbolPath>)");
   }
   
   protected boolean _equals(final DefConfiguration deff, final TermRef ref) {

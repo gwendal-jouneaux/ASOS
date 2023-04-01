@@ -140,6 +140,17 @@ public class AdaptSemGenerator extends AbstractGenerator {
       _builder.append(_computedNameFor);
       _builder.append(" = null;");
       _builder.newLineIfNotEmpty();
+      {
+        int _upperBound = feature.getUpperBound();
+        boolean _notEquals = (_upperBound != 1);
+        if (_notEquals) {
+          _builder.append("int ");
+          String _indexNameFor = NamingUtils.indexNameFor(feature.getName());
+          _builder.append(_indexNameFor);
+          _builder.append(" = 0;");
+          _builder.newLineIfNotEmpty();
+        }
+      }
       computedTerms = _builder.toString();
     }
     for (int i = 0; (i < rules.size()); i++) {
@@ -155,6 +166,8 @@ public class AdaptSemGenerator extends AbstractGenerator {
     _builder_1.append(AdaptSemGenerator.modelName);
     _builder_1.append(".operations;");
     _builder_1.newLineIfNotEmpty();
+    _builder_1.newLine();
+    _builder_1.append("import java.util.List;");
     _builder_1.newLine();
     _builder_1.append("import org.eclipse.emf.ecore.EObject;");
     _builder_1.newLine();
@@ -243,12 +256,23 @@ public class AdaptSemGenerator extends AbstractGenerator {
     _builder_1.append("\t\t");
     _builder_1.newLine();
     _builder_1.append("\t\t");
-    _builder_1.append(out, "\t\t");
+    _builder_1.append("while(true){");
+    _builder_1.newLine();
+    _builder_1.append("\t\t\t");
+    _builder_1.append("Object termination = null;");
+    _builder_1.newLine();
+    _builder_1.append("\t\t");
+    _builder_1.newLine();
+    _builder_1.append("\t\t\t");
+    _builder_1.append(out, "\t\t\t");
     _builder_1.newLineIfNotEmpty();
     _builder_1.append("\t\t");
     _builder_1.newLine();
+    _builder_1.append("\t\t\t");
+    _builder_1.append("return termination;");
+    _builder_1.newLine();
     _builder_1.append("\t\t");
-    _builder_1.append("return result;");
+    _builder_1.append("}");
     _builder_1.newLine();
     _builder_1.append("\t");
     _builder_1.append("}");
@@ -265,7 +289,7 @@ public class AdaptSemGenerator extends AbstractGenerator {
    */
   public String compileRule(final Rule r) {
     final Map<SymbolDef, SymbolPath> ruleTable = this.symbolTable.get(r);
-    final RuleCompiler ruleCompiler = new RuleCompiler(ruleTable);
+    final RuleCompiler ruleCompiler = new RuleCompiler(ruleTable, AdaptSemGenerator.semanticdomain);
     return ruleCompiler.compile(r);
   }
   

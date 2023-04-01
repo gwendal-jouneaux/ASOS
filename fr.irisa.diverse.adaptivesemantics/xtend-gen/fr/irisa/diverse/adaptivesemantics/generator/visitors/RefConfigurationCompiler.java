@@ -1,6 +1,5 @@
 package fr.irisa.diverse.adaptivesemantics.generator.visitors;
 
-import fr.irisa.diverse.adaptivesemantics.generator.AdaptSemGenerator;
 import fr.irisa.diverse.adaptivesemantics.generator.RuleUtils;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.ListRef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.RefConfiguration;
@@ -12,6 +11,7 @@ import java.util.Arrays;
 import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -23,10 +23,16 @@ public class RefConfigurationCompiler {
   
   private final Map<SymbolDef, SymbolPath> ruleTable;
   
+  private final String modelName;
+  
+  private final EPackage semanticdomain;
+  
   private String lastRefConfig = "";
   
-  public RefConfigurationCompiler(final Map<SymbolDef, SymbolPath> table) {
+  public RefConfigurationCompiler(final Map<SymbolDef, SymbolPath> table, final String modelname, final EPackage sd) {
     this.ruleTable = table;
+    this.semanticdomain = sd;
+    this.modelName = modelname;
   }
   
   protected String _compile(final RefConfiguration node) {
@@ -47,7 +53,7 @@ public class RefConfigurationCompiler {
       _builder.append(_firstLower);
       _builder.append(classindex);
       _builder.append(" = ");
-      String _name_1 = AdaptSemGenerator.getSemanticDomain().getName();
+      String _name_1 = this.semanticdomain.getName();
       _builder.append(_name_1);
       _builder.append("Factory.eINSTANCE.create");
       String _name_2 = concept.getName();
@@ -64,7 +70,7 @@ public class RefConfigurationCompiler {
       _builder_1.append(_firstLower_1);
       _builder_1.append(classindex);
       _builder_1.append(" = ");
-      String _firstUpper = StringExtensions.toFirstUpper(AdaptSemGenerator.getModelName());
+      String _firstUpper = StringExtensions.toFirstUpper(this.modelName);
       _builder_1.append(_firstUpper);
       _builder_1.append("Factory.eINSTANCE.create");
       String _name_4 = concept.getName();

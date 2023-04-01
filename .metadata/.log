@@ -9624,3 +9624,23 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.gem
 
 !ENTRY org.eclipse.core.resources 2 10035 2023-03-13 15:40:05.131
 !MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2023-03-26 10:56:38.469 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.18
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.gemoc.gemoc_studio.branding.gemoc_studio
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.gemoc.gemoc_studio.branding.gemoc_studio
+
+!ENTRY org.eclipse.core.resources 2 10035 2023-03-26 10:56:43.994
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2023-03-29 17:11:30.004 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=11.0.18
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.gemoc.gemoc_studio.branding.gemoc_studio
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.gemoc.gemoc_studio.branding.gemoc_studio
+
+!ENTRY org.eclipse.core.resources 2 10035 2023-03-29 17:11:36.314
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.

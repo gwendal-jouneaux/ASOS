@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.AbstractGenerator;
@@ -40,12 +41,15 @@ import semanticadaptation.Specialization;
 public class SemAdaptGenerator extends AbstractGenerator {
   private static String modelName;
   
+  private static EPackage semanticdomain;
+  
   private Map<Rule, Map<SymbolDef, SymbolPath>> symbolTable = CollectionLiterals.<Rule, Map<SymbolDef, SymbolPath>>newHashMap();
   
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     Model _head = IteratorExtensions.<Model>head(Iterators.<Model>filter(resource.getAllContents(), Model.class));
     final Model metamodel = ((Model) _head);
+    SemAdaptGenerator.semanticdomain = metamodel.getSemanticdomain();
     SemAdaptGenerator.modelName = NamingUtils.nameOf(metamodel);
     final List<Adaptation> adaptations = IteratorExtensions.<Adaptation>toList(Iterators.<Adaptation>filter(resource.getAllContents(), Adaptation.class));
     final Function1<Adaptation, Rule> _function = (Adaptation adaptation) -> {
@@ -84,7 +88,7 @@ public class SemAdaptGenerator extends AbstractGenerator {
     for (final Adaptation adaptation : _adaptations) {
       {
         final String adaptationCode = this.compileAdaptationRule(adaptation.getAdaptation());
-        fsa.generateFile(NamingUtils.adaptationPathFor(SemAdaptGenerator.modelName, NamingUtils.adaptationNameFor(adaptation.getAdaptation().getName())), adaptationCode);
+        fsa.generateFile(NamingUtils.adaptationPathFor(SemAdaptGenerator.modelName, adaptation.getAdaptation().getName()), adaptationCode);
         StringConcatenation _builder = new StringConcatenation();
         _builder.append(addRules);
         _builder.newLineIfNotEmpty();
@@ -227,18 +231,47 @@ public class SemAdaptGenerator extends AbstractGenerator {
   
   public String compileAdaptationRule(final Rule rule) {
     final Map<SymbolDef, SymbolPath> ruleTable = this.symbolTable.get(rule);
-    final RuleCompiler ruleCompiler = new RuleCompiler(ruleTable);
+    final RuleCompiler ruleCompiler = new RuleCompiler(ruleTable, SemAdaptGenerator.semanticdomain);
     final String compiledRule = ruleCompiler.compile(rule);
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package ");
     _builder.append(SemAdaptGenerator.modelName);
-    _builder.append(".adaptations.modules;");
+    _builder.append(".adaptations.rules;");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("import org.eclipse.emf.ecore.EObject;");
+    _builder.newLine();
+    _builder.append("import org.eclipse.emf.ecore.util.EcoreUtil;");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("import fr.gjouneau.savm.framework.lang.semantics.AdaptableNode;");
+    _builder.newLine();
+    _builder.append("import fr.gjouneau.savm.framework.lang.semantics.Node;");
+    _builder.newLine();
+    _builder.append("import fr.gjouneau.savm.framework.lang.semantics.SelfAdaptiveVisitor;");
+    _builder.newLine();
+    _builder.append("import fr.gjouneau.savm.framework.lang.semantics.SemanticsAdaptationInterface;");
+    _builder.newLine();
+    _builder.append("import ");
+    _builder.append(SemAdaptGenerator.modelName);
+    _builder.append(".*;");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import ");
+    _builder.append(SemAdaptGenerator.modelName);
+    _builder.append(".ASOS.AdaptationRule;");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import ");
+    _builder.append(SemAdaptGenerator.modelName);
+    _builder.append(".");
+    String _name = SemAdaptGenerator.semanticdomain.getName();
+    _builder.append(_name);
+    _builder.append(".*;");
     _builder.newLineIfNotEmpty();
     _builder.newLine();
     _builder.append("public class ");
     String _adaptationNameFor = NamingUtils.adaptationNameFor(rule.getName());
     _builder.append(_adaptationNameFor);
-    _builder.append(" extend AdaptationRule {");
+    _builder.append(" extends AdaptationRule {");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.append("@Override");

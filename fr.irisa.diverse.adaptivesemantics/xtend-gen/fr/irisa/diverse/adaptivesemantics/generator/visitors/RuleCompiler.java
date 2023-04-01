@@ -1,6 +1,5 @@
 package fr.irisa.diverse.adaptivesemantics.generator.visitors;
 
-import fr.irisa.diverse.adaptivesemantics.generator.AdaptSemGenerator;
 import fr.irisa.diverse.adaptivesemantics.generator.NamingUtils;
 import fr.irisa.diverse.adaptivesemantics.generator.RuleUtils;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And;
@@ -43,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
@@ -51,8 +51,13 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 public class RuleCompiler {
   private final Map<SymbolDef, SymbolPath> ruleTable;
   
-  public RuleCompiler(final Map<SymbolDef, SymbolPath> table) {
+  private String currentCore = "";
+  
+  private final EPackage semanticdomain;
+  
+  public RuleCompiler(final Map<SymbolDef, SymbolPath> table, final EPackage semanticdomain) {
     this.ruleTable = table;
+    this.semanticdomain = semanticdomain;
   }
   
   protected String _compile(final Rule node) {
@@ -109,7 +114,7 @@ public class RuleCompiler {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("if(! ((EObject) result).eClass().getEPackage().equals(");
-    String _name_6 = AdaptSemGenerator.getSemanticDomain().getName();
+    String _name_6 = this.semanticdomain.getName();
     _builder.append(_name_6, "\t");
     _builder.append("Package.eINSTANCE)){");
     _builder.newLineIfNotEmpty();
@@ -124,6 +129,11 @@ public class RuleCompiler {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("}");
+    _builder.newLine();
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("continue;");
     _builder.newLine();
     _builder.append("}");
     _builder.newLine();
@@ -142,52 +152,28 @@ public class RuleCompiler {
   }
   
   public String compileGuards(final Rule node, final String effect) {
-    String out = effect;
+    this.currentCore = effect;
     List<Premise> _reverse = ListExtensions.<Premise>reverse(node.getPremises());
     for (final Premise resolve : _reverse) {
-      StringConcatenation _builder = new StringConcatenation();
-      String _compile = this.compile(resolve);
-      _builder.append(_compile);
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      _builder.append("{");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append(out, "\t\t");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      _builder.append("}");
-      _builder.newLine();
-      _builder.append("}");
-      _builder.newLine();
-      out = _builder.toString();
+      this.currentCore = this.compile(resolve);
     }
     List<Condition> _reverse_1 = ListExtensions.<Condition>reverse(node.getConditions());
     for (final Condition cond : _reverse_1) {
-      StringConcatenation _builder_1 = new StringConcatenation();
-      String _compile_1 = this.compile(cond);
-      _builder_1.append(_compile_1);
-      _builder_1.append("{");
-      _builder_1.newLineIfNotEmpty();
-      _builder_1.append("\t");
-      _builder_1.append(out, "\t");
-      _builder_1.newLineIfNotEmpty();
-      _builder_1.append("}");
-      _builder_1.newLine();
-      out = _builder_1.toString();
+      this.currentCore = this.compile(cond);
     }
     final PatternCheckerCompiler patternCompiler = new PatternCheckerCompiler();
-    StringConcatenation _builder_2 = new StringConcatenation();
+    StringConcatenation _builder = new StringConcatenation();
     String _generateInputCheck = patternCompiler.generateInputCheck(node.getConclusion().getFrom());
-    _builder_2.append(_generateInputCheck);
-    _builder_2.append("{");
-    _builder_2.newLineIfNotEmpty();
-    _builder_2.append("\t");
-    _builder_2.append(out, "\t");
-    _builder_2.newLineIfNotEmpty();
-    _builder_2.append("}");
-    _builder_2.newLine();
-    out = _builder_2.toString();
+    _builder.append(_generateInputCheck);
+    _builder.append("{");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append(this.currentCore, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    final String out = _builder.toString();
+    this.currentCore = "";
     return out;
   }
   
@@ -198,71 +184,145 @@ public class RuleCompiler {
     if ((_to instanceof DefConfiguration)) {
       SingleTermDef _to_1 = node.getTo();
       final DefConfiguration pattern = ((DefConfiguration) _to_1);
-      expectedPattern = patternBuilder.generatePremiseCheck(pattern, NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm()));
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("if(");
-      String _valueForm = this.ruleTable.get(node.getFrom().getDef()).getValueForm();
-      _builder.append(_valueForm);
-      _builder.append(" == null){");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      _builder.append("Object ");
-      String _localNameFor = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
-      _builder.append(_localNameFor, "\t");
-      _builder.append(" = ((Node) ");
-      String _termForm = this.ruleTable.get(node.getFrom().getDef()).getTermForm();
-      _builder.append(_termForm, "\t");
-      _builder.append(").accept(vis, execCtx);");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      _builder.append(expectedPattern, "\t");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t\t");
-      _builder.append("if(");
       {
         boolean _isTermination = node.isTermination();
-        boolean _not = (!_isTermination);
-        if (_not) {
-          _builder.append("!");
+        if (_isTermination) {
+          _builder.append("((Termination)");
         }
       }
-      _builder.append("(");
-      String _localNameFor_1 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
-      _builder.append(_localNameFor_1, "\t\t");
-      _builder.append(" instanceof Termination))");
-      _builder.newLineIfNotEmpty();
-      return _builder.toString();
-    } else {
+      String _localNameFor = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
+      _builder.append(_localNameFor);
+      {
+        boolean _isTermination_1 = node.isTermination();
+        if (_isTermination_1) {
+          _builder.append(").unbox()");
+        }
+      }
+      final String toCheck = _builder.toString();
+      expectedPattern = patternBuilder.generatePremiseCheck(pattern, toCheck);
       StringConcatenation _builder_1 = new StringConcatenation();
       _builder_1.append("if(");
-      String _valueForm_1 = this.ruleTable.get(node.getFrom().getDef()).getValueForm();
-      _builder_1.append(_valueForm_1);
+      String _valueForm = this.ruleTable.get(node.getFrom().getDef()).getValueForm();
+      _builder_1.append(_valueForm);
       _builder_1.append(" == null){");
       _builder_1.newLineIfNotEmpty();
       _builder_1.append("\t");
       _builder_1.append("Object ");
-      String _localNameFor_2 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
-      _builder_1.append(_localNameFor_2, "\t");
+      String _localNameFor_1 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
+      _builder_1.append(_localNameFor_1, "\t");
       _builder_1.append(" = ((Node) ");
-      String _termForm_1 = this.ruleTable.get(node.getFrom().getDef()).getTermForm();
-      _builder_1.append(_termForm_1, "\t");
+      String _termForm = this.ruleTable.get(node.getFrom().getDef()).getTermForm();
+      _builder_1.append(_termForm, "\t");
       _builder_1.append(").accept(vis, execCtx);");
       _builder_1.newLineIfNotEmpty();
       _builder_1.append("\t");
       _builder_1.append("if(");
       {
-        boolean _isTermination_1 = node.isTermination();
-        boolean _not_1 = (!_isTermination_1);
-        if (_not_1) {
+        boolean _isTermination_2 = node.isTermination();
+        boolean _not = (!_isTermination_2);
+        if (_not) {
           _builder_1.append("!");
         }
       }
       _builder_1.append("(");
-      String _localNameFor_3 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
-      _builder_1.append(_localNameFor_3, "\t");
-      _builder_1.append(" instanceof Termination))");
+      String _localNameFor_2 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
+      _builder_1.append(_localNameFor_2, "\t");
+      _builder_1.append(" instanceof Termination)){");
       _builder_1.newLineIfNotEmpty();
+      _builder_1.append("\t\t");
+      _builder_1.append(expectedPattern, "\t\t");
+      _builder_1.append("{");
+      _builder_1.newLineIfNotEmpty();
+      _builder_1.append("\t\t\t");
+      _builder_1.append(this.currentCore, "\t\t\t");
+      _builder_1.newLineIfNotEmpty();
+      _builder_1.append("\t\t");
+      _builder_1.append("}");
+      _builder_1.newLine();
+      _builder_1.append("\t");
+      _builder_1.append("}");
+      _builder_1.newLine();
+      {
+        boolean _isTermination_3 = node.isTermination();
+        boolean _not_1 = (!_isTermination_3);
+        if (_not_1) {
+          _builder_1.append("\t");
+          _builder_1.append("else {");
+          _builder_1.newLine();
+          _builder_1.append("\t");
+          _builder_1.append("\t");
+          _builder_1.append("termination = ");
+          String _localNameFor_3 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
+          _builder_1.append(_localNameFor_3, "\t\t");
+          _builder_1.append(";");
+          _builder_1.newLineIfNotEmpty();
+          _builder_1.append("\t");
+          _builder_1.append("}");
+          _builder_1.newLine();
+        }
+      }
+      _builder_1.append("}");
+      _builder_1.newLine();
       return _builder_1.toString();
+    } else {
+      StringConcatenation _builder_2 = new StringConcatenation();
+      _builder_2.append("if(");
+      String _valueForm_1 = this.ruleTable.get(node.getFrom().getDef()).getValueForm();
+      _builder_2.append(_valueForm_1);
+      _builder_2.append(" == null){");
+      _builder_2.newLineIfNotEmpty();
+      _builder_2.append("\t");
+      _builder_2.append("Object ");
+      String _localNameFor_4 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
+      _builder_2.append(_localNameFor_4, "\t");
+      _builder_2.append(" = ((Node) ");
+      String _termForm_1 = this.ruleTable.get(node.getFrom().getDef()).getTermForm();
+      _builder_2.append(_termForm_1, "\t");
+      _builder_2.append(").accept(vis, execCtx);");
+      _builder_2.newLineIfNotEmpty();
+      _builder_2.append("\t");
+      _builder_2.append("if(");
+      {
+        boolean _isTermination_4 = node.isTermination();
+        boolean _not_2 = (!_isTermination_4);
+        if (_not_2) {
+          _builder_2.append("!");
+        }
+      }
+      _builder_2.append("(");
+      String _localNameFor_5 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
+      _builder_2.append(_localNameFor_5, "\t");
+      _builder_2.append(" instanceof Termination)){");
+      _builder_2.newLineIfNotEmpty();
+      _builder_2.append("\t\t");
+      _builder_2.append(this.currentCore, "\t\t");
+      _builder_2.newLineIfNotEmpty();
+      _builder_2.append("\t");
+      _builder_2.append("}");
+      _builder_2.newLine();
+      {
+        boolean _isTermination_5 = node.isTermination();
+        boolean _not_3 = (!_isTermination_5);
+        if (_not_3) {
+          _builder_2.append("\t");
+          _builder_2.append("else {");
+          _builder_2.newLine();
+          _builder_2.append("\t");
+          _builder_2.append("\t");
+          _builder_2.append("termination = ");
+          String _localNameFor_6 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
+          _builder_2.append(_localNameFor_6, "\t\t");
+          _builder_2.append(";");
+          _builder_2.newLineIfNotEmpty();
+          _builder_2.append("\t");
+          _builder_2.append("}");
+          _builder_2.newLine();
+        }
+      }
+      _builder_2.append("}");
+      _builder_2.newLine();
+      return _builder_2.toString();
     }
   }
   
@@ -280,8 +340,16 @@ public class RuleCompiler {
         String _generateInstanceOf = RuleUtils.generateInstanceOf(conf, "out", this.ruleTable);
         _builder.append(_generateInstanceOf);
         _builder.newLineIfNotEmpty();
-        _builder.append("result = out;");
-        _builder.newLine();
+        {
+          boolean _isTermination = node.isTermination();
+          if (_isTermination) {
+            _builder.append("result = new Termination(out);");
+            _builder.newLine();
+          } else {
+            _builder.append("result = out;");
+            _builder.newLine();
+          }
+        }
         return _builder.toString();
       }
     }
@@ -289,13 +357,24 @@ public class RuleCompiler {
     if ((_to_2 instanceof SymbolRef)) {
       SingleTermRef _to_3 = node.getTo();
       final SymbolRef symbol = ((SymbolRef) _to_3);
-      StringConcatenation _builder_1 = new StringConcatenation();
-      _builder_1.append("result = ");
-      String _compile = this.compile(symbol);
-      _builder_1.append(_compile);
-      _builder_1.append(";");
-      _builder_1.newLineIfNotEmpty();
-      return _builder_1.toString();
+      boolean _isTermination_1 = node.isTermination();
+      if (_isTermination_1) {
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append("result = new Termination(");
+        String _compile = this.compile(symbol);
+        _builder_1.append(_compile);
+        _builder_1.append(");");
+        _builder_1.newLineIfNotEmpty();
+        return _builder_1.toString();
+      } else {
+        StringConcatenation _builder_2 = new StringConcatenation();
+        _builder_2.append("result = ");
+        String _compile_1 = this.compile(symbol);
+        _builder_2.append(_compile_1);
+        _builder_2.append(";");
+        _builder_2.newLineIfNotEmpty();
+        return _builder_2.toString();
+      }
     }
     return null;
   }
@@ -306,8 +385,13 @@ public class RuleCompiler {
     CondExpr _cond = node.getCond();
     String _compile = this.compile(((Expr) _cond));
     _builder.append(_compile);
-    _builder.append(")");
+    _builder.append("){");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append(this.currentCore, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
     return _builder.toString();
   }
   
@@ -383,24 +467,47 @@ public class RuleCompiler {
   }
   
   protected String _compile(final Input node) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("Object ");
-    Assignee _assignee = node.getAssignee();
-    _builder.append(_assignee);
-    _builder.append(" = ");
-    String _name = node.getOperation().getName();
-    _builder.append(_name);
-    _builder.newLineIfNotEmpty();
-    return _builder.toString();
+    final Assignee assignee = node.getAssignee();
+    if ((assignee instanceof SymbolDef)) {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("Object ");
+      String _name = ((SymbolDef)assignee).getName();
+      _builder.append(_name);
+      _builder.append(" = node.");
+      String _name_1 = node.getOperation().getName();
+      _builder.append(_name_1);
+      _builder.append("();");
+      _builder.newLineIfNotEmpty();
+      return _builder.toString();
+    }
+    if ((assignee instanceof SemanticDomainAccess)) {
+      StringConcatenation _builder_1 = new StringConcatenation();
+      String _pathFor = NamingUtils.pathFor(((SemanticDomainAccess)assignee).getReciever(), this.ruleTable);
+      _builder_1.append(_pathFor);
+      _builder_1.append(".set");
+      String _firstUpper = StringExtensions.toFirstUpper(((SemanticDomainAccess)assignee).getField());
+      _builder_1.append(_firstUpper);
+      _builder_1.append("(node.");
+      String _name_2 = node.getOperation().getName();
+      _builder_1.append(_name_2);
+      _builder_1.append("());");
+      _builder_1.newLineIfNotEmpty();
+      return _builder_1.toString();
+    }
+    StringConcatenation _builder_2 = new StringConcatenation();
+    _builder_2.append("Object ");
+    _builder_2.append(assignee);
+    _builder_2.append(" = node.");
+    String _name_3 = node.getOperation().getName();
+    _builder_2.append(_name_3);
+    _builder_2.append("();");
+    _builder_2.newLineIfNotEmpty();
+    return _builder_2.toString();
   }
   
   protected String _compile(final Output node) {
-    StringConcatenation _builder = new StringConcatenation();
-    String _name = node.getOperation().getName();
-    _builder.append(_name);
-    _builder.append("();");
-    _builder.newLineIfNotEmpty();
-    return _builder.toString();
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The constructor RefConfigurationCompiler(Map<SymbolDef, SymbolPath>, String, EPackage) is not applicable for the arguments (Map<SymbolDef, SymbolPath>)");
   }
   
   protected String _compile(final Plus node) {

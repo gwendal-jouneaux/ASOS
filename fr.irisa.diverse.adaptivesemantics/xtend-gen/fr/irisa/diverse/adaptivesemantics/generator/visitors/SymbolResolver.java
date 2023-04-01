@@ -11,7 +11,6 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermDef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -21,10 +20,6 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 @SuppressWarnings("all")
 public class SymbolResolver {
-  private final Map<EStructuralFeature, SymbolPath> featureAccessors = CollectionLiterals.<EStructuralFeature, SymbolPath>newHashMap();
-  
-  private final Map<SymbolDef, EStructuralFeature> symbolFeature = CollectionLiterals.<SymbolDef, EStructuralFeature>newHashMap();
-  
   private final Map<SymbolDef, SymbolPath> symbolTable = CollectionLiterals.<SymbolDef, SymbolPath>newHashMap();
   
   public void resolveFor(final Rule node) {
@@ -42,14 +37,6 @@ public class SymbolResolver {
     EList<Premise> _premises = node.getPremises();
     for (final Premise premise : _premises) {
       this.propagate(premise);
-    }
-    Set<SymbolDef> _keySet = this.symbolFeature.keySet();
-    for (final SymbolDef symbol : _keySet) {
-      {
-        final EStructuralFeature feature = this.symbolFeature.get(symbol);
-        final SymbolPath paths = this.featureAccessors.get(feature);
-        this.symbolTable.put(symbol, paths);
-      }
     }
   }
   
@@ -109,17 +96,15 @@ public class SymbolResolver {
     String _termForm = sp.getTermForm();
     String _plus_2 = (_termForm + headGetter);
     String _valueForm = sp.getValueForm();
-    String _plus_3 = (_valueForm + headGetter);
     String _unknownForm = sp.getUnknownForm();
-    String _plus_4 = (_unknownForm + headGetter);
-    SymbolPath headSymbolPath = new SymbolPath(_plus_2, _plus_3, _plus_4);
+    String _plus_3 = (_unknownForm + headGetter);
+    SymbolPath headSymbolPath = new SymbolPath(_plus_2, _valueForm, _plus_3);
     String _termForm_1 = sp.getTermForm();
-    String _plus_5 = (_termForm_1 + tailGetter);
+    String _plus_4 = (_termForm_1 + tailGetter);
     String _valueForm_1 = sp.getValueForm();
-    String _plus_6 = (_valueForm_1 + tailGetter);
     String _unknownForm_1 = sp.getUnknownForm();
-    String _plus_7 = (_unknownForm_1 + tailGetter);
-    SymbolPath tailSymbolPath = new SymbolPath(_plus_5, _plus_6, _plus_7);
+    String _plus_5 = (_unknownForm_1 + tailGetter);
+    SymbolPath tailSymbolPath = new SymbolPath(_plus_4, _valueForm_1, _plus_5);
     SingleTermDef _head = node.getHead();
     if ((_head instanceof SymbolDef)) {
       SingleTermDef _head_1 = node.getHead();
@@ -176,8 +161,7 @@ public class SymbolResolver {
     String _unknownForm = sp.getUnknownForm();
     String _plus_3 = (_unknownForm + featureGetter);
     SymbolPath newSymbolPath = new SymbolPath(_plus_1, _plus_2, _plus_3);
-    this.featureAccessors.put(feature, newSymbolPath);
-    this.symbolFeature.put(node, feature);
+    this.symbolTable.put(node, newSymbolPath);
   }
   
   protected void _resolveFirst(final DefConfiguration node, final EStructuralFeature feature, final SymbolPath sp) {
@@ -250,17 +234,15 @@ public class SymbolResolver {
     String _termForm_2 = firstSp.getTermForm();
     String _plus_4 = (_termForm_2 + headGetter);
     String _valueForm = firstSp.getValueForm();
-    String _plus_5 = (_valueForm + headGetter);
     String _unknownForm = firstSp.getUnknownForm();
-    String _plus_6 = (_unknownForm + headGetter);
-    SymbolPath headSymbolPath = new SymbolPath(_plus_4, _plus_5, _plus_6);
+    String _plus_5 = (_unknownForm + headGetter);
+    SymbolPath headSymbolPath = new SymbolPath(_plus_4, _valueForm, _plus_5);
     String _termForm_3 = firstSp.getTermForm();
-    String _plus_7 = (_termForm_3 + tailGetter);
+    String _plus_6 = (_termForm_3 + tailGetter);
     String _valueForm_1 = firstSp.getValueForm();
-    String _plus_8 = (_valueForm_1 + tailGetter);
     String _unknownForm_1 = firstSp.getUnknownForm();
-    String _plus_9 = (_unknownForm_1 + tailGetter);
-    SymbolPath tailSymbolPath = new SymbolPath(_plus_7, _plus_8, _plus_9);
+    String _plus_7 = (_unknownForm_1 + tailGetter);
+    SymbolPath tailSymbolPath = new SymbolPath(_plus_6, _valueForm_1, _plus_7);
     SingleTermDef _head = node.getHead();
     if ((_head instanceof SymbolDef)) {
       SingleTermDef _head_1 = node.getHead();
@@ -330,19 +312,17 @@ public class SymbolResolver {
     _builder_2.append(_computedNameFor_2);
     _builder_2.append(")");
     SymbolPath newSymbolPath = new SymbolPath(_builder.toString(), _builder_1.toString(), _builder_2.toString());
-    this.featureAccessors.put(feature, newSymbolPath);
-    this.symbolFeature.put(node, feature);
+    this.symbolTable.put(node, newSymbolPath);
   }
   
   public void propagate(final Premise node) {
-    final EStructuralFeature feature = this.symbolFeature.get(node.getFrom().getDef());
-    final SymbolPath sp = this.featureAccessors.get(feature);
+    final SymbolPath sp = this.symbolTable.get(node.getFrom().getDef());
     String _termForm = sp.getTermForm();
     String _valueForm = sp.getValueForm();
-    String _termForm_1 = sp.getTermForm();
-    final SymbolPath newSP = new SymbolPath(_termForm, _valueForm, _termForm_1);
-    this.featureAccessors.put(feature, newSP);
-    this.propagateFirst(node.getTo(), feature, sp);
+    String _valueForm_1 = sp.getValueForm();
+    final SymbolPath newSP = new SymbolPath(_termForm, _valueForm, _valueForm_1);
+    this.symbolTable.put(node.getFrom().getDef(), newSP);
+    this.propagateFirst(node.getTo(), newSP);
   }
   
   protected void _propagate(final DefConfiguration node, final EStructuralFeature feature, final SymbolPath sp) {
@@ -407,7 +387,7 @@ public class SymbolResolver {
     this.symbolTable.put(node, newSymbolPath);
   }
   
-  protected void _propagateFirst(final DefConfiguration node, final EStructuralFeature feature, final SymbolPath sp) {
+  protected void _propagateFirst(final DefConfiguration node, final SymbolPath sp) {
     final EClass concept = node.getConcept();
     final EList<EStructuralFeature> features = concept.getEAllStructuralFeatures();
     final EList<TermDef> childs = node.getChilds();
@@ -417,21 +397,21 @@ public class SymbolResolver {
     _builder.append("((");
     _builder.append(type);
     _builder.append(") ");
-    String _localNameFor = NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.getName()));
+    String _localNameFor = NamingUtils.localNameFor(sp.getTermForm());
     _builder.append(_localNameFor);
     _builder.append(")");
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("((");
     _builder_1.append(type);
     _builder_1.append(") ");
-    String _localNameFor_1 = NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.getName()));
+    String _localNameFor_1 = NamingUtils.localNameFor(sp.getValueForm());
     _builder_1.append(_localNameFor_1);
     _builder_1.append(")");
     StringConcatenation _builder_2 = new StringConcatenation();
     _builder_2.append("((");
     _builder_2.append(type);
     _builder_2.append(") ");
-    String _localNameFor_2 = NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.getName()));
+    String _localNameFor_2 = NamingUtils.localNameFor(sp.getUnknownForm());
     _builder_2.append(_localNameFor_2);
     _builder_2.append(")");
     SymbolPath newSymbolPath = new SymbolPath(_builder.toString(), _builder_1.toString(), _builder_2.toString());
@@ -443,15 +423,15 @@ public class SymbolResolver {
     }
   }
   
-  protected void _propagateFirst(final SymbolDef node, final EStructuralFeature feature, final SymbolPath sp) {
+  protected void _propagateFirst(final SymbolDef node, final SymbolPath sp) {
     StringConcatenation _builder = new StringConcatenation();
-    String _localNameFor = NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.getName()));
+    String _localNameFor = NamingUtils.localNameFor(sp.getTermForm());
     _builder.append(_localNameFor);
     StringConcatenation _builder_1 = new StringConcatenation();
-    String _localNameFor_1 = NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.getName()));
+    String _localNameFor_1 = NamingUtils.localNameFor(sp.getValueForm());
     _builder_1.append(_localNameFor_1);
     StringConcatenation _builder_2 = new StringConcatenation();
-    String _localNameFor_2 = NamingUtils.localNameFor(NamingUtils.computedNameFor(feature.getName()));
+    String _localNameFor_2 = NamingUtils.localNameFor(sp.getUnknownForm());
     _builder_2.append(_localNameFor_2);
     SymbolPath newSymbolPath = new SymbolPath(_builder.toString(), _builder_1.toString(), _builder_2.toString());
     this.symbolTable.put(node, newSymbolPath);
@@ -518,16 +498,16 @@ public class SymbolResolver {
     }
   }
   
-  public void propagateFirst(final SingleTermDef node, final EStructuralFeature feature, final SymbolPath sp) {
+  public void propagateFirst(final SingleTermDef node, final SymbolPath sp) {
     if (node instanceof DefConfiguration) {
-      _propagateFirst((DefConfiguration)node, feature, sp);
+      _propagateFirst((DefConfiguration)node, sp);
       return;
     } else if (node instanceof SymbolDef) {
-      _propagateFirst((SymbolDef)node, feature, sp);
+      _propagateFirst((SymbolDef)node, sp);
       return;
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(node, feature, sp).toString());
+        Arrays.<Object>asList(node, sp).toString());
     }
   }
 }

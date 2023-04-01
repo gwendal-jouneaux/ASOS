@@ -68,7 +68,7 @@ class PatternCheckerCompiler {
 	}
 	
 	def dispatch String compile(VoidList node, String path){
-		return ''' && («path» instanceof List && «path».empty())'''
+		return ''' && («path» instanceof List && «path».isEmpty())'''
 	}
 	
 	def dispatch String compile(ListDef node, String path){
