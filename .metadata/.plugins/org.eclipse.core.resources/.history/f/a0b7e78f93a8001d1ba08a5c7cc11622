@@ -1,5 +1,0 @@
-package fr.irisa.diverse.adaptivesemantics.generator
-
-class ExpressionVisitor {
-	
-}

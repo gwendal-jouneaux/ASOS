@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;org.eclipse.emf.codegen.ecore&apos;" deleteContents="true" description="Delete resource &apos;org.eclipse.emf.codegen.ecore&apos;" element1="/org.eclipse.emf.codegen.ecore" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1674488228597"/>
-</session>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;templates&apos; to &apos;fr.irisa.diverse.adaptivesemantics&apos;&#x0A;- Original project: &apos;org.eclipse.emf.codegen.ecore&apos;&#x0A;- Destination element: &apos;fr.irisa.diverse.adaptivesemantics&apos;&#x0A;- Original element: &apos;templates&apos;" description="Copy folder" element1="templates" files="0" flags="589830" folders="1" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1674479667181" target="/fr.irisa.diverse.adaptivesemantics" units="0" version="1.0"/>
-</session>
