@@ -3,7 +3,6 @@
  */
 package fr.irisa.diverse.adaptivesemantics.generator
 
-import fr.irisa.diverse.adaptivesemantics.generator.visitors.PatternCheckerCompiler
 import fr.irisa.diverse.adaptivesemantics.generator.visitors.RuleCompiler
 import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolPath
 import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolResolver
@@ -15,20 +14,19 @@ import java.util.ArrayList
 import java.util.List
 import java.util.Map
 import org.eclipse.emf.ecore.EClass
-import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 
+import static fr.irisa.diverse.adaptivesemantics.generator.RuleUtils.*
+
 class AdaptSemGenerator extends AbstractGenerator {
 	
 	var Map<EClass, List<Rule>> conceptRules = newHashMap;
 	var Map<EClass, List<Rule>> allRulesForConcept = newHashMap;
 	var Map<Rule, Map<SymbolDef, SymbolPath>> symbolTable = newHashMap;
-	static var EPackage semanticdomain;
-	static var String modelName;
 
 
 
@@ -44,15 +42,19 @@ class AdaptSemGenerator extends AbstractGenerator {
 	 */
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val metamodel = resource.allContents.filter(Model).head as Model
-		semanticdomain = metamodel.semanticdomain
-		modelName = NamingUtils.nameOf(metamodel)
+		RuleUtils.semanticdomain = metamodel.semanticdomain
+		RuleUtils.modelName = NamingUtils.nameOf(metamodel)
+		
+		// Generate ASOS Files
+		fsa.generateFile(NamingUtils.asosFilePathFor(RuleUtils.modelName, "Termination"), ASOSFileGenerator.termination)
+		fsa.generateFile(NamingUtils.asosFilePathFor(RuleUtils.modelName, "AdaptationRule"), ASOSFileGenerator.adaptationrule)
 		
 		val rules = resource.allContents.filter(Rule).toList
 		conceptRules = rules.groupBy[conclusion.from.concept]
 			
 		//SemanticInterfaceGenerator.compileInterfaces(conceptRules, fsa)
 		val interface = compileInterface(rules)
-		fsa.generateFile(NamingUtils.interfacePathFor(modelName, modelName), interface)
+		fsa.generateFile(NamingUtils.interfacePathFor(RuleUtils.modelName, RuleUtils.modelName), interface)
 			
 		groupRulesByConcept(conceptRules)
 		createSymbolTableForRules()
@@ -62,7 +64,9 @@ class AdaptSemGenerator extends AbstractGenerator {
 		for (concept : concepts) {
 			val conceptName = concept.name
 			val operation = compileOperationFor(concept)
-			fsa.generateFile(NamingUtils.operationPathFor(modelName, conceptName), operation)
+			val dataOject = compileDataObjectFor(concept)
+			fsa.generateFile(NamingUtils.operationPathFor(RuleUtils.modelName, conceptName), operation)
+			fsa.generateFile(NamingUtils.dataPathFor(RuleUtils.modelName, conceptName), dataOject)
 		}
 	}
 	
@@ -137,19 +141,6 @@ class AdaptSemGenerator extends AbstractGenerator {
 	def String compileOperationFor(EClass concept){
 		var out = ""
 		val rules = allRulesForConcept.get(concept)
-		
-		var computedTerms = ""
-		val features = concept.EAllStructuralFeatures
-		for (feature : features) {
-			computedTerms = '''
-			«computedTerms»
-			Object «NamingUtils.computedNameFor(feature.name)» = null;
-			«IF feature.upperBound != 1»
-			int «NamingUtils.indexNameFor(feature.name)» = 0;
-			«ENDIF»
-			'''
-			
-		}
 			
 		for(var i = 0; i < rules.size; i++){
 			val first = rules.get(i)
@@ -182,32 +173,35 @@ class AdaptSemGenerator extends AbstractGenerator {
 		}
 		
 		return '''
-		package «modelName».operations;
+		package «RuleUtils.modelName».operations;
 		
 		import java.util.List;
 		import org.eclipse.emf.ecore.EObject;
 		import org.eclipse.emf.ecore.util.EcoreUtil;
-		import fr.gjouneau.savm.framework.lang.semantics.AdaptiveOperation;
-		import fr.gjouneau.savm.framework.lang.semantics.Node;
-		import fr.gjouneau.savm.framework.lang.semantics.Operationalize;
-		import fr.gjouneau.savm.framework.lang.semantics.SelfAdaptiveVisitor;
-		import «modelName».ASOS.Termination;
-		import «modelName».*;
-		import «modelName».«modelName.toFirstUpper»Factory;
-		import «modelName».interfaces.«NamingUtils.interfaceNameFor(modelName)»;
-		import «modelName».«semanticdomain.name».*;
+		import fr.diverse.team.SEALS.lang.semantics.AdaptableNode;
+		import fr.diverse.team.SEALS.lang.semantics.AdaptiveOperation;
+		import fr.diverse.team.SEALS.lang.semantics.Node;
+		import fr.diverse.team.SEALS.lang.semantics.Operationalize;
+		import fr.diverse.team.SEALS.lang.semantics.SelfAdaptiveVisitor;
+		import «RuleUtils.modelName».operations.data.«NamingUtils.dataNameFor(concept.name)»;
+		import «RuleUtils.modelName».ASOS.Termination;
+		import «RuleUtils.modelName».*;
+		import «RuleUtils.modelName».«RuleUtils.modelName.toFirstUpper»Factory;
+		import «RuleUtils.modelName».interfaces.«NamingUtils.interfaceNameFor(RuleUtils.modelName)»;
+		import «RuleUtils.modelName».«RuleUtils.semanticdomain.name».*;
 		
-		@Operationalize(node = «concept.name».class, visitor = "«modelName».visitors.«modelName»Visitor")
-		public class «concept.name»Op extends AdaptiveOperation<«concept.name», «NamingUtils.interfaceNameFor(modelName)»>{
+		@Operationalize(node = «concept.name».class, visitor = "«RuleUtils.modelName».interpreter.«RuleUtils.modelName.toFirstUpper»Visitor")
+		public class «concept.name»Op extends AdaptiveOperation<«concept.name», «NamingUtils.interfaceNameFor(RuleUtils.modelName)»>{
 			
 			@Override
-			public Object execute(SelfAdaptiveVisitor vis, «concept.name» node, Object execCtx, «NamingUtils.interfaceNameFor(modelName)» config) {
+			public Object execute(SelfAdaptiveVisitor vis, «concept.name» node, Object execCtx, «NamingUtils.interfaceNameFor(RuleUtils.modelName)» config) {
 				Object result = null;
 				
-				«computedTerms»
+				«NamingUtils.dataNameFor(concept.name)» data = new «NamingUtils.dataNameFor(concept.name)»();
 				
 				while(true){
 					Object termination = null;
+					«NamingUtils.dataNameFor(concept.name)» local_data = new «NamingUtils.dataNameFor(concept.name)»();
 				
 					«out»
 				
@@ -225,7 +219,7 @@ class AdaptSemGenerator extends AbstractGenerator {
 	 */
 	def String compileRule(Rule r){
 		val ruleTable = symbolTable.get(r)
-		val ruleCompiler = new RuleCompiler(ruleTable, semanticdomain)
+		val ruleCompiler = new RuleCompiler(ruleTable)
 		return ruleCompiler.compile(r)
 	}
 	
@@ -240,7 +234,50 @@ class AdaptSemGenerator extends AbstractGenerator {
 		return out
 	}
 	
-	
+	def String compileDataObjectFor(EClass concept){
+		var computedTerms = ""
+		var copyConstructor = ""
+		val features = concept.EAllStructuralFeatures
+		for (feature : features) {
+			copyConstructor = '''
+			«copyConstructor»
+			this.«NamingUtils.computedNameFor(feature.name)» = other.«NamingUtils.computedNameFor(feature.name)»;
+			«IF feature.upperBound != 1»
+			this.«NamingUtils.indexNameFor(feature.name)» = other.«NamingUtils.indexNameFor(feature.name)»;
+			«ENDIF»
+			'''
+			
+			computedTerms = '''
+			«computedTerms»
+			private Object «NamingUtils.computedNameFor(feature.name)» = null;
+			public void set«NamingUtils.computedNameFor(feature.name)»(Object o){this.«NamingUtils.computedNameFor(feature.name)» = o;}
+			public Object get«NamingUtils.computedNameFor(feature.name)»(){return this.«NamingUtils.computedNameFor(feature.name)»;}
+			«IF feature.upperBound != 1»
+			private int «NamingUtils.indexNameFor(feature.name)» = 0;
+			public void set«NamingUtils.indexNameFor(feature.name)»(int i){this.«NamingUtils.indexNameFor(feature.name)» = i;}
+			public void inc«NamingUtils.indexNameFor(feature.name)»(){this.«NamingUtils.indexNameFor(feature.name)» += 1;}
+			public int get«NamingUtils.indexNameFor(feature.name)»(){return this.«NamingUtils.indexNameFor(feature.name)»;}
+			«ENDIF»
+			'''
+		}
+		
+		return '''
+		package «RuleUtils.modelName».operations.data;
+		
+		public class «NamingUtils.dataNameFor(concept.name)» {
+			«computedTerms»
+			
+			public «NamingUtils.dataNameFor(concept.name)»(Object object) {
+				if(object != null && object instanceof «NamingUtils.dataNameFor(concept.name)») {
+					«NamingUtils.dataNameFor(concept.name)» other = ((«NamingUtils.dataNameFor(concept.name)») object);
+					«copyConstructor»
+				}
+			}
+			
+			public «NamingUtils.dataNameFor(concept.name)»() {}
+		}
+		'''
+	}
 	
 	
 	
@@ -279,12 +316,12 @@ class AdaptSemGenerator extends AbstractGenerator {
 		}
 		
 		return '''
-		package «AdaptSemGenerator.modelName».interfaces;
+		package «RuleUtils.modelName».interfaces;
 		
-		import fr.gjouneau.savm.framework.lang.semantics.SemanticsAdaptationInterface;
-		import «AdaptSemGenerator.modelName».ASOS.AdaptationRule;
+		import fr.diverse.team.SEALS.lang.semantics.SemanticsAdaptationInterface;
+		import «RuleUtils.modelName».ASOS.AdaptationRule;
 		
-		public class «NamingUtils.interfaceNameFor(modelName)» implements SemanticsAdaptationInterface {
+		public class «NamingUtils.interfaceNameFor(RuleUtils.modelName)» implements SemanticsAdaptationInterface {
 			«out»
 		}
 		'''
@@ -318,7 +355,7 @@ class AdaptSemGenerator extends AbstractGenerator {
 			.filter(Rule)
 			.groupBy[conclusion.from.concept]
 			
-		semanticdomain = resource.allContents.filter(Model).head.semanticdomain
+		RuleUtils.semanticdomain = resource.allContents.filter(Model).head.semanticdomain
 			
 		val concreteClasses = rulesByConcept.keySet.filter([EClass c | ! c.abstract])
 		for (concept : concreteClasses) {
@@ -392,13 +429,5 @@ class AdaptSemGenerator extends AbstractGenerator {
 //				.filter(Greeting)
 //				.map[name]
 //				.join(', '))
-	}
-	
-	static def EPackage getSemanticDomain(){
-		return semanticdomain
-	}
-	
-	static def String getModelName(){
-		return modelName
 	}
 }

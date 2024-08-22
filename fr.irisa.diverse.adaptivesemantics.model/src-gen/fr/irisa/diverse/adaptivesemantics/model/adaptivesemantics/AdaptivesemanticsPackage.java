@@ -591,13 +591,22 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	int DEF_CONFIGURATION__CONCEPT = CONFIGURATION__CONCEPT;
 
 	/**
+	 * The feature id for the '<em><b>Symbol</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEF_CONFIGURATION__SYMBOL = CONFIGURATION_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Childs</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEF_CONFIGURATION__CHILDS = CONFIGURATION_FEATURE_COUNT + 0;
+	int DEF_CONFIGURATION__CHILDS = CONFIGURATION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Def Configuration</em>' class.
@@ -606,7 +615,7 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DEF_CONFIGURATION_FEATURE_COUNT = CONFIGURATION_FEATURE_COUNT + 1;
+	int DEF_CONFIGURATION_FEATURE_COUNT = CONFIGURATION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Def Configuration</em>' class.
@@ -628,13 +637,22 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	int TERM_DEF = 18;
 
 	/**
+	 * The feature id for the '<em><b>Symbol</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERM_DEF__SYMBOL = 0;
+
+	/**
 	 * The number of structural features of the '<em>Term Def</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERM_DEF_FEATURE_COUNT = 0;
+	int TERM_DEF_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Term Def</em>' class.
@@ -654,6 +672,15 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	 * @generated
 	 */
 	int SINGLE_TERM_DEF = 15;
+
+	/**
+	 * The feature id for the '<em><b>Symbol</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SINGLE_TERM_DEF__SYMBOL = TERM_DEF__SYMBOL;
 
 	/**
 	 * The number of structural features of the '<em>Single Term Def</em>' class.
@@ -682,6 +709,15 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	 * @generated
 	 */
 	int SYMBOL_DEF = 10;
+
+	/**
+	 * The feature id for the '<em><b>Symbol</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYMBOL_DEF__SYMBOL = SINGLE_TERM_DEF__SYMBOL;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -860,6 +896,15 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	int LIST_DEF = 13;
 
 	/**
+	 * The feature id for the '<em><b>Symbol</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIST_DEF__SYMBOL = TERM_DEF__SYMBOL;
+
+	/**
 	 * The feature id for the '<em><b>Head</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -904,6 +949,15 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	 * @generated
 	 */
 	int VOID_LIST = 19;
+
+	/**
+	 * The feature id for the '<em><b>Symbol</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VOID_LIST__SYMBOL = TERM_DEF__SYMBOL;
 
 	/**
 	 * The number of structural features of the '<em>Void List</em>' class.
@@ -952,13 +1006,31 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	int INPUT__ASSIGNEE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT__TARGET = 2;
+
+	/**
+	 * The feature id for the '<em><b>Args</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT__ARGS = 3;
+
+	/**
 	 * The number of structural features of the '<em>Input</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INPUT_FEATURE_COUNT = 2;
+	int INPUT_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Input</em>' class.
@@ -998,13 +1070,22 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	int OUTPUT__ARGS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OUTPUT__TARGET = 2;
+
+	/**
 	 * The number of structural features of the '<em>Output</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OUTPUT_FEATURE_COUNT = 2;
+	int OUTPUT_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Output</em>' class.
@@ -2574,6 +2655,17 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	EClass getTermDef();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermDef#getSymbol <em>Symbol</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Symbol</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermDef#getSymbol()
+	 * @see #getTermDef()
+	 * @generated
+	 */
+	EReference getTermDef_Symbol();
+
+	/**
 	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.VoidList <em>Void List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2616,6 +2708,28 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	EReference getInput_Assignee();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input#getTarget()
+	 * @see #getInput()
+	 * @generated
+	 */
+	EReference getInput_Target();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input#getArgs <em>Args</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Args</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input#getArgs()
+	 * @see #getInput()
+	 * @generated
+	 */
+	EReference getInput_Args();
+
+	/**
 	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output <em>Output</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2646,6 +2760,17 @@ public interface AdaptivesemanticsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOutput_Args();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output#getTarget()
+	 * @see #getOutput()
+	 * @generated
+	 */
+	EReference getOutput_Target();
 
 	/**
 	 * Returns the meta object for class '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignee <em>Assignee</em>}'.
@@ -3509,6 +3634,14 @@ public interface AdaptivesemanticsPackage extends EPackage {
 		EClass TERM_DEF = eINSTANCE.getTermDef();
 
 		/**
+		 * The meta object literal for the '<em><b>Symbol</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TERM_DEF__SYMBOL = eINSTANCE.getTermDef_Symbol();
+
+		/**
 		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.VoidListImpl <em>Void List</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3545,6 +3678,22 @@ public interface AdaptivesemanticsPackage extends EPackage {
 		EReference INPUT__ASSIGNEE = eINSTANCE.getInput_Assignee();
 
 		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INPUT__TARGET = eINSTANCE.getInput_Target();
+
+		/**
+		 * The meta object literal for the '<em><b>Args</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INPUT__ARGS = eINSTANCE.getInput_Args();
+
+		/**
 		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OutputImpl <em>Output</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3569,6 +3718,14 @@ public interface AdaptivesemanticsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference OUTPUT__ARGS = eINSTANCE.getOutput_Args();
+
+		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OUTPUT__TARGET = eINSTANCE.getOutput_Target();
 
 		/**
 		 * The meta object literal for the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Assignee <em>Assignee</em>}' class.

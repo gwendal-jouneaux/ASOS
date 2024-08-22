@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListDefImpl#getSymbol <em>Symbol</em>}</li>
  *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListDefImpl#getHead <em>Head</em>}</li>
  *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.ListDefImpl#getTail <em>Tail</em>}</li>
  * </ul>
@@ -31,6 +32,16 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * @generated
  */
 public class ListDefImpl extends MinimalEObjectImpl.Container implements ListDef {
+	/**
+	 * The cached value of the '{@link #getSymbol() <em>Symbol</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSymbol()
+	 * @generated
+	 * @ordered
+	 */
+	protected SymbolDef symbol;
+
 	/**
 	 * The cached value of the '{@link #getHead() <em>Head</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -68,6 +79,56 @@ public class ListDefImpl extends MinimalEObjectImpl.Container implements ListDef
 	@Override
 	protected EClass eStaticClass() {
 		return AdaptivesemanticsPackage.Literals.LIST_DEF;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SymbolDef getSymbol() {
+		return symbol;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetSymbol(SymbolDef newSymbol, NotificationChain msgs) {
+		SymbolDef oldSymbol = symbol;
+		symbol = newSymbol;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					AdaptivesemanticsPackage.LIST_DEF__SYMBOL, oldSymbol, newSymbol);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSymbol(SymbolDef newSymbol) {
+		if (newSymbol != symbol) {
+			NotificationChain msgs = null;
+			if (symbol != null)
+				msgs = ((InternalEObject) symbol).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - AdaptivesemanticsPackage.LIST_DEF__SYMBOL, null, msgs);
+			if (newSymbol != null)
+				msgs = ((InternalEObject) newSymbol).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - AdaptivesemanticsPackage.LIST_DEF__SYMBOL, null, msgs);
+			msgs = basicSetSymbol(newSymbol, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AdaptivesemanticsPackage.LIST_DEF__SYMBOL, newSymbol,
+					newSymbol));
 	}
 
 	/**
@@ -178,6 +239,8 @@ public class ListDefImpl extends MinimalEObjectImpl.Container implements ListDef
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+		case AdaptivesemanticsPackage.LIST_DEF__SYMBOL:
+			return basicSetSymbol(null, msgs);
 		case AdaptivesemanticsPackage.LIST_DEF__HEAD:
 			return basicSetHead(null, msgs);
 		case AdaptivesemanticsPackage.LIST_DEF__TAIL:
@@ -194,6 +257,8 @@ public class ListDefImpl extends MinimalEObjectImpl.Container implements ListDef
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+		case AdaptivesemanticsPackage.LIST_DEF__SYMBOL:
+			return getSymbol();
 		case AdaptivesemanticsPackage.LIST_DEF__HEAD:
 			return getHead();
 		case AdaptivesemanticsPackage.LIST_DEF__TAIL:
@@ -210,6 +275,9 @@ public class ListDefImpl extends MinimalEObjectImpl.Container implements ListDef
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case AdaptivesemanticsPackage.LIST_DEF__SYMBOL:
+			setSymbol((SymbolDef) newValue);
+			return;
 		case AdaptivesemanticsPackage.LIST_DEF__HEAD:
 			setHead((SingleTermDef) newValue);
 			return;
@@ -228,6 +296,9 @@ public class ListDefImpl extends MinimalEObjectImpl.Container implements ListDef
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case AdaptivesemanticsPackage.LIST_DEF__SYMBOL:
+			setSymbol((SymbolDef) null);
+			return;
 		case AdaptivesemanticsPackage.LIST_DEF__HEAD:
 			setHead((SingleTermDef) null);
 			return;
@@ -246,6 +317,8 @@ public class ListDefImpl extends MinimalEObjectImpl.Container implements ListDef
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+		case AdaptivesemanticsPackage.LIST_DEF__SYMBOL:
+			return symbol != null;
 		case AdaptivesemanticsPackage.LIST_DEF__HEAD:
 			return head != null;
 		case AdaptivesemanticsPackage.LIST_DEF__TAIL:

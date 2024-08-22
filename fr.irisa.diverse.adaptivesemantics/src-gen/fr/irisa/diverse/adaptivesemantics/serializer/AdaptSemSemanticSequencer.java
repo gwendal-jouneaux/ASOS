@@ -896,7 +896,7 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     DefConfiguration returns DefConfiguration
 	 *
 	 * Constraint:
-	 *     (concept=[EClass|FQN] (childs+=TermDef childs+=TermDef*)?)
+	 *     (concept=[EClass|FQN] (childs+=TermDef childs+=TermDef*)? symbol=SymbolDef?)
 	 */
 	protected void sequence_DefConfiguration(ISerializationContext context, DefConfiguration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1007,19 +1007,15 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     Input returns Input
 	 *
 	 * Constraint:
-	 *     (assignee=Assignee operation=[EOperation|OperationFQN])
+	 *     (
+	 *         assignee=Assignee 
+	 *         operation=[EOperation|OperationFQN] 
+	 *         (args+=TermRef args+=TermRef*)? 
+	 *         (target=TerminalAccessExpression | target=SemanticDomainAccess)?
+	 *     )
 	 */
 	protected void sequence_Input(ISerializationContext context, Input semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.INPUT__ASSIGNEE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.INPUT__ASSIGNEE));
-			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.INPUT__OPERATION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.INPUT__OPERATION));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getInputAccess().getAssigneeAssigneeParserRuleCall_0_0(), semanticObject.getAssignee());
-		feeder.accept(grammarAccess.getInputAccess().getOperationEOperationOperationFQNParserRuleCall_2_0_1(), semanticObject.eGet(AdaptivesemanticsPackage.Literals.INPUT__OPERATION, false));
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -1029,19 +1025,10 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     ListDef returns ListDef
 	 *
 	 * Constraint:
-	 *     (head=SingleTermDef tail=SymbolDef)
+	 *     (head=SingleTermDef tail=SymbolDef symbol=SymbolDef?)
 	 */
 	protected void sequence_ListDef(ISerializationContext context, ListDef semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.LIST_DEF__HEAD) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.LIST_DEF__HEAD));
-			if (transientValues.isValueTransient(semanticObject, AdaptivesemanticsPackage.Literals.LIST_DEF__TAIL) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, AdaptivesemanticsPackage.Literals.LIST_DEF__TAIL));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getListDefAccess().getHeadSingleTermDefParserRuleCall_1_0(), semanticObject.getHead());
-		feeder.accept(grammarAccess.getListDefAccess().getTailSymbolDefParserRuleCall_3_0(), semanticObject.getTail());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -1210,7 +1197,7 @@ public class AdaptSemSemanticSequencer extends AbstractDelegatingSemanticSequenc
 	 *     Output returns Output
 	 *
 	 * Constraint:
-	 *     (operation=[EOperation|OperationFQN] (args+=TermRef args+=TermRef*)?)
+	 *     (operation=[EOperation|OperationFQN] (args+=TermRef args+=TermRef*)? (target=TerminalAccessExpression | target=SemanticDomainAccess)?)
 	 */
 	protected void sequence_Output(ISerializationContext context, Output semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

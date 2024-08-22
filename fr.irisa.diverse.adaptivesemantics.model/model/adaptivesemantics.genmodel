@@ -77,15 +77,20 @@
     <genClasses ecoreClass="adaptivesemantics.ecore#//SingleTermDef"/>
     <genClasses ecoreClass="adaptivesemantics.ecore#//SingleTermRef"/>
     <genClasses ecoreClass="adaptivesemantics.ecore#//TermRef"/>
-    <genClasses ecoreClass="adaptivesemantics.ecore#//TermDef"/>
+    <genClasses ecoreClass="adaptivesemantics.ecore#//TermDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//TermDef/symbol"/>
+    </genClasses>
     <genClasses ecoreClass="adaptivesemantics.ecore#//VoidList"/>
     <genClasses ecoreClass="adaptivesemantics.ecore#//Input">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Input/operation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Input/assignee"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Input/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Input/args"/>
     </genClasses>
     <genClasses ecoreClass="adaptivesemantics.ecore#//Output">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Output/operation"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Output/args"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference adaptivesemantics.ecore#//Output/target"/>
     </genClasses>
     <genClasses ecoreClass="adaptivesemantics.ecore#//Assignee"/>
     <genClasses ecoreClass="adaptivesemantics.ecore#//SemanticDomainAccess">

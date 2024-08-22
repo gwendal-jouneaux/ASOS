@@ -476,7 +476,10 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//Input returns Input:
-	//    assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "(" ")"
+	//    assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "("
+	//        (args+=TermRef (","  args+=TermRef)*)?
+	//    ")"
+	//    ("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
 	//;
 	public AdaptSemGrammarAccess.InputElements getInputAccess() {
 		return gaAdaptSem.getInputAccess();
@@ -490,6 +493,7 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	//    operation=[ecore::EOperation|OperationFQN] "("
 	//        (args+=TermRef (","  args+=TermRef)*)?
 	//    ")"
+	//    ("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
 	//;
 	public AdaptSemGrammarAccess.OutputElements getOutputAccess() {
 		return gaAdaptSem.getOutputAccess();
@@ -613,7 +617,7 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//SingleTermDef:
-	//    DefConfiguration | SymbolDef
+	//    (DefConfiguration | SymbolDef)
 	//;
 	public AdaptSemGrammarAccess.SingleTermDefElements getSingleTermDefAccess() {
 		return gaAdaptSem.getSingleTermDefAccess();
@@ -638,6 +642,7 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	//    concept=[ecore::EClass|FQN] "("
 	//        (childs+=TermDef ("," childs+=TermDef)*)?
 	//    ")"
+	//    (":" symbol=SymbolDef)?
 	//;
 	public AdaptSemGrammarAccess.DefConfigurationElements getDefConfigurationAccess() {
 		return gaAdaptSem.getDefConfigurationAccess();
@@ -685,7 +690,7 @@ public class SemAdaptGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//ListDef returns ListDef:
-	//    "[" head=SingleTermDef "|" tail=SymbolDef "]"
+	//    "[" head=SingleTermDef "|" tail=SymbolDef "]" (":" symbol=SymbolDef)?
 	//;
 	public AdaptSemGrammarAccess.ListDefElements getListDefAccess() {
 		return gaAdaptSem.getListDefAccess();

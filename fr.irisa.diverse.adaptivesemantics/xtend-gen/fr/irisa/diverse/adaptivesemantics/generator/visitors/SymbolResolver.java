@@ -74,6 +74,15 @@ public class SymbolResolver {
     _builder_2.append(_plus_3);
     _builder_2.append(")");
     final SymbolPath newSymbolPath = new SymbolPath(_builder.toString(), _builder_1.toString(), _builder_2.toString());
+    SymbolDef _symbol = node.getSymbol();
+    boolean _tripleNotEquals = (_symbol != null);
+    if (_tripleNotEquals) {
+      String _termForm_1 = newSymbolPath.getTermForm();
+      String _valueForm_1 = newSymbolPath.getValueForm();
+      String _valueForm_2 = newSymbolPath.getValueForm();
+      final SymbolPath newSP = new SymbolPath(_termForm_1, _valueForm_1, _valueForm_2);
+      this.symbolTable.put(node.getSymbol(), newSP);
+    }
     for (int i = 0; (i < len); i++) {
       {
         final TermDef child = childs.get(i);
@@ -83,6 +92,11 @@ public class SymbolResolver {
   }
   
   protected void _resolve(final VoidList node, final EStructuralFeature feature, final SymbolPath sp) {
+    SymbolDef _symbol = node.getSymbol();
+    boolean _tripleNotEquals = (_symbol != null);
+    if (_tripleNotEquals) {
+      this.resolve(node.getSymbol(), feature, sp);
+    }
   }
   
   protected void _resolve(final ListDef node, final EStructuralFeature feature, final SymbolPath sp) {
@@ -90,8 +104,8 @@ public class SymbolResolver {
     String _plus = (".get" + _firstUpper);
     final String featureGetter = (_plus + "()");
     String _indexNameFor = NamingUtils.indexNameFor(feature.getName());
-    String _plus_1 = ((featureGetter + ".get(") + _indexNameFor);
-    final String headGetter = (_plus_1 + ")");
+    String _plus_1 = ((featureGetter + ".get(data.get") + _indexNameFor);
+    final String headGetter = (_plus_1 + "())");
     final String tailGetter = featureGetter;
     String _termForm = sp.getTermForm();
     String _plus_2 = (_termForm + headGetter);
@@ -139,6 +153,15 @@ public class SymbolResolver {
       _builder_2.append(_unknownForm_2);
       _builder_2.append(")");
       final SymbolPath newSymbolPath = new SymbolPath(_builder.toString(), _builder_1.toString(), _builder_2.toString());
+      SymbolDef _symbol = head.getSymbol();
+      boolean _tripleNotEquals = (_symbol != null);
+      if (_tripleNotEquals) {
+        String _termForm_3 = newSymbolPath.getTermForm();
+        String _valueForm_3 = newSymbolPath.getValueForm();
+        String _valueForm_4 = newSymbolPath.getValueForm();
+        final SymbolPath valueSP = new SymbolPath(_termForm_3, _valueForm_3, _valueForm_4);
+        this.symbolTable.put(head.getSymbol(), valueSP);
+      }
       for (int i = 0; (i < len); i++) {
         {
           final TermDef child = childs.get(i);
@@ -161,6 +184,11 @@ public class SymbolResolver {
     String _unknownForm = sp.getUnknownForm();
     String _plus_3 = (_unknownForm + featureGetter);
     SymbolPath newSymbolPath = new SymbolPath(_plus_1, _plus_2, _plus_3);
+    SymbolDef _symbol = node.getSymbol();
+    boolean _tripleNotEquals = (_symbol != null);
+    if (_tripleNotEquals) {
+      this.resolve(node.getSymbol(), feature, sp);
+    }
     this.symbolTable.put(node, newSymbolPath);
   }
   
@@ -173,25 +201,30 @@ public class SymbolResolver {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("((");
     _builder.append(type);
-    _builder.append(") ");
+    _builder.append(") data.get");
     String _computedNameFor = NamingUtils.computedNameFor(feature.getName());
     _builder.append(_computedNameFor);
-    _builder.append(")");
+    _builder.append("())");
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("((");
     _builder_1.append(type);
-    _builder_1.append(") ");
+    _builder_1.append(") data.get");
     String _computedNameFor_1 = NamingUtils.computedNameFor(feature.getName());
     _builder_1.append(_computedNameFor_1);
-    _builder_1.append(")");
+    _builder_1.append("())");
     StringConcatenation _builder_2 = new StringConcatenation();
     _builder_2.append("((");
     _builder_2.append(type);
-    _builder_2.append(") ");
+    _builder_2.append(") data.get");
     String _computedNameFor_2 = NamingUtils.computedNameFor(feature.getName());
     _builder_2.append(_computedNameFor_2);
-    _builder_2.append(")");
+    _builder_2.append("())");
     SymbolPath newSymbolPath = new SymbolPath(_builder.toString(), _builder_1.toString(), _builder_2.toString());
+    SymbolDef _symbol = node.getSymbol();
+    boolean _tripleNotEquals = (_symbol != null);
+    if (_tripleNotEquals) {
+      this.symbolTable.put(node.getSymbol(), newSymbolPath);
+    }
     for (int i = 0; (i < len); i++) {
       {
         final TermDef child = childs.get(i);
@@ -201,48 +234,72 @@ public class SymbolResolver {
   }
   
   protected void _resolveFirst(final VoidList node, final EStructuralFeature feature, final SymbolPath sp) {
+    SymbolDef _symbol = node.getSymbol();
+    boolean _tripleNotEquals = (_symbol != null);
+    if (_tripleNotEquals) {
+      this.resolveFirst(node.getSymbol(), feature, sp);
+    }
   }
   
   protected void _resolveFirst(final ListDef node, final EStructuralFeature feature, final SymbolPath sp) {
+    SymbolDef _symbol = node.getSymbol();
+    boolean _tripleNotEquals = (_symbol != null);
+    if (_tripleNotEquals) {
+      this.resolveFirst(node.getSymbol(), feature, sp);
+    }
     String _firstUpper = StringExtensions.toFirstUpper(feature.getName());
     String _plus = (".get" + _firstUpper);
     final String featureGetter = (_plus + "()");
     String _indexNameFor = NamingUtils.indexNameFor(feature.getName());
-    String _plus_1 = (".get(" + _indexNameFor);
-    final String headGetter = (_plus_1 + ")");
+    String _plus_1 = (".get(data.get" + _indexNameFor);
+    final String headGetter = (_plus_1 + "())");
     final String tailGetter = "";
     StringConcatenation _builder = new StringConcatenation();
     String _termForm = sp.getTermForm();
     String _plus_2 = (_termForm + featureGetter);
     _builder.append(_plus_2);
     StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("data.get");
     String _computedNameFor = NamingUtils.computedNameFor(feature.getName());
     _builder_1.append(_computedNameFor);
+    _builder_1.append("()");
     StringConcatenation _builder_2 = new StringConcatenation();
-    _builder_2.append("(");
+    _builder_2.append("(data.get");
     String _computedNameFor_1 = NamingUtils.computedNameFor(feature.getName());
     _builder_2.append(_computedNameFor_1);
-    _builder_2.append(" == null ? ");
+    _builder_2.append("() == null ? ");
     String _termForm_1 = sp.getTermForm();
     String _plus_3 = (_termForm_1 + featureGetter);
     _builder_2.append(_plus_3);
-    _builder_2.append(" : ");
+    _builder_2.append(" : data.get");
     String _computedNameFor_2 = NamingUtils.computedNameFor(feature.getName());
     _builder_2.append(_computedNameFor_2);
-    _builder_2.append(")");
-    SymbolPath firstSp = new SymbolPath(_builder.toString(), _builder_1.toString(), _builder_2.toString());
-    String _termForm_2 = firstSp.getTermForm();
-    String _plus_4 = (_termForm_2 + headGetter);
-    String _valueForm = firstSp.getValueForm();
-    String _unknownForm = firstSp.getUnknownForm();
-    String _plus_5 = (_unknownForm + headGetter);
-    SymbolPath headSymbolPath = new SymbolPath(_plus_4, _valueForm, _plus_5);
-    String _termForm_3 = firstSp.getTermForm();
-    String _plus_6 = (_termForm_3 + tailGetter);
-    String _valueForm_1 = firstSp.getValueForm();
-    String _unknownForm_1 = firstSp.getUnknownForm();
-    String _plus_7 = (_unknownForm_1 + tailGetter);
-    SymbolPath tailSymbolPath = new SymbolPath(_plus_6, _valueForm_1, _plus_7);
+    _builder_2.append("())");
+    SymbolPath tailSymbolPath = new SymbolPath(_builder.toString(), _builder_1.toString(), _builder_2.toString());
+    StringConcatenation _builder_3 = new StringConcatenation();
+    String _termForm_2 = sp.getTermForm();
+    String _plus_4 = (_termForm_2 + featureGetter);
+    String _plus_5 = (_plus_4 + headGetter);
+    _builder_3.append(_plus_5);
+    StringConcatenation _builder_4 = new StringConcatenation();
+    _builder_4.append("data.get");
+    String _computedNameFor_3 = NamingUtils.computedNameFor(feature.getName());
+    _builder_4.append(_computedNameFor_3);
+    _builder_4.append("()");
+    StringConcatenation _builder_5 = new StringConcatenation();
+    _builder_5.append("(data.get");
+    String _computedNameFor_4 = NamingUtils.computedNameFor(feature.getName());
+    _builder_5.append(_computedNameFor_4);
+    _builder_5.append("() == null ? ");
+    String _termForm_3 = sp.getTermForm();
+    String _plus_6 = (_termForm_3 + featureGetter);
+    String _plus_7 = (_plus_6 + headGetter);
+    _builder_5.append(_plus_7);
+    _builder_5.append(" : data.get");
+    String _computedNameFor_5 = NamingUtils.computedNameFor(feature.getName());
+    _builder_5.append(_computedNameFor_5);
+    _builder_5.append("())");
+    SymbolPath headSymbolPath = new SymbolPath(_builder_3.toString(), _builder_4.toString(), _builder_5.toString());
     SingleTermDef _head = node.getHead();
     if ((_head instanceof SymbolDef)) {
       SingleTermDef _head_1 = node.getHead();
@@ -255,28 +312,37 @@ public class SymbolResolver {
       final EList<TermDef> childs = head.getChilds();
       final int len = childs.size();
       final String type = concept.getName();
-      StringConcatenation _builder_3 = new StringConcatenation();
-      _builder_3.append("((");
-      _builder_3.append(type);
-      _builder_3.append(") ");
+      StringConcatenation _builder_6 = new StringConcatenation();
+      _builder_6.append("((");
+      _builder_6.append(type);
+      _builder_6.append(") ");
       String _termForm_4 = headSymbolPath.getTermForm();
-      _builder_3.append(_termForm_4);
-      _builder_3.append(")");
-      StringConcatenation _builder_4 = new StringConcatenation();
-      _builder_4.append("((");
-      _builder_4.append(type);
-      _builder_4.append(") ");
-      String _valueForm_2 = headSymbolPath.getValueForm();
-      _builder_4.append(_valueForm_2);
-      _builder_4.append(")");
-      StringConcatenation _builder_5 = new StringConcatenation();
-      _builder_5.append("((");
-      _builder_5.append(type);
-      _builder_5.append(") ");
-      String _unknownForm_2 = headSymbolPath.getUnknownForm();
-      _builder_5.append(_unknownForm_2);
-      _builder_5.append(")");
-      final SymbolPath newSymbolPath = new SymbolPath(_builder_3.toString(), _builder_4.toString(), _builder_5.toString());
+      _builder_6.append(_termForm_4);
+      _builder_6.append(")");
+      StringConcatenation _builder_7 = new StringConcatenation();
+      _builder_7.append("((");
+      _builder_7.append(type);
+      _builder_7.append(") ");
+      String _valueForm = headSymbolPath.getValueForm();
+      _builder_7.append(_valueForm);
+      _builder_7.append(")");
+      StringConcatenation _builder_8 = new StringConcatenation();
+      _builder_8.append("((");
+      _builder_8.append(type);
+      _builder_8.append(") ");
+      String _unknownForm = headSymbolPath.getUnknownForm();
+      _builder_8.append(_unknownForm);
+      _builder_8.append(")");
+      final SymbolPath newSymbolPath = new SymbolPath(_builder_6.toString(), _builder_7.toString(), _builder_8.toString());
+      SymbolDef _symbol_1 = head.getSymbol();
+      boolean _tripleNotEquals_1 = (_symbol_1 != null);
+      if (_tripleNotEquals_1) {
+        String _termForm_5 = newSymbolPath.getTermForm();
+        String _valueForm_1 = newSymbolPath.getValueForm();
+        String _valueForm_2 = newSymbolPath.getValueForm();
+        final SymbolPath valueSP = new SymbolPath(_termForm_5, _valueForm_1, _valueForm_2);
+        this.symbolTable.put(head.getSymbol(), valueSP);
+      }
       for (int i = 0; (i < len); i++) {
         {
           final TermDef child = childs.get(i);
@@ -289,6 +355,11 @@ public class SymbolResolver {
   }
   
   protected void _resolveFirst(final SymbolDef node, final EStructuralFeature feature, final SymbolPath sp) {
+    SymbolDef _symbol = node.getSymbol();
+    boolean _tripleNotEquals = (_symbol != null);
+    if (_tripleNotEquals) {
+      this.resolveFirst(node.getSymbol(), feature, sp);
+    }
     String _firstUpper = StringExtensions.toFirstUpper(feature.getName());
     String _plus = (".get" + _firstUpper);
     final String featureGetter = (_plus + "()");
@@ -297,20 +368,22 @@ public class SymbolResolver {
     String _plus_1 = (_termForm + featureGetter);
     _builder.append(_plus_1);
     StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append("data.get");
     String _computedNameFor = NamingUtils.computedNameFor(feature.getName());
     _builder_1.append(_computedNameFor);
+    _builder_1.append("()");
     StringConcatenation _builder_2 = new StringConcatenation();
-    _builder_2.append("(");
+    _builder_2.append("(data.get");
     String _computedNameFor_1 = NamingUtils.computedNameFor(feature.getName());
     _builder_2.append(_computedNameFor_1);
-    _builder_2.append(" == null ? ");
+    _builder_2.append("() == null ? ");
     String _termForm_1 = sp.getTermForm();
     String _plus_2 = (_termForm_1 + featureGetter);
     _builder_2.append(_plus_2);
-    _builder_2.append(" : ");
+    _builder_2.append(" : data.get");
     String _computedNameFor_2 = NamingUtils.computedNameFor(feature.getName());
     _builder_2.append(_computedNameFor_2);
-    _builder_2.append(")");
+    _builder_2.append("())");
     SymbolPath newSymbolPath = new SymbolPath(_builder.toString(), _builder_1.toString(), _builder_2.toString());
     this.symbolTable.put(node, newSymbolPath);
   }

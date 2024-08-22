@@ -3,17 +3,19 @@
  */
 package fr.irisa.diverse.semanticadaptation.generator
 
+import fr.irisa.diverse.adaptivesemantics.generator.AdaptationProcessGenerator
 import fr.irisa.diverse.adaptivesemantics.generator.NamingUtils
+import fr.irisa.diverse.adaptivesemantics.generator.RuleUtils
 import fr.irisa.diverse.adaptivesemantics.generator.visitors.PatternCheckerCompiler
 import fr.irisa.diverse.adaptivesemantics.generator.visitors.RuleCompiler
 import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolPath
 import fr.irisa.diverse.adaptivesemantics.generator.visitors.SymbolResolver
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Model
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Rule
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef
 import java.util.List
 import java.util.Map
-import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -25,6 +27,8 @@ import semanticadaptation.Module
 import semanticadaptation.Pointcut
 import semanticadaptation.Specialization
 
+import static fr.irisa.diverse.adaptivesemantics.generator.RuleUtils.*
+
 /**
  * Generates code from your model files on save.
  * 
@@ -32,15 +36,28 @@ import semanticadaptation.Specialization
  */
 class SemAdaptGenerator extends AbstractGenerator {
 	
-	static var String modelName;
-	static var EPackage semanticdomain;
-
 	var Map<Rule, Map<SymbolDef, SymbolPath>> symbolTable = newHashMap;
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		val metamodel = resource.allContents.filter(Model).head as Model
-		semanticdomain = metamodel.semanticdomain
-		modelName = NamingUtils.nameOf(metamodel)
+		RuleUtils.semanticdomain = metamodel.semanticdomain
+		RuleUtils.modelName = NamingUtils.nameOf(metamodel)
+		
+		// Generate, if necessary, the classes for the adaptation process
+		val isLangGenerated = fsa.isFile(NamingUtils.processPathFor(RuleUtils.modelName, NamingUtils.LanguageName))
+		val isContextGenerated = fsa.isFile(NamingUtils.processPathFor(RuleUtils.modelName, NamingUtils.LanguageName))
+		val isLoopGenerated = fsa.isFile(NamingUtils.processPathFor(RuleUtils.modelName, NamingUtils.LanguageName))
+		if(! isLangGenerated){
+			fsa.generateFile(NamingUtils.processPathFor(RuleUtils.modelName, NamingUtils.LanguageName), AdaptationProcessGenerator.language)
+		}
+		if(! isContextGenerated){
+			fsa.generateFile(NamingUtils.processPathFor(RuleUtils.modelName, NamingUtils.AdaptationContextName), AdaptationProcessGenerator.adaptationcontext)
+		}
+		if(! isLoopGenerated){
+			fsa.generateFile(NamingUtils.processPathFor(RuleUtils.modelName, NamingUtils.FeedbackLoopName), AdaptationProcessGenerator.feedbackloop)
+		}
+		
+		
 		
 		val adaptations = resource.allContents.filter(Adaptation).toList
 		val adaptationRules = adaptations.map[adaptation | adaptation.adaptation]
@@ -51,7 +68,7 @@ class SemAdaptGenerator extends AbstractGenerator {
 		for (module : modules) {
 			val moduleName = module.name
 			val moduleCode = compileModule(module, fsa)
-			fsa.generateFile(NamingUtils.modulePathFor(modelName, moduleName), moduleCode)
+			fsa.generateFile(NamingUtils.modulePathFor(RuleUtils.modelName, moduleName), moduleCode)
 		}
 		
 		
@@ -90,44 +107,80 @@ class SemAdaptGenerator extends AbstractGenerator {
 	def String compileModule(Module module, IFileSystemAccess2 fsa){
 		var matches = ""
 		var addRules = ""
+		var imports = ""
 		
 		for (adaptation : module.adaptations) {
 			val adaptationCode = compileAdaptationRule(adaptation.adaptation)
-			fsa.generateFile(NamingUtils.adaptationPathFor(modelName, adaptation.adaptation.name), adaptationCode)
-			
+			fsa.generateFile(NamingUtils.adaptationPathFor(RuleUtils.modelName, adaptation.adaptation.name), adaptationCode)
+			imports = '''
+			«imports»
+			import «RuleUtils.modelName».adaptations.rules.«NamingUtils.adaptationNameFor(adaptation.adaptation.name)»;
+			'''
 			addRules = '''
 			«addRules»
 			«adaptation.compileAdaptation»
 			'''
 		}
 		
+		var index = 0
 		for (pointcut : module.pointcuts) {
 			matches = '''
 			«matches»
-			«compilePointcut(pointcut)»
+			«compilePointcut(pointcut, index)»
 			'''
+			index++
 		}
 		
 		return '''
-		package «modelName».adaptations.modules;
+		package «RuleUtils.modelName».adaptations.modules;
 		
-		import «modelName».interfaces.«NamingUtils.interfaceNameFor(modelName)»;
+		import fr.diverse.team.SEALS.decision.model.Resource;
+		import fr.diverse.team.SEALS.decision.model.Softgoal;
+		import fr.diverse.team.SEALS.lang.semantics.AdaptableNode;
+		import fr.diverse.team.SEALS.module.adaptation.SelfAdaptationModule;
+		import «RuleUtils.modelName».interpreter.«NamingUtils.AdaptationContextName»;
 		
-		public class «NamingUtils.moduleNameFor(module.name)» extends SelfAdaptationModule<«modelName»AdaptationContext, AdaptableNode<«NamingUtils.interfaceNameFor(modelName)»>, «NamingUtils.interfaceNameFor(modelName)»> {
+		«imports»
+		
+		import «RuleUtils.modelName».*;
+		import «RuleUtils.modelName».interfaces.«NamingUtils.interfaceNameFor(RuleUtils.modelName)»;
+		
+		public class «NamingUtils.moduleNameFor(module.name)» extends SelfAdaptationModule<«NamingUtils.AdaptationContextName», AdaptableNode<«NamingUtils.interfaceNameFor(RuleUtils.modelName)»>, «NamingUtils.interfaceNameFor(RuleUtils.modelName)»> {
 
 			
 			public «NamingUtils.moduleNameFor(module.name)»() {
-				super("«module.name»", AdaptableNode.class);
+				super("«module.name»", null);
 			}
 		
 			@Override
-			public «NamingUtils.interfaceNameFor(modelName)» adapt(«NamingUtils.interfaceNameFor(modelName)» configInterface) {
+			public «NamingUtils.interfaceNameFor(RuleUtils.modelName)» adapt(«NamingUtils.interfaceNameFor(RuleUtils.modelName)» configInterface) {
 				«addRules»
+				return configInterface;
 			}
 		
 			@Override
-			public boolean isTargetedNode(AdaptableNode<«NamingUtils.interfaceNameFor(modelName)»> adaptableNode) {
+			public boolean isTargetedNode(AdaptableNode<«NamingUtils.interfaceNameFor(RuleUtils.modelName)»> node) {
 				«matches»
+				
+				return false;
+			}
+			
+			@Override
+			public void init(«NamingUtils.AdaptationContextName» adaptationContext) {
+				// TODO Auto-generated method stub
+				
+			}
+		
+			@Override
+			public void connectSoftGoal(Softgoal softgoal) {
+				// TODO Auto-generated method stub
+				
+			}
+		
+			@Override
+			public void connectResource(Resource resource) {
+				// TODO Auto-generated method stub
+				
 			}
 		}
 		'''
@@ -136,55 +189,74 @@ class SemAdaptGenerator extends AbstractGenerator {
 	def dispatch String compileAdaptation(Specialization adaptation){
 		val adaptationRuleName = NamingUtils.adaptationNameFor(adaptation.adaptation.name)
 		val adaptedRuleName = adaptation.target.name
-		return '''configInterface.add_specialize_«adaptedRuleName»(new «adaptationRuleName»())'''
+		return '''configInterface.add_specialize_«adaptedRuleName»(new «adaptationRuleName»());'''
 	}
 	
 	def dispatch String compileAdaptation(Before adaptation){
 		val adaptationRuleName = NamingUtils.adaptationNameFor(adaptation.adaptation.name)
 		val adaptedRuleName = adaptation.target.name
-		return '''configInterface.add_before_«adaptedRuleName»(new «adaptationRuleName»())'''
+		return '''configInterface.add_before_«adaptedRuleName»(new «adaptationRuleName»());'''
 	}
 	
 	def dispatch String compileAdaptation(After adaptation){
 		val adaptationRuleName = NamingUtils.adaptationNameFor(adaptation.adaptation.name)
 		val adaptedRuleName = adaptation.target.name
-		return '''configInterface.add_after_«adaptedRuleName»(new «adaptationRuleName»())'''
+		return '''configInterface.add_after_«adaptedRuleName»(new «adaptationRuleName»());'''
 	}
 	
 	def String compileAdaptationRule(Rule rule){
 		val ruleTable = symbolTable.get(rule)
-		val ruleCompiler = new RuleCompiler(ruleTable, semanticdomain)
-		val compiledRule = ruleCompiler.compile(rule)
+		
+		val ruleCompiler = new RuleCompiler(ruleTable)
+		val effect = ruleCompiler.compileEffect(rule)
+		val core = '''
+		«effect»
+		
+		if(result != null){
+			if(! ((EObject) result).eClass().getEPackage().equals(«RuleUtils.semanticdomain.name.toFirstUpper»Package.eINSTANCE)){
+				return ((Node) result).accept(vis, execCtx);
+			} else {
+				return result;
+			}
+		}
+		'''
+		
+		val compiledRule = ruleCompiler.compileGuards(rule, core)
+		
 		return '''
-		package «modelName».adaptations.rules;
+		package «RuleUtils.modelName».adaptations.rules;
 		
 		import org.eclipse.emf.ecore.EObject;
 		import org.eclipse.emf.ecore.util.EcoreUtil;
 		
-		import fr.gjouneau.savm.framework.lang.semantics.AdaptableNode;
-		import fr.gjouneau.savm.framework.lang.semantics.Node;
-		import fr.gjouneau.savm.framework.lang.semantics.SelfAdaptiveVisitor;
-		import fr.gjouneau.savm.framework.lang.semantics.SemanticsAdaptationInterface;
-		import «modelName».*;
-		import «modelName».ASOS.AdaptationRule;
-		import «modelName».«semanticdomain.name».*;
+		import fr.diverse.team.SEALS.lang.semantics.AdaptableNode;
+		import fr.diverse.team.SEALS.lang.semantics.Node;
+		import fr.diverse.team.SEALS.lang.semantics.SelfAdaptiveVisitor;
+		import fr.diverse.team.SEALS.lang.semantics.SemanticsAdaptationInterface;
+		import «RuleUtils.modelName».*;
+		import «RuleUtils.modelName».ASOS.AdaptationRule;
+		import «RuleUtils.modelName».ASOS.Termination;
+		import «RuleUtils.modelName».«RuleUtils.semanticdomain.name».*;
+		import «RuleUtils.modelName».operations.data.«NamingUtils.dataNameFor(rule.conclusion.from.concept.name)»;
 		
 		public class «NamingUtils.adaptationNameFor(rule.name)» extends AdaptationRule {
 			@Override
-			public Object adapt(SelfAdaptiveVisitor vis, AdaptableNode<? extends SemanticsAdaptationInterface> node, Object execCtx, SemanticsAdaptationInterface config){
+			public Object adapt(SelfAdaptiveVisitor vis, AdaptableNode<? extends SemanticsAdaptationInterface> adaptableNode, Object execCtx, SemanticsAdaptationInterface config){
+				«rule.conclusion.from.concept.name» node = ((«rule.conclusion.from.concept.name») adaptableNode);
+				«NamingUtils.dataNameFor(rule.conclusion.from.concept.name)» data = new «NamingUtils.dataNameFor(rule.conclusion.from.concept.name)»(execCtx);
 				Object result = null;
 				
 				«compiledRule»
 				
-				return result
+				return result;
 			}
 		}
 		'''
 	}
 	
 	
-	def String compilePointcut(Pointcut pointcut){
-		var out = ""
+	def String compilePointcut(Pointcut pointcut, int pointcutIndex){
+		var out = "return true;"
 		if(pointcut.recursive){
 			
 		} else {
@@ -199,10 +271,33 @@ class SemAdaptGenerator extends AbstractGenerator {
 //			}
 //			'''
 //		}
+
+		val resolver = new SymbolResolver()
+		val concept = pointcut.structure.concept
+		val features = concept.EAllStructuralFeatures
+		val childs = pointcut.structure.childs
+		val len = childs.size
+		
+		for (var i = 0; i < len; i++) {
+			val child = childs.get(i)
+			val sp = new SymbolPath("node", "", "")
+			resolver.resolveFirst(child, features.get(i), sp)
+		}
+
+		
+		val rulecompiler = new RuleCompiler(resolver.symbolTable)
+		for (cond : pointcut.conditions.reverse) {
+			out = '''
+			if(«rulecompiler.compile(cond.cond as Expr)»){
+				«out»
+			}
+			'''
+		}
 		
 		val patternCompiler = new PatternCheckerCompiler()
 		out = '''
-		«patternCompiler.generateInputCheck(pointcut.structure)»{
+		boolean match«pointcutIndex» = true«patternCompiler.compile(pointcut.structure, "node", "node", null)»;
+		if(match«pointcutIndex»){
 			«out»
 		}
 		'''

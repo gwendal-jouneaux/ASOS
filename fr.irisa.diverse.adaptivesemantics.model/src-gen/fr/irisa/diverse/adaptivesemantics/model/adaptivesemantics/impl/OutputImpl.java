@@ -3,6 +3,7 @@
 package fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl;
 
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DomainAccessExpression;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef;
 
@@ -33,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OutputImpl#getOperation <em>Operation</em>}</li>
  *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OutputImpl#getArgs <em>Args</em>}</li>
+ *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.impl.OutputImpl#getTarget <em>Target</em>}</li>
  * </ul>
  *
  * @generated
@@ -57,6 +59,16 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output {
 	 * @ordered
 	 */
 	protected EList<TermRef> args;
+
+	/**
+	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTarget()
+	 * @generated
+	 * @ordered
+	 */
+	protected DomainAccessExpression target;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,11 +146,63 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DomainAccessExpression getTarget() {
+		return target;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTarget(DomainAccessExpression newTarget, NotificationChain msgs) {
+		DomainAccessExpression oldTarget = target;
+		target = newTarget;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					AdaptivesemanticsPackage.OUTPUT__TARGET, oldTarget, newTarget);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTarget(DomainAccessExpression newTarget) {
+		if (newTarget != target) {
+			NotificationChain msgs = null;
+			if (target != null)
+				msgs = ((InternalEObject) target).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - AdaptivesemanticsPackage.OUTPUT__TARGET, null, msgs);
+			if (newTarget != null)
+				msgs = ((InternalEObject) newTarget).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - AdaptivesemanticsPackage.OUTPUT__TARGET, null, msgs);
+			msgs = basicSetTarget(newTarget, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AdaptivesemanticsPackage.OUTPUT__TARGET, newTarget,
+					newTarget));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case AdaptivesemanticsPackage.OUTPUT__ARGS:
 			return ((InternalEList<?>) getArgs()).basicRemove(otherEnd, msgs);
+		case AdaptivesemanticsPackage.OUTPUT__TARGET:
+			return basicSetTarget(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -157,6 +221,8 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output {
 			return basicGetOperation();
 		case AdaptivesemanticsPackage.OUTPUT__ARGS:
 			return getArgs();
+		case AdaptivesemanticsPackage.OUTPUT__TARGET:
+			return getTarget();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -177,6 +243,9 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output {
 			getArgs().clear();
 			getArgs().addAll((Collection<? extends TermRef>) newValue);
 			return;
+		case AdaptivesemanticsPackage.OUTPUT__TARGET:
+			setTarget((DomainAccessExpression) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -195,6 +264,9 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output {
 		case AdaptivesemanticsPackage.OUTPUT__ARGS:
 			getArgs().clear();
 			return;
+		case AdaptivesemanticsPackage.OUTPUT__TARGET:
+			setTarget((DomainAccessExpression) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -211,6 +283,8 @@ public class OutputImpl extends MinimalEObjectImpl.Container implements Output {
 			return operation != null;
 		case AdaptivesemanticsPackage.OUTPUT__ARGS:
 			return args != null && !args.isEmpty();
+		case AdaptivesemanticsPackage.OUTPUT__TARGET:
+			return target != null;
 		}
 		return super.eIsSet(featureID);
 	}

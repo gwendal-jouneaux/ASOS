@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Set;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -43,10 +42,6 @@ public class AdaptSemGenerator extends AbstractGenerator {
   
   private Map<Rule, Map<SymbolDef, SymbolPath>> symbolTable = CollectionLiterals.<Rule, Map<SymbolDef, SymbolPath>>newHashMap();
   
-  private static EPackage semanticdomain;
-  
-  private static String modelName;
-  
   /**
    * Entrypoint of the generator
    * 
@@ -58,15 +53,17 @@ public class AdaptSemGenerator extends AbstractGenerator {
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     Model _head = IteratorExtensions.<Model>head(Iterators.<Model>filter(resource.getAllContents(), Model.class));
     final Model metamodel = ((Model) _head);
-    AdaptSemGenerator.semanticdomain = metamodel.getSemanticdomain();
-    AdaptSemGenerator.modelName = NamingUtils.nameOf(metamodel);
+    RuleUtils.setSemanticdomain(metamodel.getSemanticdomain());
+    RuleUtils.setModelName(NamingUtils.nameOf(metamodel));
+    fsa.generateFile(NamingUtils.asosFilePathFor(RuleUtils.getModelName(), "Termination"), ASOSFileGenerator.termination());
+    fsa.generateFile(NamingUtils.asosFilePathFor(RuleUtils.getModelName(), "AdaptationRule"), ASOSFileGenerator.adaptationrule());
     final List<Rule> rules = IteratorExtensions.<Rule>toList(Iterators.<Rule>filter(resource.getAllContents(), Rule.class));
     final Function1<Rule, EClass> _function = (Rule it) -> {
       return it.getConclusion().getFrom().getConcept();
     };
     this.conceptRules = IterableExtensions.<EClass, Rule>groupBy(rules, _function);
     final String interface_ = this.compileInterface(rules);
-    fsa.generateFile(NamingUtils.interfacePathFor(AdaptSemGenerator.modelName, AdaptSemGenerator.modelName), interface_);
+    fsa.generateFile(NamingUtils.interfacePathFor(RuleUtils.getModelName(), RuleUtils.getModelName()), interface_);
     this.groupRulesByConcept(this.conceptRules);
     this.createSymbolTableForRules();
     final Set<EClass> concepts = this.allRulesForConcept.keySet();
@@ -74,7 +71,9 @@ public class AdaptSemGenerator extends AbstractGenerator {
       {
         final String conceptName = concept.getName();
         final String operation = this.compileOperationFor(concept);
-        fsa.generateFile(NamingUtils.operationPathFor(AdaptSemGenerator.modelName, conceptName), operation);
+        final String dataOject = this.compileDataObjectFor(concept);
+        fsa.generateFile(NamingUtils.operationPathFor(RuleUtils.getModelName(), conceptName), operation);
+        fsa.generateFile(NamingUtils.dataPathFor(RuleUtils.getModelName(), conceptName), dataOject);
       }
     }
   }
@@ -129,30 +128,6 @@ public class AdaptSemGenerator extends AbstractGenerator {
   public String compileOperationFor(final EClass concept) {
     String out = "";
     final List<Rule> rules = this.allRulesForConcept.get(concept);
-    String computedTerms = "";
-    final EList<EStructuralFeature> features = concept.getEAllStructuralFeatures();
-    for (final EStructuralFeature feature : features) {
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append(computedTerms);
-      _builder.newLineIfNotEmpty();
-      _builder.append("Object ");
-      String _computedNameFor = NamingUtils.computedNameFor(feature.getName());
-      _builder.append(_computedNameFor);
-      _builder.append(" = null;");
-      _builder.newLineIfNotEmpty();
-      {
-        int _upperBound = feature.getUpperBound();
-        boolean _notEquals = (_upperBound != 1);
-        if (_notEquals) {
-          _builder.append("int ");
-          String _indexNameFor = NamingUtils.indexNameFor(feature.getName());
-          _builder.append(_indexNameFor);
-          _builder.append(" = 0;");
-          _builder.newLineIfNotEmpty();
-        }
-      }
-      computedTerms = _builder.toString();
-    }
     for (int i = 0; (i < rules.size()); i++) {
       {
         final Rule first = rules.get(i);
@@ -161,125 +136,156 @@ public class AdaptSemGenerator extends AbstractGenerator {
         out = (_out + _compileRule);
       }
     }
-    StringConcatenation _builder_1 = new StringConcatenation();
-    _builder_1.append("package ");
-    _builder_1.append(AdaptSemGenerator.modelName);
-    _builder_1.append(".operations;");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.newLine();
-    _builder_1.append("import java.util.List;");
-    _builder_1.newLine();
-    _builder_1.append("import org.eclipse.emf.ecore.EObject;");
-    _builder_1.newLine();
-    _builder_1.append("import org.eclipse.emf.ecore.util.EcoreUtil;");
-    _builder_1.newLine();
-    _builder_1.append("import fr.gjouneau.savm.framework.lang.semantics.AdaptiveOperation;");
-    _builder_1.newLine();
-    _builder_1.append("import fr.gjouneau.savm.framework.lang.semantics.Node;");
-    _builder_1.newLine();
-    _builder_1.append("import fr.gjouneau.savm.framework.lang.semantics.Operationalize;");
-    _builder_1.newLine();
-    _builder_1.append("import fr.gjouneau.savm.framework.lang.semantics.SelfAdaptiveVisitor;");
-    _builder_1.newLine();
-    _builder_1.append("import ");
-    _builder_1.append(AdaptSemGenerator.modelName);
-    _builder_1.append(".ASOS.Termination;");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.append("import ");
-    _builder_1.append(AdaptSemGenerator.modelName);
-    _builder_1.append(".*;");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.append("import ");
-    _builder_1.append(AdaptSemGenerator.modelName);
-    _builder_1.append(".");
-    String _firstUpper = StringExtensions.toFirstUpper(AdaptSemGenerator.modelName);
-    _builder_1.append(_firstUpper);
-    _builder_1.append("Factory;");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.append("import ");
-    _builder_1.append(AdaptSemGenerator.modelName);
-    _builder_1.append(".interfaces.");
-    String _interfaceNameFor = NamingUtils.interfaceNameFor(AdaptSemGenerator.modelName);
-    _builder_1.append(_interfaceNameFor);
-    _builder_1.append(";");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.append("import ");
-    _builder_1.append(AdaptSemGenerator.modelName);
-    _builder_1.append(".");
-    String _name = AdaptSemGenerator.semanticdomain.getName();
-    _builder_1.append(_name);
-    _builder_1.append(".*;");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.newLine();
-    _builder_1.append("@Operationalize(node = ");
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package ");
+    String _modelName = RuleUtils.getModelName();
+    _builder.append(_modelName);
+    _builder.append(".operations;");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("import java.util.List;");
+    _builder.newLine();
+    _builder.append("import org.eclipse.emf.ecore.EObject;");
+    _builder.newLine();
+    _builder.append("import org.eclipse.emf.ecore.util.EcoreUtil;");
+    _builder.newLine();
+    _builder.append("import fr.diverse.team.SEALS.lang.semantics.AdaptableNode;");
+    _builder.newLine();
+    _builder.append("import fr.diverse.team.SEALS.lang.semantics.AdaptiveOperation;");
+    _builder.newLine();
+    _builder.append("import fr.diverse.team.SEALS.lang.semantics.Node;");
+    _builder.newLine();
+    _builder.append("import fr.diverse.team.SEALS.lang.semantics.Operationalize;");
+    _builder.newLine();
+    _builder.append("import fr.diverse.team.SEALS.lang.semantics.SelfAdaptiveVisitor;");
+    _builder.newLine();
+    _builder.append("import ");
+    String _modelName_1 = RuleUtils.getModelName();
+    _builder.append(_modelName_1);
+    _builder.append(".operations.data.");
+    String _dataNameFor = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor);
+    _builder.append(";");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import ");
+    String _modelName_2 = RuleUtils.getModelName();
+    _builder.append(_modelName_2);
+    _builder.append(".ASOS.Termination;");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import ");
+    String _modelName_3 = RuleUtils.getModelName();
+    _builder.append(_modelName_3);
+    _builder.append(".*;");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import ");
+    String _modelName_4 = RuleUtils.getModelName();
+    _builder.append(_modelName_4);
+    _builder.append(".");
+    String _firstUpper = StringExtensions.toFirstUpper(RuleUtils.getModelName());
+    _builder.append(_firstUpper);
+    _builder.append("Factory;");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import ");
+    String _modelName_5 = RuleUtils.getModelName();
+    _builder.append(_modelName_5);
+    _builder.append(".interfaces.");
+    String _interfaceNameFor = NamingUtils.interfaceNameFor(RuleUtils.getModelName());
+    _builder.append(_interfaceNameFor);
+    _builder.append(";");
+    _builder.newLineIfNotEmpty();
+    _builder.append("import ");
+    String _modelName_6 = RuleUtils.getModelName();
+    _builder.append(_modelName_6);
+    _builder.append(".");
+    String _name = RuleUtils.getSemanticdomain().getName();
+    _builder.append(_name);
+    _builder.append(".*;");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("@Operationalize(node = ");
     String _name_1 = concept.getName();
-    _builder_1.append(_name_1);
-    _builder_1.append(".class, visitor = \"");
-    _builder_1.append(AdaptSemGenerator.modelName);
-    _builder_1.append(".visitors.");
-    _builder_1.append(AdaptSemGenerator.modelName);
-    _builder_1.append("Visitor\")");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.append("public class ");
+    _builder.append(_name_1);
+    _builder.append(".class, visitor = \"");
+    String _modelName_7 = RuleUtils.getModelName();
+    _builder.append(_modelName_7);
+    _builder.append(".interpreter.");
+    String _firstUpper_1 = StringExtensions.toFirstUpper(RuleUtils.getModelName());
+    _builder.append(_firstUpper_1);
+    _builder.append("Visitor\")");
+    _builder.newLineIfNotEmpty();
+    _builder.append("public class ");
     String _name_2 = concept.getName();
-    _builder_1.append(_name_2);
-    _builder_1.append("Op extends AdaptiveOperation<");
+    _builder.append(_name_2);
+    _builder.append("Op extends AdaptiveOperation<");
     String _name_3 = concept.getName();
-    _builder_1.append(_name_3);
-    _builder_1.append(", ");
-    String _interfaceNameFor_1 = NamingUtils.interfaceNameFor(AdaptSemGenerator.modelName);
-    _builder_1.append(_interfaceNameFor_1);
-    _builder_1.append(">{");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.append("\t");
-    _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("@Override");
-    _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("public Object execute(SelfAdaptiveVisitor vis, ");
+    _builder.append(_name_3);
+    _builder.append(", ");
+    String _interfaceNameFor_1 = NamingUtils.interfaceNameFor(RuleUtils.getModelName());
+    _builder.append(_interfaceNameFor_1);
+    _builder.append(">{");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("@Override");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public Object execute(SelfAdaptiveVisitor vis, ");
     String _name_4 = concept.getName();
-    _builder_1.append(_name_4, "\t");
-    _builder_1.append(" node, Object execCtx, ");
-    String _interfaceNameFor_2 = NamingUtils.interfaceNameFor(AdaptSemGenerator.modelName);
-    _builder_1.append(_interfaceNameFor_2, "\t");
-    _builder_1.append(" config) {");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.append("\t\t");
-    _builder_1.append("Object result = null;");
-    _builder_1.newLine();
-    _builder_1.append("\t\t");
-    _builder_1.newLine();
-    _builder_1.append("\t\t");
-    _builder_1.append(computedTerms, "\t\t");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.append("\t\t");
-    _builder_1.newLine();
-    _builder_1.append("\t\t");
-    _builder_1.append("while(true){");
-    _builder_1.newLine();
-    _builder_1.append("\t\t\t");
-    _builder_1.append("Object termination = null;");
-    _builder_1.newLine();
-    _builder_1.append("\t\t");
-    _builder_1.newLine();
-    _builder_1.append("\t\t\t");
-    _builder_1.append(out, "\t\t\t");
-    _builder_1.newLineIfNotEmpty();
-    _builder_1.append("\t\t");
-    _builder_1.newLine();
-    _builder_1.append("\t\t\t");
-    _builder_1.append("return termination;");
-    _builder_1.newLine();
-    _builder_1.append("\t\t");
-    _builder_1.append("}");
-    _builder_1.newLine();
-    _builder_1.append("\t");
-    _builder_1.append("}");
-    _builder_1.newLine();
-    _builder_1.append("}");
-    _builder_1.newLine();
-    return _builder_1.toString();
+    _builder.append(_name_4, "\t");
+    _builder.append(" node, Object execCtx, ");
+    String _interfaceNameFor_2 = NamingUtils.interfaceNameFor(RuleUtils.getModelName());
+    _builder.append(_interfaceNameFor_2, "\t");
+    _builder.append(" config) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("Object result = null;");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.newLine();
+    _builder.append("\t\t");
+    String _dataNameFor_1 = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor_1, "\t\t");
+    _builder.append(" data = new ");
+    String _dataNameFor_2 = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor_2, "\t\t");
+    _builder.append("();");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("while(true){");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("Object termination = null;");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    String _dataNameFor_3 = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor_3, "\t\t\t");
+    _builder.append(" local_data = new ");
+    String _dataNameFor_4 = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor_4, "\t\t\t");
+    _builder.append("();");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append(out, "\t\t\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.newLine();
+    _builder.append("\t\t\t");
+    _builder.append("return termination;");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder.toString();
   }
   
   /**
@@ -289,7 +295,7 @@ public class AdaptSemGenerator extends AbstractGenerator {
    */
   public String compileRule(final Rule r) {
     final Map<SymbolDef, SymbolPath> ruleTable = this.symbolTable.get(r);
-    final RuleCompiler ruleCompiler = new RuleCompiler(ruleTable, AdaptSemGenerator.semanticdomain);
+    final RuleCompiler ruleCompiler = new RuleCompiler(ruleTable);
     return ruleCompiler.compile(r);
   }
   
@@ -302,6 +308,159 @@ public class AdaptSemGenerator extends AbstractGenerator {
   public String compileRule(final List<Rule> rules) {
     String out = "";
     return out;
+  }
+  
+  public String compileDataObjectFor(final EClass concept) {
+    String computedTerms = "";
+    String copyConstructor = "";
+    final EList<EStructuralFeature> features = concept.getEAllStructuralFeatures();
+    for (final EStructuralFeature feature : features) {
+      {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append(copyConstructor);
+        _builder.newLineIfNotEmpty();
+        _builder.append("this.");
+        String _computedNameFor = NamingUtils.computedNameFor(feature.getName());
+        _builder.append(_computedNameFor);
+        _builder.append(" = other.");
+        String _computedNameFor_1 = NamingUtils.computedNameFor(feature.getName());
+        _builder.append(_computedNameFor_1);
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+        {
+          int _upperBound = feature.getUpperBound();
+          boolean _notEquals = (_upperBound != 1);
+          if (_notEquals) {
+            _builder.append("this.");
+            String _indexNameFor = NamingUtils.indexNameFor(feature.getName());
+            _builder.append(_indexNameFor);
+            _builder.append(" = other.");
+            String _indexNameFor_1 = NamingUtils.indexNameFor(feature.getName());
+            _builder.append(_indexNameFor_1);
+            _builder.append(";");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        copyConstructor = _builder.toString();
+        StringConcatenation _builder_1 = new StringConcatenation();
+        _builder_1.append(computedTerms);
+        _builder_1.newLineIfNotEmpty();
+        _builder_1.append("private Object ");
+        String _computedNameFor_2 = NamingUtils.computedNameFor(feature.getName());
+        _builder_1.append(_computedNameFor_2);
+        _builder_1.append(" = null;");
+        _builder_1.newLineIfNotEmpty();
+        _builder_1.append("public void set");
+        String _computedNameFor_3 = NamingUtils.computedNameFor(feature.getName());
+        _builder_1.append(_computedNameFor_3);
+        _builder_1.append("(Object o){this.");
+        String _computedNameFor_4 = NamingUtils.computedNameFor(feature.getName());
+        _builder_1.append(_computedNameFor_4);
+        _builder_1.append(" = o;}");
+        _builder_1.newLineIfNotEmpty();
+        _builder_1.append("public Object get");
+        String _computedNameFor_5 = NamingUtils.computedNameFor(feature.getName());
+        _builder_1.append(_computedNameFor_5);
+        _builder_1.append("(){return this.");
+        String _computedNameFor_6 = NamingUtils.computedNameFor(feature.getName());
+        _builder_1.append(_computedNameFor_6);
+        _builder_1.append(";}");
+        _builder_1.newLineIfNotEmpty();
+        {
+          int _upperBound_1 = feature.getUpperBound();
+          boolean _notEquals_1 = (_upperBound_1 != 1);
+          if (_notEquals_1) {
+            _builder_1.append("private int ");
+            String _indexNameFor_2 = NamingUtils.indexNameFor(feature.getName());
+            _builder_1.append(_indexNameFor_2);
+            _builder_1.append(" = 0;");
+            _builder_1.newLineIfNotEmpty();
+            _builder_1.append("public void set");
+            String _indexNameFor_3 = NamingUtils.indexNameFor(feature.getName());
+            _builder_1.append(_indexNameFor_3);
+            _builder_1.append("(int i){this.");
+            String _indexNameFor_4 = NamingUtils.indexNameFor(feature.getName());
+            _builder_1.append(_indexNameFor_4);
+            _builder_1.append(" = i;}");
+            _builder_1.newLineIfNotEmpty();
+            _builder_1.append("public void inc");
+            String _indexNameFor_5 = NamingUtils.indexNameFor(feature.getName());
+            _builder_1.append(_indexNameFor_5);
+            _builder_1.append("(){this.");
+            String _indexNameFor_6 = NamingUtils.indexNameFor(feature.getName());
+            _builder_1.append(_indexNameFor_6);
+            _builder_1.append(" += 1;}");
+            _builder_1.newLineIfNotEmpty();
+            _builder_1.append("public int get");
+            String _indexNameFor_7 = NamingUtils.indexNameFor(feature.getName());
+            _builder_1.append(_indexNameFor_7);
+            _builder_1.append("(){return this.");
+            String _indexNameFor_8 = NamingUtils.indexNameFor(feature.getName());
+            _builder_1.append(_indexNameFor_8);
+            _builder_1.append(";}");
+            _builder_1.newLineIfNotEmpty();
+          }
+        }
+        computedTerms = _builder_1.toString();
+      }
+    }
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("package ");
+    String _modelName = RuleUtils.getModelName();
+    _builder.append(_modelName);
+    _builder.append(".operations.data;");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("public class ");
+    String _dataNameFor = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor);
+    _builder.append(" {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append(computedTerms, "\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public ");
+    String _dataNameFor_1 = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor_1, "\t");
+    _builder.append("(Object object) {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("if(object != null && object instanceof ");
+    String _dataNameFor_2 = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor_2, "\t\t");
+    _builder.append(") {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t\t");
+    String _dataNameFor_3 = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor_3, "\t\t\t");
+    _builder.append(" other = ((");
+    String _dataNameFor_4 = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor_4, "\t\t\t");
+    _builder.append(") object);");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t\t");
+    _builder.append(copyConstructor, "\t\t\t");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("public ");
+    String _dataNameFor_5 = NamingUtils.dataNameFor(concept.getName());
+    _builder.append(_dataNameFor_5, "\t");
+    _builder.append("() {}");
+    _builder.newLineIfNotEmpty();
+    _builder.append("}");
+    _builder.newLine();
+    return _builder.toString();
   }
   
   /**
@@ -413,19 +572,21 @@ public class AdaptSemGenerator extends AbstractGenerator {
     }
     StringConcatenation _builder_1 = new StringConcatenation();
     _builder_1.append("package ");
-    _builder_1.append(AdaptSemGenerator.modelName);
+    String _modelName = RuleUtils.getModelName();
+    _builder_1.append(_modelName);
     _builder_1.append(".interfaces;");
     _builder_1.newLineIfNotEmpty();
     _builder_1.newLine();
-    _builder_1.append("import fr.gjouneau.savm.framework.lang.semantics.SemanticsAdaptationInterface;");
+    _builder_1.append("import fr.diverse.team.SEALS.lang.semantics.SemanticsAdaptationInterface;");
     _builder_1.newLine();
     _builder_1.append("import ");
-    _builder_1.append(AdaptSemGenerator.modelName);
+    String _modelName_1 = RuleUtils.getModelName();
+    _builder_1.append(_modelName_1);
     _builder_1.append(".ASOS.AdaptationRule;");
     _builder_1.newLineIfNotEmpty();
     _builder_1.newLine();
     _builder_1.append("public class ");
-    String _interfaceNameFor = NamingUtils.interfaceNameFor(AdaptSemGenerator.modelName);
+    String _interfaceNameFor = NamingUtils.interfaceNameFor(RuleUtils.getModelName());
     _builder_1.append(_interfaceNameFor);
     _builder_1.append(" implements SemanticsAdaptationInterface {");
     _builder_1.newLineIfNotEmpty();
@@ -442,7 +603,7 @@ public class AdaptSemGenerator extends AbstractGenerator {
       return it.getConclusion().getFrom().getConcept();
     };
     final Map<EClass, List<Rule>> rulesByConcept = IteratorExtensions.<EClass, Rule>groupBy(Iterators.<Rule>filter(resource.getAllContents(), Rule.class), _function);
-    AdaptSemGenerator.semanticdomain = IteratorExtensions.<Model>head(Iterators.<Model>filter(resource.getAllContents(), Model.class)).getSemanticdomain();
+    RuleUtils.setSemanticdomain(IteratorExtensions.<Model>head(Iterators.<Model>filter(resource.getAllContents(), Model.class)).getSemanticdomain());
     final Function1<EClass, Boolean> _function_1 = (EClass c) -> {
       boolean _isAbstract = c.isAbstract();
       return Boolean.valueOf((!_isAbstract));
@@ -546,13 +707,5 @@ public class AdaptSemGenerator extends AbstractGenerator {
         fsa.generateFile((((filename + "/operations/") + conceptName) + "_test.txt"), content);
       }
     }
-  }
-  
-  public static EPackage getSemanticDomain() {
-    return AdaptSemGenerator.semanticdomain;
-  }
-  
-  public static String getModelName() {
-    return AdaptSemGenerator.modelName;
   }
 }

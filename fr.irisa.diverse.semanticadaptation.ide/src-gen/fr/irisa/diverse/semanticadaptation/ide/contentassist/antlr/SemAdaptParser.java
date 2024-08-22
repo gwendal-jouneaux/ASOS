@@ -34,6 +34,8 @@ public class SemAdaptParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getAdaptationAccess().getAlternatives_0(), "rule__Adaptation__Alternatives_0");
 			builder.put(grammarAccess.getRuleAccess().getAlternatives_7_1(), "rule__Rule__Alternatives_7_1");
 			builder.put(grammarAccess.getRuleAccess().getAlternatives_7_2_1(), "rule__Rule__Alternatives_7_2_1");
+			builder.put(grammarAccess.getInputAccess().getTargetAlternatives_6_1_0(), "rule__Input__TargetAlternatives_6_1_0");
+			builder.put(grammarAccess.getOutputAccess().getTargetAlternatives_4_1_0(), "rule__Output__TargetAlternatives_4_1_0");
 			builder.put(grammarAccess.getAssignableAccess().getAlternatives(), "rule__Assignable__Alternatives");
 			builder.put(grammarAccess.getAssigneeAccess().getAlternatives(), "rule__Assignee__Alternatives");
 			builder.put(grammarAccess.getTerminalAccessExpressionAccess().getAlternatives(), "rule__TerminalAccessExpression__Alternatives");
@@ -75,9 +77,13 @@ public class SemAdaptParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getRuleAccess().getGroup_7_2(), "rule__Rule__Group_7_2__0");
 			builder.put(grammarAccess.getConditionAccess().getGroup(), "rule__Condition__Group__0");
 			builder.put(grammarAccess.getInputAccess().getGroup(), "rule__Input__Group__0");
+			builder.put(grammarAccess.getInputAccess().getGroup_4(), "rule__Input__Group_4__0");
+			builder.put(grammarAccess.getInputAccess().getGroup_4_1(), "rule__Input__Group_4_1__0");
+			builder.put(grammarAccess.getInputAccess().getGroup_6(), "rule__Input__Group_6__0");
 			builder.put(grammarAccess.getOutputAccess().getGroup(), "rule__Output__Group__0");
 			builder.put(grammarAccess.getOutputAccess().getGroup_2(), "rule__Output__Group_2__0");
 			builder.put(grammarAccess.getOutputAccess().getGroup_2_1(), "rule__Output__Group_2_1__0");
+			builder.put(grammarAccess.getOutputAccess().getGroup_4(), "rule__Output__Group_4__0");
 			builder.put(grammarAccess.getBindingAccess().getGroup(), "rule__Binding__Group__0");
 			builder.put(grammarAccess.getSemanticDomainAccessAccess().getGroup(), "rule__SemanticDomainAccess__Group__0");
 			builder.put(grammarAccess.getSemanticDomainAccessAccess().getGroup_3(), "rule__SemanticDomainAccess__Group_3__0");
@@ -87,12 +93,14 @@ public class SemAdaptParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getDefConfigurationAccess().getGroup(), "rule__DefConfiguration__Group__0");
 			builder.put(grammarAccess.getDefConfigurationAccess().getGroup_2(), "rule__DefConfiguration__Group_2__0");
 			builder.put(grammarAccess.getDefConfigurationAccess().getGroup_2_1(), "rule__DefConfiguration__Group_2_1__0");
+			builder.put(grammarAccess.getDefConfigurationAccess().getGroup_4(), "rule__DefConfiguration__Group_4__0");
 			builder.put(grammarAccess.getRefConfigurationAccess().getGroup(), "rule__RefConfiguration__Group__0");
 			builder.put(grammarAccess.getRefConfigurationAccess().getGroup_2(), "rule__RefConfiguration__Group_2__0");
 			builder.put(grammarAccess.getRefConfigurationAccess().getGroup_2_1(), "rule__RefConfiguration__Group_2_1__0");
 			builder.put(grammarAccess.getSymbolDefAccess().getGroup(), "rule__SymbolDef__Group__0");
 			builder.put(grammarAccess.getSymbolRefAccess().getGroup(), "rule__SymbolRef__Group__0");
 			builder.put(grammarAccess.getListDefAccess().getGroup(), "rule__ListDef__Group__0");
+			builder.put(grammarAccess.getListDefAccess().getGroup_5(), "rule__ListDef__Group_5__0");
 			builder.put(grammarAccess.getListRefAccess().getGroup(), "rule__ListRef__Group__0");
 			builder.put(grammarAccess.getVoidListAccess().getGroup(), "rule__VoidList__Group__0");
 			builder.put(grammarAccess.getCondNotAccess().getGroup(), "rule__CondNot__Group__0");
@@ -171,9 +179,13 @@ public class SemAdaptParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getConditionAccess().getCondAssignment_1(), "rule__Condition__CondAssignment_1");
 			builder.put(grammarAccess.getInputAccess().getAssigneeAssignment_0(), "rule__Input__AssigneeAssignment_0");
 			builder.put(grammarAccess.getInputAccess().getOperationAssignment_2(), "rule__Input__OperationAssignment_2");
+			builder.put(grammarAccess.getInputAccess().getArgsAssignment_4_0(), "rule__Input__ArgsAssignment_4_0");
+			builder.put(grammarAccess.getInputAccess().getArgsAssignment_4_1_1(), "rule__Input__ArgsAssignment_4_1_1");
+			builder.put(grammarAccess.getInputAccess().getTargetAssignment_6_1(), "rule__Input__TargetAssignment_6_1");
 			builder.put(grammarAccess.getOutputAccess().getOperationAssignment_0(), "rule__Output__OperationAssignment_0");
 			builder.put(grammarAccess.getOutputAccess().getArgsAssignment_2_0(), "rule__Output__ArgsAssignment_2_0");
 			builder.put(grammarAccess.getOutputAccess().getArgsAssignment_2_1_1(), "rule__Output__ArgsAssignment_2_1_1");
+			builder.put(grammarAccess.getOutputAccess().getTargetAssignment_4_1(), "rule__Output__TargetAssignment_4_1");
 			builder.put(grammarAccess.getBindingAccess().getAssigneeAssignment_0(), "rule__Binding__AssigneeAssignment_0");
 			builder.put(grammarAccess.getBindingAccess().getExprAssignment_2(), "rule__Binding__ExprAssignment_2");
 			builder.put(grammarAccess.getSemanticDomainAccessAccess().getRecieverAssignment_0(), "rule__SemanticDomainAccess__RecieverAssignment_0");
@@ -188,6 +200,7 @@ public class SemAdaptParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getDefConfigurationAccess().getConceptAssignment_0(), "rule__DefConfiguration__ConceptAssignment_0");
 			builder.put(grammarAccess.getDefConfigurationAccess().getChildsAssignment_2_0(), "rule__DefConfiguration__ChildsAssignment_2_0");
 			builder.put(grammarAccess.getDefConfigurationAccess().getChildsAssignment_2_1_1(), "rule__DefConfiguration__ChildsAssignment_2_1_1");
+			builder.put(grammarAccess.getDefConfigurationAccess().getSymbolAssignment_4_1(), "rule__DefConfiguration__SymbolAssignment_4_1");
 			builder.put(grammarAccess.getRefConfigurationAccess().getConceptAssignment_0(), "rule__RefConfiguration__ConceptAssignment_0");
 			builder.put(grammarAccess.getRefConfigurationAccess().getChildsAssignment_2_0(), "rule__RefConfiguration__ChildsAssignment_2_0");
 			builder.put(grammarAccess.getRefConfigurationAccess().getChildsAssignment_2_1_1(), "rule__RefConfiguration__ChildsAssignment_2_1_1");
@@ -195,6 +208,7 @@ public class SemAdaptParser extends AbstractContentAssistParser {
 			builder.put(grammarAccess.getSymbolRefAccess().getDefAssignment_1(), "rule__SymbolRef__DefAssignment_1");
 			builder.put(grammarAccess.getListDefAccess().getHeadAssignment_1(), "rule__ListDef__HeadAssignment_1");
 			builder.put(grammarAccess.getListDefAccess().getTailAssignment_3(), "rule__ListDef__TailAssignment_3");
+			builder.put(grammarAccess.getListDefAccess().getSymbolAssignment_5_1(), "rule__ListDef__SymbolAssignment_5_1");
 			builder.put(grammarAccess.getListRefAccess().getHeadAssignment_1(), "rule__ListRef__HeadAssignment_1");
 			builder.put(grammarAccess.getListRefAccess().getTailAssignment_3(), "rule__ListRef__TailAssignment_3");
 			builder.put(grammarAccess.getCondNotAccess().getExprAssignment_2(), "rule__CondNot__ExprAssignment_2");

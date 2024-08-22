@@ -369,14 +369,33 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		private final CrossReference cOperationEOperationCrossReference_2_0 = (CrossReference)cOperationAssignment_2.eContents().get(0);
 		private final RuleCall cOperationEOperationOperationFQNParserRuleCall_2_0_1 = (RuleCall)cOperationEOperationCrossReference_2_0.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Assignment cArgsAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
+		private final RuleCall cArgsTermRefParserRuleCall_4_0_0 = (RuleCall)cArgsAssignment_4_0.eContents().get(0);
+		private final Group cGroup_4_1 = (Group)cGroup_4.eContents().get(1);
+		private final Keyword cCommaKeyword_4_1_0 = (Keyword)cGroup_4_1.eContents().get(0);
+		private final Assignment cArgsAssignment_4_1_1 = (Assignment)cGroup_4_1.eContents().get(1);
+		private final RuleCall cArgsTermRefParserRuleCall_4_1_1_0 = (RuleCall)cArgsAssignment_4_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cOnKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cTargetAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final Alternatives cTargetAlternatives_6_1_0 = (Alternatives)cTargetAssignment_6_1.eContents().get(0);
+		private final RuleCall cTargetTerminalAccessExpressionParserRuleCall_6_1_0_0 = (RuleCall)cTargetAlternatives_6_1_0.eContents().get(0);
+		private final RuleCall cTargetSemanticDomainAccessParserRuleCall_6_1_0_1 = (RuleCall)cTargetAlternatives_6_1_0.eContents().get(1);
 		
 		//Input returns Input:
-		//    assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "(" ")"
+		//    assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "("
+		//        (args+=TermRef (","  args+=TermRef)*)?
+		//    ")"
+		//    ("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "(" ")"
+		//assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "("
+		//    (args+=TermRef (","  args+=TermRef)*)?
+		//")"
+		//("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
 		public Group getGroup() { return cGroup; }
 		
 		//assignee=Assignee
@@ -400,8 +419,47 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		//"("
 		public Keyword getLeftParenthesisKeyword_3() { return cLeftParenthesisKeyword_3; }
 		
+		//(args+=TermRef (","  args+=TermRef)*)?
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//args+=TermRef
+		public Assignment getArgsAssignment_4_0() { return cArgsAssignment_4_0; }
+		
+		//TermRef
+		public RuleCall getArgsTermRefParserRuleCall_4_0_0() { return cArgsTermRefParserRuleCall_4_0_0; }
+		
+		//(","  args+=TermRef)*
+		public Group getGroup_4_1() { return cGroup_4_1; }
+		
+		//","
+		public Keyword getCommaKeyword_4_1_0() { return cCommaKeyword_4_1_0; }
+		
+		//args+=TermRef
+		public Assignment getArgsAssignment_4_1_1() { return cArgsAssignment_4_1_1; }
+		
+		//TermRef
+		public RuleCall getArgsTermRefParserRuleCall_4_1_1_0() { return cArgsTermRefParserRuleCall_4_1_1_0; }
+		
 		//")"
-		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+		
+		//("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
+		public Group getGroup_6() { return cGroup_6; }
+		
+		//"on"
+		public Keyword getOnKeyword_6_0() { return cOnKeyword_6_0; }
+		
+		//target=(TerminalAccessExpression | SemanticDomainAccess)
+		public Assignment getTargetAssignment_6_1() { return cTargetAssignment_6_1; }
+		
+		//(TerminalAccessExpression | SemanticDomainAccess)
+		public Alternatives getTargetAlternatives_6_1_0() { return cTargetAlternatives_6_1_0; }
+		
+		//TerminalAccessExpression
+		public RuleCall getTargetTerminalAccessExpressionParserRuleCall_6_1_0_0() { return cTargetTerminalAccessExpressionParserRuleCall_6_1_0_0; }
+		
+		//SemanticDomainAccess
+		public RuleCall getTargetSemanticDomainAccessParserRuleCall_6_1_0_1() { return cTargetSemanticDomainAccessParserRuleCall_6_1_0_1; }
 	}
 	public class OutputElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "fr.irisa.diverse.adaptivesemantics.AdaptSem.Output");
@@ -418,17 +476,25 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		private final Assignment cArgsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cArgsTermRefParserRuleCall_2_1_1_0 = (RuleCall)cArgsAssignment_2_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cOnKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cTargetAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final Alternatives cTargetAlternatives_4_1_0 = (Alternatives)cTargetAssignment_4_1.eContents().get(0);
+		private final RuleCall cTargetTerminalAccessExpressionParserRuleCall_4_1_0_0 = (RuleCall)cTargetAlternatives_4_1_0.eContents().get(0);
+		private final RuleCall cTargetSemanticDomainAccessParserRuleCall_4_1_0_1 = (RuleCall)cTargetAlternatives_4_1_0.eContents().get(1);
 		
 		//Output returns Output:
 		//    operation=[ecore::EOperation|OperationFQN] "("
 		//        (args+=TermRef (","  args+=TermRef)*)?
 		//    ")"
+		//    ("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//operation=[ecore::EOperation|OperationFQN] "("
 		//    (args+=TermRef (","  args+=TermRef)*)?
 		//")"
+		//("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
 		public Group getGroup() { return cGroup; }
 		
 		//operation=[ecore::EOperation|OperationFQN]
@@ -466,6 +532,24 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		
 		//")"
 		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+		
+		//("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//"on"
+		public Keyword getOnKeyword_4_0() { return cOnKeyword_4_0; }
+		
+		//target=(TerminalAccessExpression | SemanticDomainAccess)
+		public Assignment getTargetAssignment_4_1() { return cTargetAssignment_4_1; }
+		
+		//(TerminalAccessExpression | SemanticDomainAccess)
+		public Alternatives getTargetAlternatives_4_1_0() { return cTargetAlternatives_4_1_0; }
+		
+		//TerminalAccessExpression
+		public RuleCall getTargetTerminalAccessExpressionParserRuleCall_4_1_0_0() { return cTargetTerminalAccessExpressionParserRuleCall_4_1_0_0; }
+		
+		//SemanticDomainAccess
+		public RuleCall getTargetSemanticDomainAccessParserRuleCall_4_1_0_1() { return cTargetSemanticDomainAccessParserRuleCall_4_1_0_1; }
 	}
 	public class BindingElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "fr.irisa.diverse.adaptivesemantics.AdaptSem.Binding");
@@ -773,11 +857,11 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		private final RuleCall cSymbolDefParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//SingleTermDef:
-		//    DefConfiguration | SymbolDef
+		//    (DefConfiguration | SymbolDef)
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//DefConfiguration | SymbolDef
+		//(DefConfiguration | SymbolDef)
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
 		//DefConfiguration
@@ -821,17 +905,23 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		private final Assignment cChildsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
 		private final RuleCall cChildsTermDefParserRuleCall_2_1_1_0 = (RuleCall)cChildsAssignment_2_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cColonKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cSymbolAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cSymbolSymbolDefParserRuleCall_4_1_0 = (RuleCall)cSymbolAssignment_4_1.eContents().get(0);
 		
 		//DefConfiguration returns DefConfiguration:
 		//    concept=[ecore::EClass|FQN] "("
 		//        (childs+=TermDef ("," childs+=TermDef)*)?
 		//    ")"
+		//    (":" symbol=SymbolDef)?
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
 		//concept=[ecore::EClass|FQN] "("
 		//    (childs+=TermDef ("," childs+=TermDef)*)?
 		//")"
+		//(":" symbol=SymbolDef)?
 		public Group getGroup() { return cGroup; }
 		
 		//concept=[ecore::EClass|FQN]
@@ -869,6 +959,18 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		
 		//")"
 		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+		
+		//(":" symbol=SymbolDef)?
+		public Group getGroup_4() { return cGroup_4; }
+		
+		//":"
+		public Keyword getColonKeyword_4_0() { return cColonKeyword_4_0; }
+		
+		//symbol=SymbolDef
+		public Assignment getSymbolAssignment_4_1() { return cSymbolAssignment_4_1; }
+		
+		//SymbolDef
+		public RuleCall getSymbolSymbolDefParserRuleCall_4_1_0() { return cSymbolSymbolDefParserRuleCall_4_1_0; }
 	}
 	public class RefConfigurationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "fr.irisa.diverse.adaptivesemantics.AdaptSem.RefConfiguration");
@@ -1000,13 +1102,17 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		private final Assignment cTailAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cTailSymbolDefParserRuleCall_3_0 = (RuleCall)cTailAssignment_3.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cColonKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cSymbolAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cSymbolSymbolDefParserRuleCall_5_1_0 = (RuleCall)cSymbolAssignment_5_1.eContents().get(0);
 		
 		//ListDef returns ListDef:
-		//    "[" head=SingleTermDef "|" tail=SymbolDef "]"
+		//    "[" head=SingleTermDef "|" tail=SymbolDef "]" (":" symbol=SymbolDef)?
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//"[" head=SingleTermDef "|" tail=SymbolDef "]"
+		//"[" head=SingleTermDef "|" tail=SymbolDef "]" (":" symbol=SymbolDef)?
 		public Group getGroup() { return cGroup; }
 		
 		//"["
@@ -1029,6 +1135,18 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 		
 		//"]"
 		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
+		
+		//(":" symbol=SymbolDef)?
+		public Group getGroup_5() { return cGroup_5; }
+		
+		//":"
+		public Keyword getColonKeyword_5_0() { return cColonKeyword_5_0; }
+		
+		//symbol=SymbolDef
+		public Assignment getSymbolAssignment_5_1() { return cSymbolAssignment_5_1; }
+		
+		//SymbolDef
+		public RuleCall getSymbolSymbolDefParserRuleCall_5_1_0() { return cSymbolSymbolDefParserRuleCall_5_1_0; }
 	}
 	public class ListRefElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "fr.irisa.diverse.adaptivesemantics.AdaptSem.ListRef");
@@ -2218,7 +2336,10 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//Input returns Input:
-	//    assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "(" ")"
+	//    assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "("
+	//        (args+=TermRef (","  args+=TermRef)*)?
+	//    ")"
+	//    ("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
 	//;
 	public InputElements getInputAccess() {
 		return pInput;
@@ -2232,6 +2353,7 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	//    operation=[ecore::EOperation|OperationFQN] "("
 	//        (args+=TermRef (","  args+=TermRef)*)?
 	//    ")"
+	//    ("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
 	//;
 	public OutputElements getOutputAccess() {
 		return pOutput;
@@ -2355,7 +2477,7 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//SingleTermDef:
-	//    DefConfiguration | SymbolDef
+	//    (DefConfiguration | SymbolDef)
 	//;
 	public SingleTermDefElements getSingleTermDefAccess() {
 		return pSingleTermDef;
@@ -2380,6 +2502,7 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	//    concept=[ecore::EClass|FQN] "("
 	//        (childs+=TermDef ("," childs+=TermDef)*)?
 	//    ")"
+	//    (":" symbol=SymbolDef)?
 	//;
 	public DefConfigurationElements getDefConfigurationAccess() {
 		return pDefConfiguration;
@@ -2427,7 +2550,7 @@ public class AdaptSemGrammarAccess extends AbstractElementFinder.AbstractGrammar
 	}
 	
 	//ListDef returns ListDef:
-	//    "[" head=SingleTermDef "|" tail=SymbolDef "]"
+	//    "[" head=SingleTermDef "|" tail=SymbolDef "]" (":" symbol=SymbolDef)?
 	//;
 	public ListDefElements getListDefAccess() {
 		return pListDef;

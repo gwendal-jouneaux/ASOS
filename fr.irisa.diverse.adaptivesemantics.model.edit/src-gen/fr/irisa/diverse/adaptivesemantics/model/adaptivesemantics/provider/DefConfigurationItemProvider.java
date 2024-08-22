@@ -61,6 +61,7 @@ public class DefConfigurationItemProvider extends ConfigurationItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(AdaptivesemanticsPackage.Literals.TERM_DEF__SYMBOL);
 			childrenFeatures.add(AdaptivesemanticsPackage.Literals.DEF_CONFIGURATION__CHILDS);
 		}
 		return childrenFeatures;
@@ -123,6 +124,7 @@ public class DefConfigurationItemProvider extends ConfigurationItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(DefConfiguration.class)) {
+		case AdaptivesemanticsPackage.DEF_CONFIGURATION__SYMBOL:
 		case AdaptivesemanticsPackage.DEF_CONFIGURATION__CHILDS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -141,6 +143,9 @@ public class DefConfigurationItemProvider extends ConfigurationItemProvider {
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.TERM_DEF__SYMBOL,
+				AdaptivesemanticsFactory.eINSTANCE.createSymbolDef()));
+
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.DEF_CONFIGURATION__CHILDS,
 				AdaptivesemanticsFactory.eINSTANCE.createDefConfiguration()));
 
@@ -152,6 +157,27 @@ public class DefConfigurationItemProvider extends ConfigurationItemProvider {
 
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.DEF_CONFIGURATION__CHILDS,
 				AdaptivesemanticsFactory.eINSTANCE.createVoidList()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify = childFeature == AdaptivesemanticsPackage.Literals.TERM_DEF__SYMBOL
+				|| childFeature == AdaptivesemanticsPackage.Literals.DEF_CONFIGURATION__CHILDS;
+
+		if (qualify) {
+			return getString("_UI_CreateChild_text2",
+					new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

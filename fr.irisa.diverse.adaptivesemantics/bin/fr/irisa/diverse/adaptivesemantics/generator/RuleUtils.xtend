@@ -10,11 +10,33 @@ import java.util.ArrayList
 import java.util.List
 import java.util.Map
 import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper
 
 class RuleUtils {
 	
+	static var String modelName;
+	static var EPackage semanticdomain;
+	
+	static def void setModelName(String name){
+		modelName = name
+	}
+	
+	static def void setSemanticdomain(EPackage domain){
+		semanticdomain = domain
+	}
+	
+	static def String getModelName(){
+		return modelName
+	}
+	
+	static def EPackage getSemanticdomain(){
+		return semanticdomain
+	}
+	
 	static def boolean isValue(EClass c){
-		c.EPackage.equals(AdaptSemGenerator.semanticDomain)
+		EcoreUtil.equals(semanticdomain, c.EPackage)
 	}
 	
 	static def String generateInstanceOf(RefConfiguration conf, String name, Map<SymbolDef, SymbolPath> ruleTable){
@@ -25,6 +47,15 @@ class RuleUtils {
 		«out»
 		«conf.concept.name» «name» = «refconfCompiler.lastRefConfig»;
 		'''
+	}
+	
+	static def String toSetData(String access, String data){
+		var out = ""
+		if(access.contains("") && access.endsWith("()")){
+			out = access.replace("data.get", "data.set")
+			out = out.substring(0,out.length-2) + '''(«data»)'''
+		}
+		return out
 	}
 	
 	static def int compareRules(Rule r1, Rule r2){
@@ -68,7 +99,7 @@ class RuleUtils {
 			val child2 = r2.conclusion.from.childs.get(index)
 			
 			if(child1 instanceof DefConfiguration){
-				child1.concept.EPackage.equals(AdaptSemGenerator.semanticDomain)
+				child1.concept.EPackage.equals(semanticdomain)
 				if(!(child2 instanceof DefConfiguration)){
 					return true
 				}

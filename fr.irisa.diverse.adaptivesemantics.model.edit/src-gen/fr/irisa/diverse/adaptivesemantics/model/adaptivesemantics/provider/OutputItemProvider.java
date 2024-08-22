@@ -88,6 +88,7 @@ public class OutputItemProvider extends ItemProviderAdapter implements IEditingD
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(AdaptivesemanticsPackage.Literals.OUTPUT__ARGS);
+			childrenFeatures.add(AdaptivesemanticsPackage.Literals.OUTPUT__TARGET);
 		}
 		return childrenFeatures;
 	}
@@ -150,6 +151,7 @@ public class OutputItemProvider extends ItemProviderAdapter implements IEditingD
 
 		switch (notification.getFeatureID(Output.class)) {
 		case AdaptivesemanticsPackage.OUTPUT__ARGS:
+		case AdaptivesemanticsPackage.OUTPUT__TARGET:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -178,6 +180,36 @@ public class OutputItemProvider extends ItemProviderAdapter implements IEditingD
 
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.OUTPUT__ARGS,
 				AdaptivesemanticsFactory.eINSTANCE.createVoidList()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.OUTPUT__TARGET,
+				AdaptivesemanticsFactory.eINSTANCE.createSymbolRef()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.OUTPUT__TARGET,
+				AdaptivesemanticsFactory.eINSTANCE.createSemanticDomainAccess()));
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.OUTPUT__TARGET,
+				AdaptivesemanticsFactory.eINSTANCE.createSelf()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify = childFeature == AdaptivesemanticsPackage.Literals.OUTPUT__ARGS
+				|| childFeature == AdaptivesemanticsPackage.Literals.OUTPUT__TARGET;
+
+		if (qualify) {
+			return getString("_UI_CreateChild_text2",
+					new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**

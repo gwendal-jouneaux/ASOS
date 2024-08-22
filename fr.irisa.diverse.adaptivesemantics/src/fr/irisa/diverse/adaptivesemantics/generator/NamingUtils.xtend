@@ -18,6 +18,10 @@ class NamingUtils {
 		conceptName + 'Op'
 	}
 	
+	static def String dataNameFor(String conceptName) {
+		conceptName + 'Data'
+	}
+	
 	static def String interfaceNameFor(String conceptName) {
 		conceptName + 'Interface'
 	}
@@ -34,20 +38,44 @@ class NamingUtils {
 		modelName + "/operations/" + operationNameFor(conceptName) + '.java'
 	}
 	
+	static def String dataPathFor(String modelName, String conceptName) {
+		modelName + "/operations/data/" + dataNameFor(conceptName) + '.java'
+	}
+	
 	static def String interfacePathFor(String modelName, String conceptName) {
 		modelName + "/interfaces/" + interfaceNameFor(conceptName) + '.java'
 	}
 	
+	static def String asosFilePathFor(String modelName, String filetName) {
+		modelName + "/ASOS/" + filetName + '.java'
+	}
+	
 	static def String modulePathFor(String modelName, String conceptName) {
-		modelName + "/adaptations/modules/" + moduleNameFor(conceptName) + '.java'
+		"../src/" + modelName + "/adaptations/modules/" + moduleNameFor(conceptName) + '.java'
 	}
 	
 	static def String adaptationPathFor(String modelName, String conceptName) {
 		modelName + "/adaptations/rules/" + adaptationNameFor(conceptName) + '.java'
 	}
 	
+	static def String processPathFor(String modelName, String className) {
+		"../src/" + modelName + "/interpreter/" + className + '.java'
+	}
+	
 	static def String indexNameFor(String feature){
 		return "index_" + feature
+	}
+	
+	static def String LanguageName(){
+		return "SelfAdaptive" + RuleUtils.modelName.toFirstUpper
+	}
+	
+	static def String FeedbackLoopName(){
+		return RuleUtils.modelName.toFirstUpper + "FeedbackLoop"
+	}
+	
+	static def String AdaptationContextName(){
+		return RuleUtils.modelName.toFirstUpper + "AdaptationContext"
 	}
 	
 	static def String nameOf(Model model){

@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
@@ -23,16 +22,10 @@ public class RefConfigurationCompiler {
   
   private final Map<SymbolDef, SymbolPath> ruleTable;
   
-  private final String modelName;
-  
-  private final EPackage semanticdomain;
-  
   private String lastRefConfig = "";
   
-  public RefConfigurationCompiler(final Map<SymbolDef, SymbolPath> table, final String modelname, final EPackage sd) {
+  public RefConfigurationCompiler(final Map<SymbolDef, SymbolPath> table) {
     this.ruleTable = table;
-    this.semanticdomain = sd;
-    this.modelName = modelname;
   }
   
   protected String _compile(final RefConfiguration node) {
@@ -53,28 +46,28 @@ public class RefConfigurationCompiler {
       _builder.append(_firstLower);
       _builder.append(classindex);
       _builder.append(" = ");
-      String _name_1 = this.semanticdomain.getName();
-      _builder.append(_name_1);
+      String _firstUpper = StringExtensions.toFirstUpper(RuleUtils.getSemanticdomain().getName());
+      _builder.append(_firstUpper);
       _builder.append("Factory.eINSTANCE.create");
-      String _name_2 = concept.getName();
-      _builder.append(_name_2);
+      String _name_1 = concept.getName();
+      _builder.append(_name_1);
       _builder.append("();");
       _builder.newLineIfNotEmpty();
       out = _builder.toString();
     } else {
       StringConcatenation _builder_1 = new StringConcatenation();
-      String _name_3 = concept.getName();
-      _builder_1.append(_name_3);
+      String _name_2 = concept.getName();
+      _builder_1.append(_name_2);
       _builder_1.append(" ");
       String _firstLower_1 = StringExtensions.toFirstLower(concept.getName());
       _builder_1.append(_firstLower_1);
       _builder_1.append(classindex);
       _builder_1.append(" = ");
-      String _firstUpper = StringExtensions.toFirstUpper(this.modelName);
-      _builder_1.append(_firstUpper);
+      String _firstUpper_1 = StringExtensions.toFirstUpper(RuleUtils.getModelName());
+      _builder_1.append(_firstUpper_1);
       _builder_1.append("Factory.eINSTANCE.create");
-      String _name_4 = concept.getName();
-      _builder_1.append(_name_4);
+      String _name_3 = concept.getName();
+      _builder_1.append(_name_3);
       _builder_1.append("();");
       _builder_1.newLineIfNotEmpty();
       out = _builder_1.toString();
@@ -82,8 +75,8 @@ public class RefConfigurationCompiler {
     for (int i = 0; (i < len); i++) {
       {
         final TermRef child = childs.get(i);
-        String _firstUpper_1 = StringExtensions.toFirstUpper(features.get(i).getName());
-        final String featureSetter = (".set" + _firstUpper_1);
+        String _firstUpper_2 = StringExtensions.toFirstUpper(features.get(i).getName());
+        final String featureSetter = (".set" + _firstUpper_2);
         String featureType = features.get(i).getEType().getInstanceClassName();
         boolean needsCopy = false;
         if ((featureType == null)) {

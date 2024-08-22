@@ -2,6 +2,7 @@
  */
 package fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EOperation;
 
@@ -16,6 +17,8 @@ import org.eclipse.emf.ecore.EOperation;
  * <ul>
  *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input#getOperation <em>Operation</em>}</li>
  *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input#getAssignee <em>Assignee</em>}</li>
+ *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input#getTarget <em>Target</em>}</li>
+ *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input#getArgs <em>Args</em>}</li>
  * </ul>
  *
  * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getInput()
@@ -66,5 +69,39 @@ public interface Input extends EObject {
 	 * @generated
 	 */
 	void setAssignee(Assignee value);
+
+	/**
+	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Target</em>' containment reference.
+	 * @see #setTarget(DomainAccessExpression)
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getInput_Target()
+	 * @model containment="true"
+	 * @generated
+	 */
+	DomainAccessExpression getTarget();
+
+	/**
+	 * Sets the value of the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Input#getTarget <em>Target</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Target</em>' containment reference.
+	 * @see #getTarget()
+	 * @generated
+	 */
+	void setTarget(DomainAccessExpression value);
+
+	/**
+	 * Returns the value of the '<em><b>Args</b></em>' containment reference list.
+	 * The list contents are of type {@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Args</em>' containment reference list.
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getInput_Args()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<TermRef> getArgs();
 
 } // Input

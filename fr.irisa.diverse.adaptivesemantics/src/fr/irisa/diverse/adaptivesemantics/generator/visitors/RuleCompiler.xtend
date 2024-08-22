@@ -1,6 +1,5 @@
 package fr.irisa.diverse.adaptivesemantics.generator.visitors
 
-import fr.irisa.diverse.adaptivesemantics.generator.AdaptSemGenerator
 import fr.irisa.diverse.adaptivesemantics.generator.NamingUtils
 import fr.irisa.diverse.adaptivesemantics.generator.RuleUtils
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.And
@@ -22,6 +21,7 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus
@@ -35,39 +35,41 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef
 import java.util.Map
 import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.EPackage
 
 class RuleCompiler {
 	
 	val Map<SymbolDef, SymbolPath> ruleTable
 	var String currentCore = "";
-	val EPackage semanticdomain;
 	
-	new(Map<SymbolDef, SymbolPath> table, EPackage semanticdomain){
+	new(Map<SymbolDef, SymbolPath> table){
 		ruleTable = table
-		this.semanticdomain = semanticdomain
 	}
 	
 	def dispatch String compile(Rule node){
 		val effect = node.compileEffect
 		val core = '''
 		if(config.before_«node.name»() != null){
-			config.before_«node.name»().adapt(vis, node, execCtx, config);
+			config.before_«node.name»().adapt(vis, node, data, config);
 		}
 		
 		if(config.specialize_«node.name»() != null){
-			config.specialize_«node.name»().adapt(vis, node, execCtx, config);
+			config.specialize_«node.name»().adapt(vis, node, data, config);
 		} else {
 			«effect»
 		}
 		
 		if(config.after_«node.name»() != null){
-			config.after_«node.name»().adapt(vis, node, execCtx, config);
+			if(result == null){
+				config.after_«node.name»().adapt(vis, node, data, config);
+			} else {
+				config.after_«node.name»().adapt(vis, ((AdaptableNode<«NamingUtils.interfaceNameFor(RuleUtils.modelName)»>) result), null, config);
+			}
 		}
 		
 		if(result != null){
-			if(! ((EObject) result).eClass().getEPackage().equals(«semanticdomain.name»Package.eINSTANCE)){
+			if(! ((EObject) result).eClass().getEPackage().equals(«RuleUtils.semanticdomain.name.toFirstUpper»Package.eINSTANCE)){
 				return ((Node) result).accept(vis, execCtx);
 			} else {
 				return result;
@@ -120,7 +122,7 @@ class RuleCompiler {
 			
 			return '''
 			if(«ruleTable.get(node.from.def).valueForm» == null){
-				Object «NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)» = ((Node) «ruleTable.get(node.from.def).termForm»).accept(vis, execCtx);
+				«RuleUtils.toSetData(NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm), '''((Node) «ruleTable.get(node.from.def).termForm»).accept(vis, execCtx)''')»;
 				if(«IF ! node.termination»!«ENDIF»(«NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)» instanceof Termination)){
 					«expectedPattern»{
 						«currentCore»
@@ -136,7 +138,7 @@ class RuleCompiler {
 		} else { // SymbolDef then
 			return '''
 			if(«ruleTable.get(node.from.def).valueForm» == null){
-				Object «NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)» = ((Node) «ruleTable.get(node.from.def).termForm»).accept(vis, execCtx);
+				«RuleUtils.toSetData(NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm), '''((Node) «ruleTable.get(node.from.def).termForm»).accept(vis, execCtx)''')»;
 				if(«IF ! node.termination»!«ENDIF»(«NamingUtils.localNameFor(ruleTable.get(node.from.def).valueForm)» instanceof Termination)){
 					«currentCore»
 				}
@@ -222,19 +224,59 @@ class RuleCompiler {
 	}
 	
 	def dispatch String compile(Input node){
+		var target = "node"
+		val type = (node.operation.eContainer as EClass).name
+		if(node.target !== null){
+			target = node.target.compile
+		}
+		
+		
+		var args = ""
+		var prelude = ""
+		var params = node.operation.EParameters
+		for (var i = 0; i<node.args.size; i++) {
+			val arg = node.args.get(i)
+			val param = params.get(i)
+			var paramType = param.EType.instanceClassName
+			if (paramType === null) {
+				paramType = param.EType.name
+			}
+			
+			
+			if(arg instanceof RefConfiguration){
+				prelude = '''
+				«prelude»
+				«RuleUtils.generateInstanceOf(arg, "arg"+i, ruleTable)»
+				'''
+				args = args + ''', («paramType») arg''' + i
+			} else {
+				val refconfCompiler = new RefConfigurationCompiler(ruleTable)
+				args = args + ''', («paramType») ''' + refconfCompiler.compile(arg)
+			}
+			
+		}
+		
+		if(args.length < 2){
+			args = args + "  "
+		}
+		
 		val assignee = node.assignee
 		if(assignee instanceof SymbolDef){
 			return '''
-			Object «assignee.name» = node.«node.operation.name»();
+			«prelude» // prelude
+			Object «assignee.name» = ((«type») «target»).«node.operation.name»(«args.substring(2)»);
 			'''
 		}
 		if(assignee instanceof SemanticDomainAccess){
 			return '''
-			«NamingUtils.pathFor(assignee.reciever, ruleTable)».set«assignee.field.toFirstUpper»(node.«node.operation.name»());
+			«prelude» // prelude
+			«NamingUtils.pathFor(assignee.reciever, ruleTable)».set«assignee.field.toFirstUpper»(((«type») «target»).«node.operation.name»(«args.substring(2)»));
 			'''
 		}
+		
 		return '''
-		Object «assignee» = node.«node.operation.name»();
+		«prelude» //prelude
+		Object «assignee» = ((«type») «target»).«node.operation.name»(«args.substring(2)»);
 		'''
 	}
 	
@@ -263,7 +305,22 @@ class RuleCompiler {
 			}
 			
 		}
+		
+		if(args.length < 2){
+			args = args + "  "
+		}
+		
+		if(node.target !== null){
+			val target = node.target.compile
+			val type = (node.operation.eContainer as EClass).name
+			return '''
+			«prelude» // prelude
+			((«type») «target»).«node.operation.name»(«args.substring(2)»);
+			'''
+		}
+		
 		return '''
+		«prelude» // prelude
 		node.«node.operation.name»(«args.substring(2)»);
 		'''
 	}
@@ -307,6 +364,11 @@ class RuleCompiler {
 	def dispatch String compile(Not node) {
 		val expr = node.expr.compile
 		return "(!"+expr+")"
+	}
+	
+	def dispatch String compile(Opposite node) {
+		val expr = node.expr.compile
+		return "(-"+expr+")"
 	}
 	
 	def dispatch String compile(Less node) {

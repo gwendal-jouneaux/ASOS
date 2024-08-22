@@ -1045,10 +1045,99 @@ ruleInput returns [EObject current=null]
 		{
 			newLeafNode(otherlv_3, grammarAccess.getInputAccess().getLeftParenthesisKeyword_3());
 		}
-		otherlv_4=')'
+		(
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getInputAccess().getArgsTermRefParserRuleCall_4_0_0());
+					}
+					lv_args_4_0=ruleTermRef
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getInputRule());
+						}
+						add(
+							$current,
+							"args",
+							lv_args_4_0,
+							"fr.irisa.diverse.adaptivesemantics.AdaptSem.TermRef");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+			(
+				otherlv_5=','
+				{
+					newLeafNode(otherlv_5, grammarAccess.getInputAccess().getCommaKeyword_4_1_0());
+				}
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getInputAccess().getArgsTermRefParserRuleCall_4_1_1_0());
+						}
+						lv_args_6_0=ruleTermRef
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getInputRule());
+							}
+							add(
+								$current,
+								"args",
+								lv_args_6_0,
+								"fr.irisa.diverse.adaptivesemantics.AdaptSem.TermRef");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)*
+		)?
+		otherlv_7=')'
 		{
-			newLeafNode(otherlv_4, grammarAccess.getInputAccess().getRightParenthesisKeyword_4());
+			newLeafNode(otherlv_7, grammarAccess.getInputAccess().getRightParenthesisKeyword_5());
 		}
+		(
+			otherlv_8='on'
+			{
+				newLeafNode(otherlv_8, grammarAccess.getInputAccess().getOnKeyword_6_0());
+			}
+			(
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getInputAccess().getTargetTerminalAccessExpressionParserRuleCall_6_1_0_0());
+						}
+						lv_target_9_1=ruleTerminalAccessExpression
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getInputRule());
+							}
+							set(
+								$current,
+								"target",
+								lv_target_9_1,
+								"fr.irisa.diverse.adaptivesemantics.AdaptSem.TerminalAccessExpression");
+							afterParserOrEnumRuleCall();
+						}
+						    |
+						{
+							newCompositeNode(grammarAccess.getInputAccess().getTargetSemanticDomainAccessParserRuleCall_6_1_0_1());
+						}
+						lv_target_9_2=ruleSemanticDomainAccess
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getInputRule());
+							}
+							set(
+								$current,
+								"target",
+								lv_target_9_2,
+								"fr.irisa.diverse.adaptivesemantics.AdaptSem.SemanticDomainAccess");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)
+		)?
 	)
 ;
 
@@ -1141,6 +1230,49 @@ ruleOutput returns [EObject current=null]
 		{
 			newLeafNode(otherlv_5, grammarAccess.getOutputAccess().getRightParenthesisKeyword_3());
 		}
+		(
+			otherlv_6='on'
+			{
+				newLeafNode(otherlv_6, grammarAccess.getOutputAccess().getOnKeyword_4_0());
+			}
+			(
+				(
+					(
+						{
+							newCompositeNode(grammarAccess.getOutputAccess().getTargetTerminalAccessExpressionParserRuleCall_4_1_0_0());
+						}
+						lv_target_7_1=ruleTerminalAccessExpression
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getOutputRule());
+							}
+							set(
+								$current,
+								"target",
+								lv_target_7_1,
+								"fr.irisa.diverse.adaptivesemantics.AdaptSem.TerminalAccessExpression");
+							afterParserOrEnumRuleCall();
+						}
+						    |
+						{
+							newCompositeNode(grammarAccess.getOutputAccess().getTargetSemanticDomainAccessParserRuleCall_4_1_0_1());
+						}
+						lv_target_7_2=ruleSemanticDomainAccess
+						{
+							if ($current==null) {
+								$current = createModelElementForParent(grammarAccess.getOutputRule());
+							}
+							set(
+								$current,
+								"target",
+								lv_target_7_2,
+								"fr.irisa.diverse.adaptivesemantics.AdaptSem.SemanticDomainAccess");
+							afterParserOrEnumRuleCall();
+						}
+					)
+				)
+			)
+		)?
 	)
 ;
 
@@ -1904,6 +2036,31 @@ ruleDefConfiguration returns [EObject current=null]
 		{
 			newLeafNode(otherlv_5, grammarAccess.getDefConfigurationAccess().getRightParenthesisKeyword_3());
 		}
+		(
+			otherlv_6=':'
+			{
+				newLeafNode(otherlv_6, grammarAccess.getDefConfigurationAccess().getColonKeyword_4_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getDefConfigurationAccess().getSymbolSymbolDefParserRuleCall_4_1_0());
+					}
+					lv_symbol_7_0=ruleSymbolDef
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getDefConfigurationRule());
+						}
+						set(
+							$current,
+							"symbol",
+							lv_symbol_7_0,
+							"fr.irisa.diverse.adaptivesemantics.AdaptSem.SymbolDef");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)?
 	)
 ;
 
@@ -2157,6 +2314,31 @@ ruleListDef returns [EObject current=null]
 		{
 			newLeafNode(otherlv_4, grammarAccess.getListDefAccess().getRightSquareBracketKeyword_4());
 		}
+		(
+			otherlv_5=':'
+			{
+				newLeafNode(otherlv_5, grammarAccess.getListDefAccess().getColonKeyword_5_0());
+			}
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getListDefAccess().getSymbolSymbolDefParserRuleCall_5_1_0());
+					}
+					lv_symbol_6_0=ruleSymbolDef
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getListDefRule());
+						}
+						set(
+							$current,
+							"symbol",
+							lv_symbol_6_0,
+							"fr.irisa.diverse.adaptivesemantics.AdaptSem.SymbolDef");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)
+		)?
 	)
 ;
 

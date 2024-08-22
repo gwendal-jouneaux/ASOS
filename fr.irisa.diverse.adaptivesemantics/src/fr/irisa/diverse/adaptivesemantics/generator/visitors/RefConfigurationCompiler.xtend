@@ -14,14 +14,10 @@ class RefConfigurationCompiler {
 	
 	static val Map<EClass,Integer> varIndexes = newHashMap
 	val Map<SymbolDef, SymbolPath> ruleTable
-	val String modelName
-	val EPackage semanticdomain;
 	var lastRefConfig = ""
 	
-	new(Map<SymbolDef, SymbolPath> table, String modelname, EPackage sd){
+	new(Map<SymbolDef, SymbolPath> table){
 		ruleTable = table
-		semanticdomain = sd
-		modelName = modelname
 	}
 	
 	def dispatch String compile(RefConfiguration node){
@@ -37,11 +33,11 @@ class RefConfigurationCompiler {
 		
 		if(RuleUtils.isValue(concept)){
 			out = '''
-			«concept.name» «concept.name.toFirstLower»«classindex» = «semanticdomain.name»Factory.eINSTANCE.create«concept.name»();
+			«concept.name» «concept.name.toFirstLower»«classindex» = «RuleUtils.semanticdomain.name.toFirstUpper»Factory.eINSTANCE.create«concept.name»();
 			'''
 		} else {
 			out = '''
-			«concept.name» «concept.name.toFirstLower»«classindex» = «modelName.toFirstUpper»Factory.eINSTANCE.create«concept.name»();
+			«concept.name» «concept.name.toFirstLower»«classindex» = «RuleUtils.modelName.toFirstUpper»Factory.eINSTANCE.create«concept.name»();
 			'''
 		}
 		

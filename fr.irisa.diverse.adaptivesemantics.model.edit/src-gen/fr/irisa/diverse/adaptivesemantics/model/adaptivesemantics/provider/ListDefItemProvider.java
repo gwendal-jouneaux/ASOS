@@ -70,6 +70,7 @@ public class ListDefItemProvider extends ItemProviderAdapter implements IEditing
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(AdaptivesemanticsPackage.Literals.TERM_DEF__SYMBOL);
 			childrenFeatures.add(AdaptivesemanticsPackage.Literals.LIST_DEF__HEAD);
 			childrenFeatures.add(AdaptivesemanticsPackage.Literals.LIST_DEF__TAIL);
 		}
@@ -133,6 +134,7 @@ public class ListDefItemProvider extends ItemProviderAdapter implements IEditing
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ListDef.class)) {
+		case AdaptivesemanticsPackage.LIST_DEF__SYMBOL:
 		case AdaptivesemanticsPackage.LIST_DEF__HEAD:
 		case AdaptivesemanticsPackage.LIST_DEF__TAIL:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -151,6 +153,9 @@ public class ListDefItemProvider extends ItemProviderAdapter implements IEditing
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.TERM_DEF__SYMBOL,
+				AdaptivesemanticsFactory.eINSTANCE.createSymbolDef()));
 
 		newChildDescriptors.add(createChildParameter(AdaptivesemanticsPackage.Literals.LIST_DEF__HEAD,
 				AdaptivesemanticsFactory.eINSTANCE.createDefConfiguration()));
@@ -173,7 +178,8 @@ public class ListDefItemProvider extends ItemProviderAdapter implements IEditing
 		Object childFeature = feature;
 		Object childObject = child;
 
-		boolean qualify = childFeature == AdaptivesemanticsPackage.Literals.LIST_DEF__HEAD
+		boolean qualify = childFeature == AdaptivesemanticsPackage.Literals.TERM_DEF__SYMBOL
+				|| childFeature == AdaptivesemanticsPackage.Literals.LIST_DEF__HEAD
 				|| childFeature == AdaptivesemanticsPackage.Literals.LIST_DEF__TAIL;
 
 		if (qualify) {

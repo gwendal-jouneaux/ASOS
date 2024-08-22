@@ -40,13 +40,17 @@ Condition returns Condition:
 
 	
 Input returns Input:
-	assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "(" ")"
+	assignee=Assignee "=" operation=[ecore::EOperation|OperationFQN] "(" 
+		(args+=TermRef (","  args+=TermRef)*)?
+	")"
+	("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
 ;
 
 Output returns Output:
 	operation=[ecore::EOperation|OperationFQN] "(" 
 		(args+=TermRef (","  args+=TermRef)*)? 
 	")"
+	("on" target=(TerminalAccessExpression | SemanticDomainAccess))?
 ;
 	
 	
@@ -104,7 +108,7 @@ TermRef:
 ;
 
 SingleTermDef:
-	DefConfiguration | SymbolDef
+	(DefConfiguration | SymbolDef)
 ;
 
 SingleTermRef:
@@ -119,6 +123,7 @@ DefConfiguration returns DefConfiguration:
 	concept=[ecore::EClass|FQN] "(" 
 		(childs+=TermDef ("," childs+=TermDef)*)? 
 	")"
+	(":" symbol=SymbolDef)?
 ;
 	
 RefConfiguration returns RefConfiguration:
@@ -138,7 +143,7 @@ SymbolRef returns SymbolRef:
 ;
 
 ListDef returns ListDef:
-	"[" head=SingleTermDef "|" tail=SymbolDef "]"
+	"[" head=SingleTermDef "|" tail=SymbolDef "]" (":" symbol=SymbolDef)?
 ;
 
 ListRef returns ListRef:
@@ -250,6 +255,7 @@ EString returns ecore::EString:
 FQN: ID ("." ID)*;
 
 OperationFQN: ID ("." ID)+;
+
 
 
 	

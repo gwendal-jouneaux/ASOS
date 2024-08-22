@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EOperation;
  * <ul>
  *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output#getOperation <em>Operation</em>}</li>
  *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output#getArgs <em>Args</em>}</li>
+ *   <li>{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output#getTarget <em>Target</em>}</li>
  * </ul>
  *
  * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getOutput()
@@ -58,5 +59,27 @@ public interface Output extends EObject {
 	 * @generated
 	 */
 	EList<TermRef> getArgs();
+
+	/**
+	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Target</em>' containment reference.
+	 * @see #setTarget(DomainAccessExpression)
+	 * @see fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.AdaptivesemanticsPackage#getOutput_Target()
+	 * @model containment="true"
+	 * @generated
+	 */
+	DomainAccessExpression getTarget();
+
+	/**
+	 * Sets the value of the '{@link fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output#getTarget <em>Target</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Target</em>' containment reference.
+	 * @see #getTarget()
+	 * @generated
+	 */
+	void setTarget(DomainAccessExpression value);
 
 } // Output

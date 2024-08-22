@@ -97,18 +97,27 @@
   <eClassifiers xsi:type="ecore:EClass" name="SingleTermRef" abstract="true" interface="true"
       eSuperTypes="#//TermRef"/>
   <eClassifiers xsi:type="ecore:EClass" name="TermRef" abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TermDef" abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TermDef" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="symbol" eType="#//SymbolDef"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VoidList" eSuperTypes="#//TermDef #//TermRef"/>
   <eClassifiers xsi:type="ecore:EClass" name="Input">
     <eStructuralFeatures xsi:type="ecore:EReference" name="operation" lowerBound="1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assignee" lowerBound="1"
         eType="#//Assignee" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//DomainAccessExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="args" upperBound="-1" eType="#//TermRef"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Output">
     <eStructuralFeatures xsi:type="ecore:EReference" name="operation" lowerBound="1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EOperation"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="args" upperBound="-1" eType="#//TermRef"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//DomainAccessExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Assignee" abstract="true" interface="true"/>

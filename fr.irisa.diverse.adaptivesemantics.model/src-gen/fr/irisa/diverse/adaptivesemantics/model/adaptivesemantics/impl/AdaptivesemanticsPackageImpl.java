@@ -935,6 +935,15 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getTermDef_Symbol() {
+		return (EReference) termDefEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getVoidList() {
 		return voidListEClass;
 	}
@@ -971,6 +980,24 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getInput_Target() {
+		return (EReference) inputEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInput_Args() {
+		return (EReference) inputEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOutput() {
 		return outputEClass;
 	}
@@ -991,6 +1018,15 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 	 */
 	public EReference getOutput_Args() {
 		return (EReference) outputEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getOutput_Target() {
+		return (EReference) outputEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1433,16 +1469,20 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 		termRefEClass = createEClass(TERM_REF);
 
 		termDefEClass = createEClass(TERM_DEF);
+		createEReference(termDefEClass, TERM_DEF__SYMBOL);
 
 		voidListEClass = createEClass(VOID_LIST);
 
 		inputEClass = createEClass(INPUT);
 		createEReference(inputEClass, INPUT__OPERATION);
 		createEReference(inputEClass, INPUT__ASSIGNEE);
+		createEReference(inputEClass, INPUT__TARGET);
+		createEReference(inputEClass, INPUT__ARGS);
 
 		outputEClass = createEClass(OUTPUT);
 		createEReference(outputEClass, OUTPUT__OPERATION);
 		createEReference(outputEClass, OUTPUT__ARGS);
+		createEReference(outputEClass, OUTPUT__TARGET);
 
 		assigneeEClass = createEClass(ASSIGNEE);
 
@@ -1728,6 +1768,9 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 		initEClass(termRefEClass, TermRef.class, "TermRef", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(termDefEClass, TermDef.class, "TermDef", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTermDef_Symbol(), this.getSymbolDef(), null, "symbol", null, 0, 1, TermDef.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(voidListEClass, VoidList.class, "VoidList", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -1739,6 +1782,12 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 		initEReference(getInput_Assignee(), this.getAssignee(), null, "assignee", null, 1, 1, Input.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInput_Target(), this.getDomainAccessExpression(), null, "target", null, 0, 1, Input.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInput_Args(), this.getTermRef(), null, "args", null, 0, -1, Input.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 
 		initEClass(outputEClass, Output.class, "Output", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOutput_Operation(), ecorePackage.getEOperation(), null, "operation", null, 1, 1, Output.class,
@@ -1747,6 +1796,9 @@ public class AdaptivesemanticsPackageImpl extends EPackageImpl implements Adapti
 		initEReference(getOutput_Args(), this.getTermRef(), null, "args", null, 0, -1, Output.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
+		initEReference(getOutput_Target(), this.getDomainAccessExpression(), null, "target", null, 0, 1, Output.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(assigneeEClass, Assignee.class, "Assignee", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

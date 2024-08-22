@@ -26,6 +26,10 @@ public class NamingUtils {
     return (conceptName + "Op");
   }
   
+  public static String dataNameFor(final String conceptName) {
+    return (conceptName + "Data");
+  }
+  
   public static String interfaceNameFor(final String conceptName) {
     return (conceptName + "Interface");
   }
@@ -44,15 +48,25 @@ public class NamingUtils {
     return (_plus + ".java");
   }
   
+  public static String dataPathFor(final String modelName, final String conceptName) {
+    String _dataNameFor = NamingUtils.dataNameFor(conceptName);
+    String _plus = ((modelName + "/operations/data/") + _dataNameFor);
+    return (_plus + ".java");
+  }
+  
   public static String interfacePathFor(final String modelName, final String conceptName) {
     String _interfaceNameFor = NamingUtils.interfaceNameFor(conceptName);
     String _plus = ((modelName + "/interfaces/") + _interfaceNameFor);
     return (_plus + ".java");
   }
   
+  public static String asosFilePathFor(final String modelName, final String filetName) {
+    return (((modelName + "/ASOS/") + filetName) + ".java");
+  }
+  
   public static String modulePathFor(final String modelName, final String conceptName) {
     String _moduleNameFor = NamingUtils.moduleNameFor(conceptName);
-    String _plus = ((modelName + "/adaptations/modules/") + _moduleNameFor);
+    String _plus = ((("../src/" + modelName) + "/adaptations/modules/") + _moduleNameFor);
     return (_plus + ".java");
   }
   
@@ -62,8 +76,27 @@ public class NamingUtils {
     return (_plus + ".java");
   }
   
+  public static String processPathFor(final String modelName, final String className) {
+    return (((("../src/" + modelName) + "/interpreter/") + className) + ".java");
+  }
+  
   public static String indexNameFor(final String feature) {
     return ("index_" + feature);
+  }
+  
+  public static String LanguageName() {
+    String _firstUpper = StringExtensions.toFirstUpper(RuleUtils.getModelName());
+    return ("SelfAdaptive" + _firstUpper);
+  }
+  
+  public static String FeedbackLoopName() {
+    String _firstUpper = StringExtensions.toFirstUpper(RuleUtils.getModelName());
+    return (_firstUpper + "FeedbackLoop");
+  }
+  
+  public static String AdaptationContextName() {
+    String _firstUpper = StringExtensions.toFirstUpper(RuleUtils.getModelName());
+    return (_firstUpper + "AdaptationContext");
   }
   
   public static String nameOf(final Model model) {

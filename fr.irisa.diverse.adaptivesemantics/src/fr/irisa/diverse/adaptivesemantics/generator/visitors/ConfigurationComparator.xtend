@@ -42,7 +42,7 @@ class ConfigurationComparator {
 						out =  '''
 						«out»
 						«create»
-						«NamingUtils.computedNameFor(feature.name)» = «refconfCompiler.lastRefConfig»;
+						data.set«NamingUtils.computedNameFor(feature.name)»(«refconfCompiler.lastRefConfig»);
 						'''	
 					}
 					
@@ -53,12 +53,21 @@ class ConfigurationComparator {
 						){
 							out =  '''
 							«out»
-							«NamingUtils.indexNameFor(feature.name)»++;
+							data.inc«NamingUtils.indexNameFor(feature.name)»();
+							data.set«NamingUtils.computedNameFor(feature.name)»(null);
 							'''	
+						} else if(defChild instanceof ListDef && 
+							refChild instanceof ListRef &&
+							(refChild as ListRef).tail.def == (defChild as ListDef).tail) 
+						{
+							out = '''
+							«out»
+							data.set«NamingUtils.computedNameFor(feature.name)»(«refconfCompiler.compile((refChild as ListRef).head)»);
+							'''
 						} else {
 							out =  '''
 							«out»
-							«NamingUtils.computedNameFor(feature.name)» = «refconfCompiler.compile(refChild)»;
+							data.set«NamingUtils.computedNameFor(feature.name)»(«refconfCompiler.compile(refChild)»);
 							'''	
 						}
 					}

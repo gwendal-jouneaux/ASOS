@@ -12,6 +12,7 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.CondExpr;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Condition;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DefConfiguration;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Div;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DomainAccessExpression;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.DoubleConstant;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Equal;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Expr;
@@ -24,6 +25,7 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Minus;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Mult;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Not;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.NotEqual;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Opposite;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Or;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Output;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.Plus;
@@ -37,12 +39,14 @@ import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SingleTermRef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.StringConstant;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolDef;
 import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.SymbolRef;
+import fr.irisa.diverse.adaptivesemantics.model.adaptivesemantics.TermRef;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
@@ -53,11 +57,8 @@ public class RuleCompiler {
   
   private String currentCore = "";
   
-  private final EPackage semanticdomain;
-  
-  public RuleCompiler(final Map<SymbolDef, SymbolPath> table, final EPackage semanticdomain) {
+  public RuleCompiler(final Map<SymbolDef, SymbolPath> table) {
     this.ruleTable = table;
-    this.semanticdomain = semanticdomain;
   }
   
   protected String _compile(final Rule node) {
@@ -72,7 +73,7 @@ public class RuleCompiler {
     _builder.append("config.before_");
     String _name_1 = node.getName();
     _builder.append(_name_1, "\t");
-    _builder.append("().adapt(vis, node, execCtx, config);");
+    _builder.append("().adapt(vis, node, data, config);");
     _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
@@ -86,7 +87,7 @@ public class RuleCompiler {
     _builder.append("config.specialize_");
     String _name_3 = node.getName();
     _builder.append(_name_3, "\t");
-    _builder.append("().adapt(vis, node, execCtx, config);");
+    _builder.append("().adapt(vis, node, data, config);");
     _builder.newLineIfNotEmpty();
     _builder.append("} else {");
     _builder.newLine();
@@ -102,11 +103,29 @@ public class RuleCompiler {
     _builder.append("() != null){");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
+    _builder.append("if(result == null){");
+    _builder.newLine();
+    _builder.append("\t\t");
     _builder.append("config.after_");
     String _name_5 = node.getName();
-    _builder.append(_name_5, "\t");
-    _builder.append("().adapt(vis, node, execCtx, config);");
+    _builder.append(_name_5, "\t\t");
+    _builder.append("().adapt(vis, node, data, config);");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("} else {");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("config.after_");
+    String _name_6 = node.getName();
+    _builder.append(_name_6, "\t\t");
+    _builder.append("().adapt(vis, ((AdaptableNode<");
+    String _interfaceNameFor = NamingUtils.interfaceNameFor(RuleUtils.getModelName());
+    _builder.append(_interfaceNameFor, "\t\t");
+    _builder.append(">) result), null, config);");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     _builder.newLine();
@@ -114,8 +133,8 @@ public class RuleCompiler {
     _builder.newLine();
     _builder.append("\t");
     _builder.append("if(! ((EObject) result).eClass().getEPackage().equals(");
-    String _name_6 = this.semanticdomain.getName();
-    _builder.append(_name_6, "\t");
+    String _firstUpper = StringExtensions.toFirstUpper(RuleUtils.getSemanticdomain().getName());
+    _builder.append(_firstUpper, "\t");
     _builder.append("Package.eINSTANCE)){");
     _builder.newLineIfNotEmpty();
     _builder.append("\t\t");
@@ -208,13 +227,15 @@ public class RuleCompiler {
       _builder_1.append(" == null){");
       _builder_1.newLineIfNotEmpty();
       _builder_1.append("\t");
-      _builder_1.append("Object ");
       String _localNameFor_1 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
-      _builder_1.append(_localNameFor_1, "\t");
-      _builder_1.append(" = ((Node) ");
+      StringConcatenation _builder_2 = new StringConcatenation();
+      _builder_2.append("((Node) ");
       String _termForm = this.ruleTable.get(node.getFrom().getDef()).getTermForm();
-      _builder_1.append(_termForm, "\t");
-      _builder_1.append(").accept(vis, execCtx);");
+      _builder_2.append(_termForm);
+      _builder_2.append(").accept(vis, execCtx)");
+      String _setData = RuleUtils.toSetData(_localNameFor_1, _builder_2.toString());
+      _builder_1.append(_setData, "\t");
+      _builder_1.append(";");
       _builder_1.newLineIfNotEmpty();
       _builder_1.append("\t");
       _builder_1.append("if(");
@@ -266,63 +287,65 @@ public class RuleCompiler {
       _builder_1.newLine();
       return _builder_1.toString();
     } else {
-      StringConcatenation _builder_2 = new StringConcatenation();
-      _builder_2.append("if(");
+      StringConcatenation _builder_3 = new StringConcatenation();
+      _builder_3.append("if(");
       String _valueForm_1 = this.ruleTable.get(node.getFrom().getDef()).getValueForm();
-      _builder_2.append(_valueForm_1);
-      _builder_2.append(" == null){");
-      _builder_2.newLineIfNotEmpty();
-      _builder_2.append("\t");
-      _builder_2.append("Object ");
+      _builder_3.append(_valueForm_1);
+      _builder_3.append(" == null){");
+      _builder_3.newLineIfNotEmpty();
+      _builder_3.append("\t");
       String _localNameFor_4 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
-      _builder_2.append(_localNameFor_4, "\t");
-      _builder_2.append(" = ((Node) ");
+      StringConcatenation _builder_4 = new StringConcatenation();
+      _builder_4.append("((Node) ");
       String _termForm_1 = this.ruleTable.get(node.getFrom().getDef()).getTermForm();
-      _builder_2.append(_termForm_1, "\t");
-      _builder_2.append(").accept(vis, execCtx);");
-      _builder_2.newLineIfNotEmpty();
-      _builder_2.append("\t");
-      _builder_2.append("if(");
+      _builder_4.append(_termForm_1);
+      _builder_4.append(").accept(vis, execCtx)");
+      String _setData_1 = RuleUtils.toSetData(_localNameFor_4, _builder_4.toString());
+      _builder_3.append(_setData_1, "\t");
+      _builder_3.append(";");
+      _builder_3.newLineIfNotEmpty();
+      _builder_3.append("\t");
+      _builder_3.append("if(");
       {
         boolean _isTermination_4 = node.isTermination();
         boolean _not_2 = (!_isTermination_4);
         if (_not_2) {
-          _builder_2.append("!");
+          _builder_3.append("!");
         }
       }
-      _builder_2.append("(");
+      _builder_3.append("(");
       String _localNameFor_5 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
-      _builder_2.append(_localNameFor_5, "\t");
-      _builder_2.append(" instanceof Termination)){");
-      _builder_2.newLineIfNotEmpty();
-      _builder_2.append("\t\t");
-      _builder_2.append(this.currentCore, "\t\t");
-      _builder_2.newLineIfNotEmpty();
-      _builder_2.append("\t");
-      _builder_2.append("}");
-      _builder_2.newLine();
+      _builder_3.append(_localNameFor_5, "\t");
+      _builder_3.append(" instanceof Termination)){");
+      _builder_3.newLineIfNotEmpty();
+      _builder_3.append("\t\t");
+      _builder_3.append(this.currentCore, "\t\t");
+      _builder_3.newLineIfNotEmpty();
+      _builder_3.append("\t");
+      _builder_3.append("}");
+      _builder_3.newLine();
       {
         boolean _isTermination_5 = node.isTermination();
         boolean _not_3 = (!_isTermination_5);
         if (_not_3) {
-          _builder_2.append("\t");
-          _builder_2.append("else {");
-          _builder_2.newLine();
-          _builder_2.append("\t");
-          _builder_2.append("\t");
-          _builder_2.append("termination = ");
+          _builder_3.append("\t");
+          _builder_3.append("else {");
+          _builder_3.newLine();
+          _builder_3.append("\t");
+          _builder_3.append("\t");
+          _builder_3.append("termination = ");
           String _localNameFor_6 = NamingUtils.localNameFor(this.ruleTable.get(node.getFrom().getDef()).getValueForm());
-          _builder_2.append(_localNameFor_6, "\t\t");
-          _builder_2.append(";");
-          _builder_2.newLineIfNotEmpty();
-          _builder_2.append("\t");
-          _builder_2.append("}");
-          _builder_2.newLine();
+          _builder_3.append(_localNameFor_6, "\t\t");
+          _builder_3.append(";");
+          _builder_3.newLineIfNotEmpty();
+          _builder_3.append("\t");
+          _builder_3.append("}");
+          _builder_3.newLine();
         }
       }
-      _builder_2.append("}");
-      _builder_2.newLine();
-      return _builder_2.toString();
+      _builder_3.append("}");
+      _builder_3.newLine();
+      return _builder_3.toString();
     }
   }
   
@@ -467,47 +490,208 @@ public class RuleCompiler {
   }
   
   protected String _compile(final Input node) {
+    String target = "node";
+    EObject _eContainer = node.getOperation().eContainer();
+    final String type = ((EClass) _eContainer).getName();
+    DomainAccessExpression _target = node.getTarget();
+    boolean _tripleNotEquals = (_target != null);
+    if (_tripleNotEquals) {
+      target = this.compile(node.getTarget());
+    }
+    String args = "";
+    String prelude = "";
+    EList<EParameter> params = node.getOperation().getEParameters();
+    for (int i = 0; (i < node.getArgs().size()); i++) {
+      {
+        final TermRef arg = node.getArgs().get(i);
+        final EParameter param = params.get(i);
+        String paramType = param.getEType().getInstanceClassName();
+        if ((paramType == null)) {
+          paramType = param.getEType().getName();
+        }
+        if ((arg instanceof RefConfiguration)) {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append(prelude);
+          _builder.newLineIfNotEmpty();
+          String _generateInstanceOf = RuleUtils.generateInstanceOf(((RefConfiguration)arg), ("arg" + Integer.valueOf(i)), this.ruleTable);
+          _builder.append(_generateInstanceOf);
+          _builder.newLineIfNotEmpty();
+          prelude = _builder.toString();
+          StringConcatenation _builder_1 = new StringConcatenation();
+          _builder_1.append(", (");
+          _builder_1.append(paramType);
+          _builder_1.append(") arg");
+          String _plus = (args + _builder_1);
+          String _plus_1 = (_plus + Integer.valueOf(i));
+          args = _plus_1;
+        } else {
+          final RefConfigurationCompiler refconfCompiler = new RefConfigurationCompiler(this.ruleTable);
+          StringConcatenation _builder_2 = new StringConcatenation();
+          _builder_2.append(", (");
+          _builder_2.append(paramType);
+          _builder_2.append(") ");
+          String _plus_2 = (args + _builder_2);
+          String _compile = refconfCompiler.compile(arg);
+          String _plus_3 = (_plus_2 + _compile);
+          args = _plus_3;
+        }
+      }
+    }
+    int _length = args.length();
+    boolean _lessThan = (_length < 2);
+    if (_lessThan) {
+      args = (args + "  ");
+    }
     final Assignee assignee = node.getAssignee();
     if ((assignee instanceof SymbolDef)) {
       StringConcatenation _builder = new StringConcatenation();
+      _builder.append(prelude);
+      _builder.append(" // prelude");
+      _builder.newLineIfNotEmpty();
       _builder.append("Object ");
       String _name = ((SymbolDef)assignee).getName();
       _builder.append(_name);
-      _builder.append(" = node.");
+      _builder.append(" = ((");
+      _builder.append(type);
+      _builder.append(") ");
+      _builder.append(target);
+      _builder.append(").");
       String _name_1 = node.getOperation().getName();
       _builder.append(_name_1);
-      _builder.append("();");
+      _builder.append("(");
+      String _substring = args.substring(2);
+      _builder.append(_substring);
+      _builder.append(");");
       _builder.newLineIfNotEmpty();
       return _builder.toString();
     }
     if ((assignee instanceof SemanticDomainAccess)) {
       StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append(prelude);
+      _builder_1.append(" // prelude");
+      _builder_1.newLineIfNotEmpty();
       String _pathFor = NamingUtils.pathFor(((SemanticDomainAccess)assignee).getReciever(), this.ruleTable);
       _builder_1.append(_pathFor);
       _builder_1.append(".set");
       String _firstUpper = StringExtensions.toFirstUpper(((SemanticDomainAccess)assignee).getField());
       _builder_1.append(_firstUpper);
-      _builder_1.append("(node.");
+      _builder_1.append("(((");
+      _builder_1.append(type);
+      _builder_1.append(") ");
+      _builder_1.append(target);
+      _builder_1.append(").");
       String _name_2 = node.getOperation().getName();
       _builder_1.append(_name_2);
-      _builder_1.append("());");
+      _builder_1.append("(");
+      String _substring_1 = args.substring(2);
+      _builder_1.append(_substring_1);
+      _builder_1.append("));");
       _builder_1.newLineIfNotEmpty();
       return _builder_1.toString();
     }
     StringConcatenation _builder_2 = new StringConcatenation();
+    _builder_2.append(prelude);
+    _builder_2.append(" //prelude");
+    _builder_2.newLineIfNotEmpty();
     _builder_2.append("Object ");
     _builder_2.append(assignee);
-    _builder_2.append(" = node.");
+    _builder_2.append(" = ((");
+    _builder_2.append(type);
+    _builder_2.append(") ");
+    _builder_2.append(target);
+    _builder_2.append(").");
     String _name_3 = node.getOperation().getName();
     _builder_2.append(_name_3);
-    _builder_2.append("();");
+    _builder_2.append("(");
+    String _substring_2 = args.substring(2);
+    _builder_2.append(_substring_2);
+    _builder_2.append(");");
     _builder_2.newLineIfNotEmpty();
     return _builder_2.toString();
   }
   
   protected String _compile(final Output node) {
-    throw new Error("Unresolved compilation problems:"
-      + "\nInvalid number of arguments. The constructor RefConfigurationCompiler(Map<SymbolDef, SymbolPath>, String, EPackage) is not applicable for the arguments (Map<SymbolDef, SymbolPath>)");
+    String args = "";
+    String prelude = "";
+    EList<EParameter> params = node.getOperation().getEParameters();
+    for (int i = 0; (i < node.getArgs().size()); i++) {
+      {
+        final TermRef arg = node.getArgs().get(i);
+        final EParameter param = params.get(i);
+        String paramType = param.getEType().getInstanceClassName();
+        if ((paramType == null)) {
+          paramType = param.getEType().getName();
+        }
+        if ((arg instanceof RefConfiguration)) {
+          StringConcatenation _builder = new StringConcatenation();
+          _builder.append(prelude);
+          _builder.newLineIfNotEmpty();
+          String _generateInstanceOf = RuleUtils.generateInstanceOf(((RefConfiguration)arg), ("arg" + Integer.valueOf(i)), this.ruleTable);
+          _builder.append(_generateInstanceOf);
+          _builder.newLineIfNotEmpty();
+          prelude = _builder.toString();
+          StringConcatenation _builder_1 = new StringConcatenation();
+          _builder_1.append(", (");
+          _builder_1.append(paramType);
+          _builder_1.append(") arg");
+          String _plus = (args + _builder_1);
+          String _plus_1 = (_plus + Integer.valueOf(i));
+          args = _plus_1;
+        } else {
+          final RefConfigurationCompiler refconfCompiler = new RefConfigurationCompiler(this.ruleTable);
+          StringConcatenation _builder_2 = new StringConcatenation();
+          _builder_2.append(", (");
+          _builder_2.append(paramType);
+          _builder_2.append(") ");
+          String _plus_2 = (args + _builder_2);
+          String _compile = refconfCompiler.compile(arg);
+          String _plus_3 = (_plus_2 + _compile);
+          args = _plus_3;
+        }
+      }
+    }
+    int _length = args.length();
+    boolean _lessThan = (_length < 2);
+    if (_lessThan) {
+      args = (args + "  ");
+    }
+    DomainAccessExpression _target = node.getTarget();
+    boolean _tripleNotEquals = (_target != null);
+    if (_tripleNotEquals) {
+      final String target = this.compile(node.getTarget());
+      EObject _eContainer = node.getOperation().eContainer();
+      final String type = ((EClass) _eContainer).getName();
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append(prelude);
+      _builder.append(" // prelude");
+      _builder.newLineIfNotEmpty();
+      _builder.append("((");
+      _builder.append(type);
+      _builder.append(") ");
+      _builder.append(target);
+      _builder.append(").");
+      String _name = node.getOperation().getName();
+      _builder.append(_name);
+      _builder.append("(");
+      String _substring = args.substring(2);
+      _builder.append(_substring);
+      _builder.append(");");
+      _builder.newLineIfNotEmpty();
+      return _builder.toString();
+    }
+    StringConcatenation _builder_1 = new StringConcatenation();
+    _builder_1.append(prelude);
+    _builder_1.append(" // prelude");
+    _builder_1.newLineIfNotEmpty();
+    _builder_1.append("node.");
+    String _name_1 = node.getOperation().getName();
+    _builder_1.append(_name_1);
+    _builder_1.append("(");
+    String _substring_1 = args.substring(2);
+    _builder_1.append(_substring_1);
+    _builder_1.append(");");
+    _builder_1.newLineIfNotEmpty();
+    return _builder_1.toString();
   }
   
   protected String _compile(final Plus node) {
@@ -549,6 +733,11 @@ public class RuleCompiler {
   protected String _compile(final Not node) {
     final String expr = this.compile(node.getExpr());
     return (("(!" + expr) + ")");
+  }
+  
+  protected String _compile(final Opposite node) {
+    final String expr = this.compile(node.getExpr());
+    return (("(-" + expr) + ")");
   }
   
   protected String _compile(final Less node) {
@@ -674,6 +863,8 @@ public class RuleCompiler {
       return _compile((Is)node);
     } else if (node instanceof Not) {
       return _compile((Not)node);
+    } else if (node instanceof Opposite) {
+      return _compile((Opposite)node);
     } else if (node instanceof Binding) {
       return _compile((Binding)node);
     } else if (node instanceof Conclusion) {
